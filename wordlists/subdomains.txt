@@ -1,0 +1,10 @@
+www
+api
+admin
+test
+webdisk
+dehradun
+adm
+cpanel
+mail
+service
