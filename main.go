@@ -30,6 +30,7 @@ func main(){
 //initialize modules
 	modules := []scanner.Module{ 
 		&scanner.SubdomainScanner{},
+		&scanner.PortScanner{},
 	}
 	//run all moduless
 	allResults := []scanner.Result{}
