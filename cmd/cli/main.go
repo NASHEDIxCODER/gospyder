@@ -10,9 +10,9 @@ import (
 	"sync"
 	"time"
 
-	"gospyder/pkg/enum"
-	"gospyder/pkg/resolver"
-	"gospyder/pkg/scanner"
+	"github.com/NASHEDIxCODER/gospyder/pkg/enum"
+	"github.com/NASHEDIxCODER/gospyder/pkg/resolver"
+	"github.com/NASHEDIxCODER/gospyder/pkg/scanner"
 )
 
 const (

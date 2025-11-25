@@ -1,4 +1,4 @@
-module gospyder
+module github.com/NASHEDIxCODER/gospyder
 
 go 1.25.4
 

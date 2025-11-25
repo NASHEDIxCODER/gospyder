@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/websocket"
-	"gospyder/pkg/models"
+	"github.com/NASHEDIxCODER/gospyder/pkg/models"
 )
 
 type CertStreamClient struct {

@@ -7,9 +7,9 @@ import (
 	"sync"
 	"time"
 
-	"gospyder/pkg/models"
-	"gospyder/pkg/resolver"
-	"gospyder/pkg/sources"
+	"github.com/NASHEDIxCODER/gospyder/pkg/models"
+	"github.com/NASHEDIxCODER/gospyder/pkg/resolver"
+	"github.com/NASHEDIxCODER/gospyder/pkg/sources"
 )
 
 type EnumMode int

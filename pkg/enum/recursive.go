@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"gospyder/pkg/resolver"
+	"github.com/NASHEDIxCODER/gospyder/pkg/resolver"
 )
 
 func Recursive(ctx context.Context, pool *resolver.Pool, foundDomain string) (<-chan string, error) {

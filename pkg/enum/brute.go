@@ -7,8 +7,8 @@ import (
 	"strings"
 	"sync"
 
-	"gospyder/pkg/models"
-	"gospyder/pkg/resolver"
+	"github.com/NASHEDIxCODER/gospyder/pkg/models"
+	"github.com/NASHEDIxCODER/gospyder/pkg/resolver"
 )
 
 func BruteForce(ctx context.Context, pool *resolver.Pool, target string, wordlist string) (<-chan models.Domain, error) {
