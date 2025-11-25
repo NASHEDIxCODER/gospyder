@@ -43,6 +43,12 @@ echo 'export PATH="$PATH:$(go env GOPATH)/bin"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+Move to /usr/local/bin (Recommended):
+```bash
+sudo mv gospyder /usr/local/bin/
+sudo chmod +x /usr/local/bin/gospyder
+```
+
 Run from anywhere:
 
 ```bash
@@ -141,7 +147,7 @@ Results saved to: full-scan-results.txt
 ## 🏗️ Architecture
 ```
 gospyder/
-├── cmd/cli/main.go          # CLI entry point
+├── cmd/gospyder/main.go          # CLI entry point
 ├── pkg/
 │   ├── enum/                # Subdomain enumeration engine
 │   ├── scanner/             # Port scanning & WAF detection
