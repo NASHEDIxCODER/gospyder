@@ -10,46 +10,40 @@ import (
 
 type PortScanner struct{}
 
-func (p *PortScanner) Name() string { return "portscan" }
-
-func (p *PortScanner) Scan(ctx context.Context, ip string) ([]Result, error) {
-	var results []Result
+func (ps *PortScanner) Scan(ctx context.Context, target string, ports []int, threads int) []int {
+	var openPorts []int
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 
-	//common ports to scan
-	ports := []int{22, 23, 21, 80, 443, 8080, 8443, 3000, 8000}
-
-	semaphore := make(chan struct{}, 100)
+	sem := make(chan struct{}, threads)
 
 	for _, port := range ports {
 		wg.Add(1)
 		go func(p int) {
 			defer wg.Done()
+
 			select {
 			case <-ctx.Done():
 				return
 			default:
 			}
-			semaphore <- struct{}{}
-			defer func() { <-semaphore }()
-			address := fmt.Sprintf("%s:%d", ip, p)
-			conn, err := net.DialTimeout("tcp", address, 1*time.Second)
+
+			sem <- struct{}{}
+			defer func() { <-sem }()
+
+			address := fmt.Sprintf("%s:%d", target, p)
+			conn, err := net.DialTimeout("tcp", address, 2*time.Second)
 			if err != nil {
-				return //port closed
+				return
 			}
 			conn.Close()
+
 			mu.Lock()
-			results = append(results, Result{
-				Vulnerability: "Open Port",
-				Target:        address,
-				Description:   fmt.Sprintf("Port %d is open", p),
-				Severity:      "low",
-			})
+			openPorts = append(openPorts, p)
 			mu.Unlock()
 		}(port)
-
 	}
+
 	wg.Wait()
-	return results, nil
+	return openPorts
 }

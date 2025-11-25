@@ -1,0 +1,14 @@
+admin
+config
+backup
+test
+dev
+login
+api
+v1
+v2
+private
+secret
+wp-admin
+dashboard
+phpmyadmin

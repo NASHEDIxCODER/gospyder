@@ -3,55 +3,63 @@ package enum
 import (
 	"bufio"
 	"context"
-	"gospyder/pkg/models"
-	"gospyder/pkg/resolver"
 	"os"
 	"strings"
 	"sync"
+
+	"gospyder/pkg/models"
+	"gospyder/pkg/resolver"
 )
 
-// bruteforce performs parallel DNS brute-forcing
+func BruteForce(ctx context.Context, pool *resolver.Pool, target string, wordlist string) (<-chan models.Domain, error) {
+	out := make(chan models.Domain, 100)
 
-func BruteForce (ctx context.Context, pool *resolver.Pool, target string, wordlist string)(<-chan models.Domain, error){
-	out:= make(chan models.Domain, 100)
-	 file, err := os.Open(wordlist)
+	file, err := os.Open(wordlist)
 	if err != nil {
 		return nil, err
 	}
+
 	go func() {
-		defer close (out)
+		defer close(out)
 		defer file.Close()
+
 		scanner := bufio.NewScanner(file)
 		var wg sync.WaitGroup
-		sem := make(chan struct{}, 500) //500 concurrent brute-force attemps 
-		
-		for scanner.Scan(){
-			select{
+		sem := make(chan struct{}, 500)
+
+		for scanner.Scan() {
+			select {
 			case <-ctx.Done():
-				return 
+				return
 			default:
 			}
-			subdomain := strings.TrimSpace(scanner.Text())
-			if subdomain == ""{
+
+			sub := strings.TrimSpace(scanner.Text())
+			if sub == "" || strings.HasPrefix(sub, "#") {
 				continue
 			}
-			fullDomain := subdomain+ "." + target
+
+			fullDomain := sub + "." + target
 			wg.Add(1)
-			go func (domain string){
+
+			go func(domain string) {
 				defer wg.Done()
-				sem <-struct{}{}
-				defer func () {<-sem }()
-				ips, err := pool.Lookup(ctx, domain)
-				if err == nil && len(ips) > 0{
+
+				sem <- struct{}{}
+				defer func() { <-sem }()
+
+				_, err := pool.Lookup(ctx, domain)
+				if err == nil {
 					out <- models.Domain{
-						Name: domain,
+						Name:   domain,
 						Source: "brute",
-						Found: ips,
 					}
 				}
 			}(fullDomain)
 		}
+
 		wg.Wait()
 	}()
+
 	return out, nil
 }
