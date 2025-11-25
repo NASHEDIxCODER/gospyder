@@ -30,44 +30,26 @@ A blazing-fast, concurrent security scanner built in **Go** for subdomain enumer
 
 ## 📦 Installation
 
-### Clone & Build
+### 🔹 Install via `go install` (Recommended)
+
 ```bash
-git clone https://github.com/yourusername/gospyder.git
-cd gospyder
-go mod tidy
-go build -o gospyder cmd/cli/main.go
+CGO_ENABLED=0 go install github.com/NASHEDIxCODER/gospyder/cmd/gospyder@latest
 ```
 
-### Make Globally Accessible
+Ensure Go bin path is available:
 
-#### ✅ Method 1: Move to /usr/local/bin (Recommended)
 ```bash
-sudo mv gospyder /usr/local/bin/
-sudo chmod +x /usr/local/bin/gospyder
+echo 'export PATH="$PATH:$(go env GOPATH)/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
 
-# Now run from anywhere
+Run from anywhere:
+
+```bash
 gospyder -d example.com -enum
 ```
 
-#### Method 2: Add to PATH
-```bash
-# Bash / Zsh
-echo 'export PATH="$PATH:'$(pwd)'"' >> ~/.bashrc
-source ~/.bashrc
-
-# Fish
-echo 'set -x PATH $PATH '$(pwd) >> ~/.config/fish/config.fish
-source ~/.config/fish/config.fish
-```
-
-#### Method 3: Create Alias
-```bash
-echo "alias gospyder='$(pwd)/gospyder'" >> ~/.bashrc
-source ~/.bashrc
-```
-
 ---
-
 ## 🎯 Usage
 
 ### Basic Subdomain Enumeration
@@ -124,9 +106,16 @@ gospyder -d example.com   \
 
 ## 📊 Sample Output
 ```
-┏┓ ┬┌┬┐┌┐┌┌─┐┬─┐┬┌┐┌┌┐┌┌─┐┬─┐
-┣┻┐│││││││├─┤├┬┘│││││││├─┤├┬┘
-┗━┘┴┴ ┴┘└┘┴ ┴┴└─┴┘└┘┘└┘┴ ┴┴└─
+
+ ██████╗  ██████╗ ███████╗██████╗ ██╗   ██╗██████╗ ███████╗██████╗ 
+██╔════╝ ██╔═══██╗██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗
+██║  ███╗██║   ██║███████╗██████╔╝ ╚████╔╝ ██║  ██║█████╗  ██████╔╝
+██║   ██║██║   ██║╚════██║██╔═══╝   ╚██╔╝  ██║  ██║██╔══╝  ██╔══██╗
+╚██████╔╝╚██████╔╝███████║██║        ██║   ██████╔╝███████╗██║  ██║
+ ╚═════╝  ╚═════╝ ╚══════╝╚═╝        ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝
+
+                by nashedi_x_coder
+
 
 Target: example.com
 Threads: 500 | Timeout: 10m
