@@ -219,12 +219,14 @@ MIT License — see `LICENSE` file
 4. Submit a Pull Request
 
 ---
+<div align="center">
 
 ### 🧠 Author
 Developed with ⚡ by **NASHEDIxCODER**  
 Follow on Twitter: [@sonu_samrat_01]
 
 ---
+</div> ```
 
 > GoSpyder – Scan smarter. Hunt faster. Break responsibly.
 
