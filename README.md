@@ -1,31 +1,39 @@
-# 🕷️ GoSpyder - High-Performance Security Scanner
+<div align="center">
 
-A blazing-fast, concurrent security scanner built in **Go** for subdomain enumeration, port scanning, WAF detection, and directory fuzzing. Designed for bug bounty hunters and penetration testers who demand speed, accuracy, and modularity.
+# 🕷️ GoSpyder  
+### High-Performance Security Scanner in Go
+
+A blazing-fast, concurrent security scanner for **subdomain enumeration, port scanning, WAF detection, and directory fuzzing** — built for bug bounty hunters and penetration testers who value speed, accuracy, and modular design.
+
+<p>
+  <b>Scan smarter. Hunt faster. Break responsibly.</b>
+</p>
+
+</div>
 
 ---
 
 ## 🚀 Features
 
-- **Subdomain Enumeration**
-  - Active (brute-force DNS)
-  - Passive (Certificate Transparency logs)
+### 🔍 Subdomain Enumeration
+- Active brute-force DNS scanning  
+- Passive discovery via Certificate Transparency logs  
 
-- **Port Scanning**
-  - Custom high-performance TCP scanner
-  - Service detection & banner grabbing
+### 🌐 Port Scanning
+- High-performance TCP scanner  
+- Service detection & banner grabbing  
 
-- **WAF Detection**
-  - Fingerprinting for 20+ WAF providers
+### 🛡️ WAF Detection
+- Fingerprinting for 20+ WAF providers  
 
-- **Directory Fuzzing**
-  - Multi-threaded, high-speed path discovery
+### 🗂 Directory Fuzzing
+- Multi-threaded, high-speed path discovery  
 
-- **Beautiful CLI**
-  - Colored output with progress indicators
+### 🎨 Beautiful CLI
+- Colored output with live progress indicators  
 
-- **Modular Architecture**
-  - Interface-based modules for easy expansion
-
+### 🧩 Modular Architecture
+- Interface-based modules for seamless expansion  
 ---
 
 ## 📦 Installation
