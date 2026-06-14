@@ -575,7 +575,7 @@ func TestExtractSecrets_NoFalsePositivesBenign(t *testing.T) {
 
 func TestExtractSecrets_PreviewTruncation(t *testing.T) {
 	analyzer := testAnalyzer()
-	content := []byte(`const key = 'sk_live_4eC39HqLyjWDarjtT1zdp7dcAndSomeExtraChars';`)
+	content := []byte(`const key = 'FAKE_SECRET_KEY';`)
 	secrets := analyzer.ExtractSecrets(content, "test.js")
 
 	for _, s := range secrets {
