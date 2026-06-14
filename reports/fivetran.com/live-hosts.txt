@@ -4,57 +4,46 @@ GoSpyder Report
 Module: live
 Target: fivetran.com
 Status: success
-Scanned At: 2026-06-14T18:55:29Z
+Scanned At: 2026-06-14T20:23:05Z
 Duration: 0.00s
-Findings: 48
+Findings: 37
 Metadata:
 - source: http_probe
 
 Live Hosts:
-admin-blogx.dev.fivetran.com
-admin-webdisk.dev.fivetran.com
-admin-www.dev.fivetran.com
 api.fivetran.com
 autoconfig.dev.fivetran.com
 autoconfig1.dev.fivetran.com
+autoconfig2.dev.fivetran.com
 autodiscover.dev.fivetran.com
+autodiscover1.dev.fivetran.com
+autodiscover2.dev.fivetran.com
 beta.fivetran.com
 blog.fivetran.com
-blogx-admin.dev.fivetran.com
-blogx-dev.dev.fivetran.com
-blogx-test.dev.fivetran.com
 blogx.dev.fivetran.com
 blogx1.dev.fivetran.com
-blogx2.dev.fivetran.com
-dev-blogx.dev.fivetran.com
+dev-autoconfig.dev.fivetran.com
+dev-autodiscover.dev.fivetran.com
 dev-webdisk.dev.fivetran.com
-dev-www.dev.fivetran.com
 docs.fivetran.com
 events.fivetran.com
 fivetran.com
 get.fivetran.com
 go.fivetran.com
-learn.fivetran.com
-partners.fivetran.com
 resources.fivetran.com
+services.fivetran.com
 shop.fivetran.com
-staging-blogx.dev.fivetran.com
+staging-autoconfig.dev.fivetran.com
 staging-webdisk.dev.fivetran.com
-staging-www.dev.fivetran.com
 staging.fivetran.com
+status.fivetran.com
 support.fivetran.com
-test-blogx.dev.fivetran.com
+test-autoconfig.dev.fivetran.com
 test-webdisk.dev.fivetran.com
-test-www.dev.fivetran.com
-webdisk-admin.dev.fivetran.com
 webdisk-dev.dev.fivetran.com
-webdisk-test.dev.fivetran.com
 webdisk.dev.fivetran.com
 webdisk1.dev.fivetran.com
 webdisk2.dev.fivetran.com
-www-admin.dev.fivetran.com
-www-dev.dev.fivetran.com
-www-test.dev.fivetran.com
 www.dev.fivetran.com
 www.fivetran.com
 www1.dev.fivetran.com

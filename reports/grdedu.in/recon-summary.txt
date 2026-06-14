@@ -1,175 +1,82 @@
-Target: grdedu.in
+[36m═══════════════════════════════════════
+SUBDOMAIN ENUMERATION
+═══════════════════════════════════════[0m
+[32m[FOUND][0m adm.grdedu.in
+[32m[FOUND][0m admin.grdedu.in
+[32m[FOUND][0m admissions.grdedu.in
+[32m[FOUND][0m app.grdedu.in
+[32m[FOUND][0m apply.grdedu.in
+[32m[FOUND][0m click.grdedu.in
+[32m[FOUND][0m cpanel.grdedu.in
+[32m[FOUND][0m erp.grdedu.in
+[32m[FOUND][0m mail.grdedu.in
+[32m[FOUND][0m staging.grdedu.in
+[32m[FOUND][0m student.grdedu.in
+[32m[FOUND][0m user.grdedu.in
+[32m[FOUND][0m webdisk.grdedu.in
+[32m[FOUND][0m whm.grdedu.in
+[32m[FOUND][0m www.admin.grdedu.in
+[32m[FOUND][0m www.grdedu.in
 
-Subdomains: 19
-Live Hosts: 9
-Open Ports: 2
-WAF: None
-Interesting Paths: 95
-HTTP Responses: 12
-Technologies: 14
+[36m═══════════════════════════════════════
+PORT SCANNING
+═══════════════════════════════════════[0m
+None found
 
-Findings
---------
+[36m═══════════════════════════════════════
+DIRECTORY FUZZING
+═══════════════════════════════════════[0m
+None found
 
-Subdomains:
-- adm.grdedu.in
-- admin.grdedu.in
-- admissions.grdedu.in
-- app.grdedu.in
-- apply.grdedu.in
-- click.grdedu.in
-- cpanel.grdedu.in
-- erp.grdedu.in
-- guest.grdedu.in
-- mail.grdedu.in
-- play.grdedu.in
-- service.grdedu.in
-- staging.grdedu.in
-- student.grdedu.in
-- user.grdedu.in
-- webdisk.grdedu.in
-- whm.grdedu.in
-- www.admin.grdedu.in
-- www.grdedu.in
+[36m═══════════════════════════════════════
+WAF DETECTION
+═══════════════════════════════════════[0m
+[32m[WAF][0m None detected
 
-Open Ports:
-- 443/tcp HTTPS
-- 80/tcp HTTP
+[36m═══════════════════════════════════════
+HTTP PROBE
+═══════════════════════════════════════[0m
+[32m[LIVE][0m http://adm.grdedu.in 200 "My blog - Just another WordPress site"
+[32m[LIVE][0m http://admissions.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
+[32m[LIVE][0m http://app.grdedu.in 200 "My blog - Just another WordPress site"
+[32m[LIVE][0m http://apply.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
+[32m[LIVE][0m http://click.grdedu.in 200 "Leadsquared - Page Not Found"
+[32m[LIVE][0m http://user.grdedu.in 200 "IIS Windows Server"
+[32m[LIVE][0m https://admissions.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
+[32m[LIVE][0m https://apply.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
+[32m[LIVE][0m https://click.grdedu.in 200 "Leadsquared - Page Not Found"
 
-Directory Findings:
-- 200 /.ds_store
-- 200 /.git
-- 200 /.gitconfig
-- 200 /.github
-- 200 /.gitlab-ci.yml
-- 200 /.htaccess
-- 200 /.svn
-- 200 /account
-- 200 /accounts
-- 200 /adm
-- 200 /admin
-- 200 /admin-panel
-- 200 /admin.php
-- 200 /admin_area
-- 200 /admin_panel
-- 200 /adminarea
-- 200 /adminer
-- 200 /administrator
-- 200 /adminpanel
-- 200 /api
-- 200 /api/admin
-- 200 /api/endpoints
-- 200 /api/users
-- 200 /api/v1
-- 200 /api/v2
-- 200 /api/v3
-- 200 /app
-- 200 /app.php
-- 200 /application
-- 200 /archiv
-- 200 /archives
-- 200 /audio
-- 200 /backend
-- 200 /backend.php
-- 200 /backup
-- 200 /cache
-- 200 /caching
-- 200 /conf
-- 200 /config
-- 200 /configuration
-- 200 /dashboard
-- 200 /default.php
-- 200 /downloads
-- 200 /error_log
-- 200 /file
-- 200 /file.php
-- 200 /files
-- 200 /files.php
-- 200 /home
-- 200 /html
-- 200 /httpdocs
-- 200 /images
-- 200 /index.html
-- 200 /index.php
-- 200 /install
-- 200 /install.php
-- 200 /kerberos.php
-- 200 /macosx
-- 200 /main.php
-- 200 /media
-- 200 /mysql
-- 200 /mysqladmin
-- 200 /phpadmin
-- 200 /phpmyadmin
-- 200 /private
-- 200 /profile
-- 200 /public
-- 200 /public_html
-- 200 /root
-- 200 /settings
-- 200 /setup
-- 200 /signup
-- 200 /sql_admin
-- 200 /srv
-- 200 /temp
-- 200 /thumbs.db
-- 200 /thumbs.db.bak
-- 200 /tmp
-- 200 /user
-- 200 /users
-- 200 /v1
-- 200 /v2
-- 200 /v3
-- 200 /var
-- 200 /video
-- 200 /web.config
-- 200 /web.config.bak
-- 200 /wp-admin
-- 200 /wp-admin
-- 200 /wp-config
-- 200 /wp-config.php
-- 200 /wp-content
-- 200 /wp-login
-- 200 /wp-login.php
-- 200 /www
+[36m═══════════════════════════════════════
+LIVE HOSTS
+═══════════════════════════════════════[0m
+[32m[LIVE][0m adm.grdedu.in
+[32m[LIVE][0m admissions.grdedu.in
+[32m[LIVE][0m app.grdedu.in
+[32m[LIVE][0m apply.grdedu.in
+[32m[LIVE][0m click.grdedu.in
+[32m[LIVE][0m user.grdedu.in
 
-HTTP Probe:
-- http://adm.grdedu.in 200 "My blog - Just another WordPress site"
-- http://admissions.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
-- http://app.grdedu.in 200 "My blog - Just another WordPress site"
-- http://apply.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
-- http://click.grdedu.in 200 "Leadsquared - Page Not Found"
-- http://guest.grdedu.in 200 "IIS Windows Server"
-- http://play.grdedu.in 200 "My blog - Just another WordPress site"
-- http://service.grdedu.in 200 "My blog - Just another WordPress site"
-- http://user.grdedu.in 200 "IIS Windows Server"
-- https://admissions.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
-- https://apply.grdedu.in 200 "GRD Institute of Management and Technology, Dehradun"
-- https://click.grdedu.in 200 "Leadsquared - Page Not Found"
+[36m═══════════════════════════════════════
+TECHNOLOGY DETECTION
+═══════════════════════════════════════[0m
+[32m[TECH][0m Apache
+[32m[TECH][0m Apache
+[32m[TECH][0m Apache
+[32m[TECH][0m Apache
+[32m[TECH][0m Cloudflare
+[32m[TECH][0m Cloudflare
+[32m[TECH][0m Django
+[32m[TECH][0m Django
+[32m[TECH][0m WordPress
+[32m[TECH][0m WordPress
 
-Live Hosts:
-- adm.grdedu.in
-- admissions.grdedu.in
-- app.grdedu.in
-- apply.grdedu.in
-- click.grdedu.in
-- guest.grdedu.in
-- play.grdedu.in
-- service.grdedu.in
-- user.grdedu.in
-
-Technologies:
-- Apache http://adm.grdedu.in
-- Apache http://app.grdedu.in
-- Apache http://apply.grdedu.in
-- Apache http://play.grdedu.in
-- Apache http://service.grdedu.in
-- Apache https://apply.grdedu.in
-- Cloudflare http://admissions.grdedu.in
-- Cloudflare https://admissions.grdedu.in
-- Django http://apply.grdedu.in
-- Django https://apply.grdedu.in
-- WordPress http://adm.grdedu.in
-- WordPress http://app.grdedu.in
-- WordPress http://play.grdedu.in
-- WordPress http://service.grdedu.in
+[36m╔════════════════════════════════════╗[0m
+[36m║          RECON SUMMARY             ║[0m
+[36m╠════════════════════════════════════╣[0m
+[36m║[0m Subdomains       │ [35m16             [0m[36m║[0m
+[36m║[0m Live Hosts       │ [35m6              [0m[36m║[0m
+[36m║[0m Open Ports       │ [35m0              [0m[36m║[0m
+[36m║[0m Paths            │ [35m0              [0m[36m║[0m
+[36m║[0m Technologies     │ [35m4              [0m[36m║[0m
+[36m║[0m WAF              │ [35mNone           [0m[36m║[0m
+[36m╚════════════════════════════════════╝[0m

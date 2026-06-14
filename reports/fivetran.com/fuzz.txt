@@ -4,8 +4,8 @@ GoSpyder Report
 Module: fuzz
 Target: http://fivetran.com
 Status: success
-Scanned At: 2026-06-14T18:55:16Z
-Duration: 5.67s
+Scanned At: 2026-06-14T20:22:51Z
+Duration: 6.57s
 Findings: 0
 Metadata:
 - wordlist: wordlists/paths.txt

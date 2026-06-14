@@ -2,10 +2,10 @@ GoSpyder Report
 ===============
 
 Module: waf
-Target: fivetran.com
+Target: https://pinterest.com/
 Status: success
-Scanned At: 2026-06-14T20:22:55Z
-Duration: 4.26s
+Scanned At: 2026-06-14T20:32:03Z
+Duration: 0.12s
 Findings: 0
 
 No WAF detected

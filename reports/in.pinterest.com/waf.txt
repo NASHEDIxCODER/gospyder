@@ -1,0 +1,15 @@
+GoSpyder Report
+===============
+
+Module: waf
+Target: https://in.pinterest.com/
+Status: success
+Scanned At: 2026-06-14T20:28:43Z
+Duration: 0.39s
+Findings: 1
+
+WAF Detected: Akamai
+Confidence: High
+Evidence:
+- X-Cdn: akamai
+- Akamai-Grn: 0.cff53017.1781468923.7d64702c

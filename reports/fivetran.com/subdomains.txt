@@ -4,59 +4,48 @@ GoSpyder Report
 Module: enum
 Target: fivetran.com
 Status: success
-Scanned At: 2026-06-14T18:55:08Z
+Scanned At: 2026-06-14T20:22:41Z
 Duration: 10.01s
-Findings: 48
+Findings: 37
 Metadata:
 - mode: active
 - wordlist: wordlists/subdomains.txt
 
 Subdomains:
-webdisk.dev.fivetran.com
-www.fivetran.com
-upload.fivetran.com
-www.dev.fivetran.com
 beta.fivetran.com
-shop.fivetran.com
-events.fivetran.com
-staging.fivetran.com
-resources.fivetran.com
-learn.fivetran.com
+go.fivetran.com
 support.fivetran.com
 autodiscover.dev.fivetran.com
-go.fivetran.com
-autoconfig.dev.fivetran.com
-docs.fivetran.com
 api.fivetran.com
+staging.fivetran.com
+events.fivetran.com
+upload.fivetran.com
+services.fivetran.com
+www.fivetran.com
+www.dev.fivetran.com
+webdisk.dev.fivetran.com
+docs.fivetran.com
+shop.fivetran.com
 blog.fivetran.com
-partners.fivetran.com
+status.fivetran.com
+autoconfig.dev.fivetran.com
 get.fivetran.com
 blogx.dev.fivetran.com
+resources.fivetran.com
+autodiscover1.dev.fivetran.com
+autodiscover2.dev.fivetran.com
+dev-autodiscover.dev.fivetran.com
 webdisk1.dev.fivetran.com
 www1.dev.fivetran.com
 webdisk2.dev.fivetran.com
 dev-webdisk.dev.fivetran.com
-www2.dev.fivetran.com
 test-webdisk.dev.fivetran.com
-dev-www.dev.fivetran.com
-staging-webdisk.dev.fivetran.com
-test-www.dev.fivetran.com
-webdisk-dev.dev.fivetran.com
-staging-www.dev.fivetran.com
-webdisk-test.dev.fivetran.com
-www-dev.dev.fivetran.com
-admin-webdisk.dev.fivetran.com
-webdisk-admin.dev.fivetran.com
-www-test.dev.fivetran.com
-admin-www.dev.fivetran.com
-www-admin.dev.fivetran.com
 autoconfig1.dev.fivetran.com
+staging-webdisk.dev.fivetran.com
+autoconfig2.dev.fivetran.com
+www2.dev.fivetran.com
+dev-autoconfig.dev.fivetran.com
+test-autoconfig.dev.fivetran.com
+webdisk-dev.dev.fivetran.com
+staging-autoconfig.dev.fivetran.com
 blogx1.dev.fivetran.com
-blogx2.dev.fivetran.com
-dev-blogx.dev.fivetran.com
-test-blogx.dev.fivetran.com
-staging-blogx.dev.fivetran.com
-blogx-dev.dev.fivetran.com
-blogx-test.dev.fivetran.com
-admin-blogx.dev.fivetran.com
-blogx-admin.dev.fivetran.com

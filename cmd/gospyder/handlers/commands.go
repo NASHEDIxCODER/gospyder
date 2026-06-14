@@ -9,6 +9,40 @@ import (
 	targetparser "github.com/NASHEDIxCODER/gospyder/internal/target"
 )
 
+type GlobalOptions struct {
+	Threads *int
+	Timeout *int
+	Verbose *bool
+	Output  *string
+}
+
+func addGlobalFlags(fs *flag.FlagSet) *GlobalOptions {
+	return &GlobalOptions{
+		Threads: fs.Int("t", 0, "number of threads"),
+		Timeout: fs.Int("timeout", 0, "timeout in seconds"),
+		Verbose: fs.Bool("v", false, "verbose mode"),
+		Output:  fs.String("o", "", "output file"),
+	}
+}
+
+func applyGlobalFlags(opts *GlobalOptions, flags map[string]interface{}) {
+	ctx := app.Global()
+	if *opts.Threads > 0 {
+		ctx.Config.Threads = *opts.Threads
+		ctx.Config.Crawler.Concurrency = *opts.Threads
+	}
+	if *opts.Timeout > 0 {
+		ctx.Config.Timeout = *opts.Timeout
+	}
+	if *opts.Verbose {
+		ctx.Config.Verbose = true
+		ctx.Logger.SetVerbosity(true)
+	}
+	if *opts.Output != "" {
+		flags["output"] = *opts.Output
+	}
+}
+
 // HandleEnum handles subdomain enumeration command
 func HandleEnum(args []string) error {
 	if len(args) < 1 {
@@ -19,6 +53,7 @@ func HandleEnum(args []string) error {
 	wordlist := fs.String("w", "wordlists/subdomains.txt", "subdomain wordlist")
 	mode := fs.String("mode", "active", "enum mode: active, passive, both")
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
@@ -29,6 +64,7 @@ func HandleEnum(args []string) error {
 		"mode":      *mode,
 		"workspace": *workspace,
 	}
+	applyGlobalFlags(globalOpts, flags)
 
 	return ExecuteModule("enum", flags)
 }
@@ -44,6 +80,7 @@ func HandlePorts(args []string) error {
 	portsList := fs.String("ports-list", "", "ports to scan, e.g. 80,443,8000-8010")
 	retry := fs.Int("retry", cfg.Retries, "retry attempts for failed connections")
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
@@ -54,6 +91,7 @@ func HandlePorts(args []string) error {
 		"ports-list": *portsList,
 		"workspace":  *workspace,
 	}
+	applyGlobalFlags(globalOpts, flags)
 
 	return ExecuteModule("ports", flags)
 }
@@ -67,6 +105,7 @@ func HandleFuzz(args []string) error {
 	fs := flag.NewFlagSet("fuzz", flag.ContinueOnError)
 	wordlist := fs.String("fuzz-wordlist", "wordlists/paths.txt", "path wordlist")
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
@@ -76,6 +115,7 @@ func HandleFuzz(args []string) error {
 		"wordlist":  *wordlist,
 		"workspace": *workspace,
 	}
+	applyGlobalFlags(globalOpts, flags)
 
 	return ExecuteModule("fuzz", flags)
 }
@@ -88,6 +128,7 @@ func HandleWAF(args []string) error {
 
 	fs := flag.NewFlagSet("waf", flag.ContinueOnError)
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
@@ -96,6 +137,7 @@ func HandleWAF(args []string) error {
 		"target":    args[0],
 		"workspace": *workspace,
 	}
+	applyGlobalFlags(globalOpts, flags)
 
 	return ExecuteModule("waf", flags)
 }
@@ -108,14 +150,18 @@ func HandleHTTP(args []string) error {
 
 	fs := flag.NewFlagSet("http", flag.ContinueOnError)
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
 
-	return ExecuteModule("http", map[string]interface{}{
+	flags := map[string]interface{}{
 		"target":    args[0],
 		"workspace": *workspace,
-	})
+	}
+	applyGlobalFlags(globalOpts, flags)
+
+	return ExecuteModule("http", flags)
 }
 
 // HandleLive handles live host detection command.
@@ -126,14 +172,18 @@ func HandleLive(args []string) error {
 
 	fs := flag.NewFlagSet("live", flag.ContinueOnError)
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
 
-	return ExecuteModule("live", map[string]interface{}{
+	flags := map[string]interface{}{
 		"target":    args[0],
 		"workspace": *workspace,
-	})
+	}
+	applyGlobalFlags(globalOpts, flags)
+
+	return ExecuteModule("live", flags)
 }
 
 // HandleTech handles technology fingerprinting command.
@@ -144,14 +194,18 @@ func HandleTech(args []string) error {
 
 	fs := flag.NewFlagSet("tech", flag.ContinueOnError)
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
 
-	return ExecuteModule("tech", map[string]interface{}{
+	flags := map[string]interface{}{
 		"target":    args[0],
 		"workspace": *workspace,
-	})
+	}
+	applyGlobalFlags(globalOpts, flags)
+
+	return ExecuteModule("tech", flags)
 }
 
 // HandleRecon handles full reconnaissance command
@@ -165,6 +219,7 @@ func HandleRecon(args []string) error {
 	fuzzWordlist := fs.String("fuzz-wordlist", "wordlists/paths.txt", "path wordlist")
 	portsList := fs.String("ports-list", "", "ports to scan")
 	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
@@ -185,9 +240,10 @@ func HandleRecon(args []string) error {
 		"mode":          "active",
 		"workspace":     *workspace,
 	}
+	applyGlobalFlags(globalOpts, flags)
 
 	ctx := app.Global()
-	ctx.Logger.Info("Starting full reconnaissance for %s", args[0])
+	ctx.Logger.Debug("Starting full reconnaissance for %s", args[0])
 
 	return ExecuteModules(modules, flags)
 }
@@ -234,6 +290,12 @@ Commands:
   recon                Full reconnaissance (all modules)
   list                 List all available modules
   help [module]        Show help for specific module
+
+Global Options:
+  -t <threads>         Number of concurrent threads (default: 100)
+  -timeout <seconds>   Timeout in seconds (default: 10)
+  -v                   Enable verbose output
+  -o <file>            Save report to file
 
 Examples:
   gospyder enum example.com

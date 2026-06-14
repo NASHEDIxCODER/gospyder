@@ -1,0 +1,49 @@
+GoSpyder Report
+===============
+
+Module: live
+Target: pinterest.com
+Status: success
+Scanned At: 2026-06-14T20:32:13Z
+Duration: 0.00s
+Findings: 36
+Metadata:
+- source: http_probe
+
+Live Hosts:
+ar.pinterest.com
+assets.pinterest.com
+at.pinterest.com
+blog.pinterest.com
+br.pinterest.com
+brand.pinterest.com
+ca.pinterest.com
+ch.pinterest.com
+co.pinterest.com
+community.pinterest.com
+ct.pinterest.com
+cz.pinterest.com
+de.pinterest.com
+dev-www.testing.pinterest.com
+dev.pinterest.com
+developers.pinterest.com
+es.pinterest.com
+eval.pinterest.com
+fi.pinterest.com
+fr.pinterest.com
+help.pinterest.com
+id.pinterest.com
+ie.pinterest.com
+in.pinterest.com
+mail.pinterest.com
+mx.pinterest.com
+nl.pinterest.com
+pinterest.com
+pl.pinterest.com
+post.pinterest.com
+pt.pinterest.com
+research.pinterest.com
+ru.pinterest.com
+sk.pinterest.com
+switch.pinterest.com
+www2.testing.pinterest.com

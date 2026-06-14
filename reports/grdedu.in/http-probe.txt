@@ -4,22 +4,19 @@ GoSpyder Report
 Module: http
 Target: http://grdedu.in
 Status: success
-Scanned At: 2026-06-14T18:49:49Z
+Scanned At: 2026-06-14T20:16:39Z
 Duration: 10.00s
-Findings: 12
+Findings: 9
 Metadata:
-- targets_probed: 20
+- targets_probed: 17
 
 HTTP Probe Results:
-http://adm.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=626ms
-http://admissions.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="cloudflare" length=39399 response_time=326ms
-http://app.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=538ms
-http://apply.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="Apache" length=188518 response_time=1734ms
-http://click.grdedu.in status=200 title="Leadsquared - Page Not Found" server="Microsoft-IIS/10.0" length=3826 response_time=310ms
-http://guest.grdedu.in status=200 title="IIS Windows Server" server="Microsoft-IIS/10.0" length=703 response_time=216ms
-http://play.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=476ms
-http://service.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=528ms
-http://user.grdedu.in status=200 title="IIS Windows Server" server="Microsoft-IIS/10.0" length=703 response_time=269ms
-https://admissions.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="cloudflare" length=39399 response_time=296ms
-https://apply.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="Apache" length=188518 response_time=482ms
-https://click.grdedu.in status=200 title="Leadsquared - Page Not Found" server="Microsoft-IIS/10.0" length=3826 response_time=341ms
+http://adm.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=570ms
+http://admissions.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="cloudflare" length=39399 response_time=346ms
+http://app.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=2769ms
+http://apply.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="Apache" length=188512 response_time=462ms
+http://click.grdedu.in status=200 title="Leadsquared - Page Not Found" server="Microsoft-IIS/10.0" length=3826 response_time=203ms
+http://user.grdedu.in status=200 title="IIS Windows Server" server="Microsoft-IIS/10.0" length=703 response_time=154ms
+https://admissions.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="cloudflare" length=39399 response_time=310ms
+https://apply.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="Apache" length=188512 response_time=498ms
+https://click.grdedu.in status=200 title="Leadsquared - Page Not Found" server="Microsoft-IIS/10.0" length=3826 response_time=238ms

@@ -2,13 +2,13 @@ GoSpyder Report
 ===============
 
 Module: live
-Target: ghostline.sbs
+Target: in.pinterest.com
 Status: success
-Scanned At: 2026-06-14T19:49:18Z
+Scanned At: 2026-06-14T20:28:45Z
 Duration: 0.00s
 Findings: 1
 Metadata:
 - source: http_probe
 
 Live Hosts:
-www.ghostline.sbs
+in.pinterest.com

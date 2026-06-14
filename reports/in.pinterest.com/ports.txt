@@ -2,16 +2,16 @@ GoSpyder Report
 ===============
 
 Module: ports
-Target: ghostline.sbs
+Target: in.pinterest.com
 Status: success
-Scanned At: 2026-06-14T20:21:26Z
-Duration: 9.21s
+Scanned At: 2026-06-14T20:28:34Z
+Duration: 3.00s
 Findings: 2
 Metadata:
 - ports_scanned: 8
-- retries: 2
-- scan_host: ghostline.sbs
+- retries: 0
+- scan_host: in.pinterest.com
 
 Open Ports:
+80/tcp HTTP
 443/tcp HTTPS
-8080/tcp HTTP-alt

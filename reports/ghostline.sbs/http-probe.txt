@@ -4,11 +4,11 @@ GoSpyder Report
 Module: http
 Target: http://ghostline.sbs
 Status: success
-Scanned At: 2026-06-14T18:58:32Z
-Duration: 0.82s
+Scanned At: 2026-06-14T19:49:18Z
+Duration: 0.85s
 Findings: 1
 Metadata:
 - targets_probed: 2
 
 HTTP Probe Results:
-https://www.ghostline.sbs status=200 title="GhostLine — Anonymous encrypted chat rooms without signup" server="nginx/1.24.0 (Ubuntu)" length=2993 response_time=817ms
+https://www.ghostline.sbs status=200 title="GhostLine — Anonymous encrypted chat rooms without signup" server="nginx/1.24.0 (Ubuntu)" length=2993 response_time=845ms

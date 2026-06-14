@@ -4,9 +4,9 @@ GoSpyder Report
 Module: live
 Target: grdedu.in
 Status: success
-Scanned At: 2026-06-14T18:49:49Z
+Scanned At: 2026-06-14T20:16:39Z
 Duration: 0.00s
-Findings: 9
+Findings: 6
 Metadata:
 - source: http_probe
 
@@ -16,7 +16,4 @@ admissions.grdedu.in
 app.grdedu.in
 apply.grdedu.in
 click.grdedu.in
-guest.grdedu.in
-play.grdedu.in
-service.grdedu.in
 user.grdedu.in

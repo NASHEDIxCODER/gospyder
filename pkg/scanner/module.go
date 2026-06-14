@@ -42,7 +42,7 @@ func (m *PortScanModuleAdapter) Run(ctx context.Context, opts registry.Options) 
 
 	retries, _ := opts.Flags["retry"].(int)
 	scanHost := tcpScanHost(target)
-	opts.Logger.Info("Starting port scan for %s", scanHost)
+	opts.Logger.Debug("Starting port scan for %s", scanHost)
 	scanner := &PortScanner{}
 	openPorts := scanner.ScanWithRetry(ctx, scanHost, ports, opts.Config.Threads, retries, opts.Config.Verbose)
 	sort.Ints(openPorts)
@@ -106,7 +106,7 @@ func (m *FuzzerModuleAdapter) Run(ctx context.Context, opts registry.Options) (*
 	}
 
 	baseURL := normalizeURL(target)
-	opts.Logger.Info("Starting directory fuzz for %s", baseURL)
+	opts.Logger.Debug("Starting directory fuzz for %s", baseURL)
 	fuzzer := &Fuzzer{}
 	found := fuzzer.Scan(ctx, baseURL, wordlist, opts.Config.Threads)
 
@@ -158,7 +158,7 @@ func (m *WAFModuleAdapter) Run(ctx context.Context, opts registry.Options) (*reg
 		return nil, fmt.Errorf("target flag required")
 	}
 
-	opts.Logger.Info("Starting WAF detection for %s", target)
+	opts.Logger.Debug("Starting WAF detection for %s", target)
 	scanner := &WAFScanner{}
 	detection := scanner.DetectDetailed(ctx, target)
 

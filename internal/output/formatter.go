@@ -65,13 +65,13 @@ func (f *Formatter) formatTXT(data interface{}) (string, error) {
 	case registry.Result:
 		return f.formatRegistryResult(&v), nil
 	case []*registry.Result:
-		return formatReconResults(v), nil
+		return f.formatReconResults(v), nil
 	case []registry.Result:
 		results := make([]*registry.Result, 0, len(v))
 		for i := range v {
 			results = append(results, &v[i])
 		}
-		return formatReconResults(results), nil
+		return f.formatReconResults(results), nil
 	}
 
 	return fmt.Sprintf("%v", data), nil
@@ -84,189 +84,205 @@ func (f *Formatter) formatRegistryResult(result *registry.Result) string {
 
 	switch result.Module {
 	case "enum":
-		return formatEnum(result)
+		return f.formatEnum(result)
 	case "ports":
-		return formatPorts(result)
+		return f.formatPorts(result)
 	case "fuzz":
-		return formatFuzz(result)
+		return f.formatFuzz(result)
 	case "waf":
-		return formatWAF(result)
+		return f.formatWAF(result)
 	case "http":
-		return formatHTTP(result)
+		return f.formatHTTP(result)
 	case "live":
-		return formatLive(result)
+		return f.formatLive(result)
 	case "tech":
-		return formatTech(result)
+		return f.formatTech(result)
 	default:
-		return formatGeneric(result)
+		return f.formatGeneric(result)
 	}
 }
 
-func formatEnum(result *registry.Result) string {
+func (f *Formatter) formatBanner(title string) string {
+	cyan := ""
+	reset := ""
+	if f.colors {
+		cyan = ColorCyan
+		reset = ColorReset
+	}
+	return fmt.Sprintf("%s═══════════════════════════════════════\n%s\n═══════════════════════════════════════%s\n", cyan, title, reset)
+}
+
+func (f *Formatter) formatEnum(result *registry.Result) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
-	b.WriteString("Subdomains Found:\n")
-	if len(result.Findings) == 0 {
-		b.WriteString("None\n")
-	} else {
+	b.WriteString(f.formatBanner("SUBDOMAIN ENUMERATION"))
+	if len(result.Findings) > 0 {
 		for _, finding := range sortedFindings(result.Findings) {
-			fmt.Fprintf(&b, "* %s\n", finding.Value)
+			tag := "[FOUND]"
+			if f.colors {
+				tag = ColorGreen + tag + ColorReset
+			}
+			fmt.Fprintf(&b, "%s %s\n", tag, finding.Value)
 		}
 	}
-	fmt.Fprintf(&b, "\nTotal Found: %d\n", len(result.Findings))
 	return b.String()
 }
 
-func formatPorts(result *registry.Result) string {
+func (f *Formatter) formatPorts(result *registry.Result) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
-	b.WriteString("Open Ports:\n")
-	if len(result.Findings) == 0 {
-		b.WriteString("None\n")
-	} else {
+	b.WriteString(f.formatBanner("PORT SCANNING"))
+	if len(result.Findings) > 0 {
 		for _, finding := range sortedFindings(result.Findings) {
 			port := finding.Value
 			service := finding.Description
 			if service == "" {
 				service = "unknown"
 			}
-			fmt.Fprintf(&b, "%-8s %s\n", port, service)
+			tag := "[OPEN]"
+			if f.colors {
+				tag = ColorGreen + tag + ColorReset
+			}
+			fmt.Fprintf(&b, "%s %-8s %s\n", tag, port, service)
 		}
+	} else {
+		fmt.Fprintln(&b, "None found")
 	}
-	fmt.Fprintf(&b, "\nTotal Open Ports: %d\n", len(result.Findings))
 	return b.String()
 }
 
-func formatFuzz(result *registry.Result) string {
+func (f *Formatter) formatFuzz(result *registry.Result) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
-	b.WriteString("Interesting Paths:\n")
-	if len(result.Findings) == 0 {
-		b.WriteString("None\n")
-	} else {
+	b.WriteString(f.formatBanner("DIRECTORY FUZZING"))
+	if len(result.Findings) > 0 {
 		for _, finding := range sortedFindings(result.Findings) {
 			status := metadataInt(finding.Metadata, "status")
 			path := metadataString(finding.Metadata, "path")
 			if path == "" {
 				path = finding.Value
 			}
-			fmt.Fprintf(&b, "%d %s\n", status, path)
+			tag := "[FOUND]"
+			if f.colors {
+				tag = ColorGreen + tag + ColorReset
+			}
+			fmt.Fprintf(&b, "%s %d %s\n", tag, status, path)
 		}
-	}
-	fmt.Fprintf(&b, "\nSummary:\nTotal Found: %d\n", len(result.Findings))
-	return b.String()
-}
-
-func formatWAF(result *registry.Result) string {
-	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
-	if len(result.Findings) == 0 {
-		b.WriteString("No WAF detected\n")
-		return b.String()
-	}
-
-	finding := result.Findings[0]
-	fmt.Fprintf(&b, "WAF Detected: %s\n\n", finding.Value)
-	confidence := metadataString(finding.Metadata, "confidence")
-	if confidence == "" {
-		confidence = "Medium"
-	}
-	fmt.Fprintf(&b, "Confidence: %s\n\n", confidence)
-	if len(finding.Evidence) > 0 {
-		b.WriteString("Evidence:\n")
-		for _, evidence := range finding.Evidence {
-			fmt.Fprintf(&b, "* %s\n", evidence)
-		}
-	}
-	return b.String()
-}
-
-func formatHTTP(result *registry.Result) string {
-	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
-	b.WriteString("HTTP Probe Results:\n")
-	if len(result.Findings) == 0 {
-		b.WriteString("None\n")
 	} else {
+		fmt.Fprintln(&b, "None found")
+	}
+	return b.String()
+}
+
+func (f *Formatter) formatWAF(result *registry.Result) string {
+	var b strings.Builder
+	b.WriteString(f.formatBanner("WAF DETECTION"))
+	if len(result.Findings) > 0 {
+		finding := result.Findings[0]
+		tag := "[WAF]"
+		if f.colors {
+			tag = ColorGreen + tag + ColorReset
+		}
+		fmt.Fprintf(&b, "%s %s\n", tag, finding.Value)
+		confidence := metadataString(finding.Metadata, "confidence")
+		if confidence == "" {
+			confidence = "High"
+		}
+		fmt.Fprintf(&b, "Confidence: %s\n", confidence)
+		if len(finding.Evidence) > 0 {
+			for _, evidence := range finding.Evidence {
+				fmt.Fprintf(&b, "  Evidence: %s\n", evidence)
+			}
+		}
+	} else {
+		tag := "[WAF]"
+		if f.colors {
+			tag = ColorGreen + tag + ColorReset
+		}
+		fmt.Fprintf(&b, "%s None detected\n", tag)
+	}
+	return b.String()
+}
+
+func (f *Formatter) formatHTTP(result *registry.Result) string {
+	var b strings.Builder
+	b.WriteString(f.formatBanner("HTTP PROBE"))
+	if len(result.Findings) > 0 {
 		for _, finding := range sortedFindings(result.Findings) {
 			url := metadataString(finding.Metadata, "url")
+			if url == "" {
+				url = finding.Value
+			}
 			status := metadataInt(finding.Metadata, "status_code")
 			title := metadataString(finding.Metadata, "title")
-			server := metadataString(finding.Metadata, "server")
-			length := metadataInt64(finding.Metadata, "content_length")
-			responseTime := metadataInt64(finding.Metadata, "response_time_ms")
-			fmt.Fprintf(&b, "%s\n", url)
-			fmt.Fprintf(&b, "  Status: %d\n", status)
-			fmt.Fprintf(&b, "  Title: %s\n", emptyDash(title))
-			fmt.Fprintf(&b, "  Server: %s\n", emptyDash(server))
-			fmt.Fprintf(&b, "  Content Length: %d\n", length)
-			fmt.Fprintf(&b, "  Response Time: %dms\n", responseTime)
-		}
-	}
-	fmt.Fprintf(&b, "\nTotal HTTP Responses: %d\n", len(result.Findings))
-	return b.String()
-}
-
-func formatLive(result *registry.Result) string {
-	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
-	b.WriteString("Live Hosts:\n")
-	if len(result.Findings) == 0 {
-		b.WriteString("None\n")
-	} else {
-		for _, finding := range sortedFindings(result.Findings) {
-			fmt.Fprintf(&b, "* %s\n", finding.Value)
-		}
-	}
-	fmt.Fprintf(&b, "\nTotal Live Hosts: %d\n", len(result.Findings))
-	return b.String()
-}
-
-func formatTech(result *registry.Result) string {
-	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
-	b.WriteString("Technology Fingerprints:\n")
-	if len(result.Findings) == 0 {
-		b.WriteString("None\n")
-	} else {
-		for _, finding := range sortedFindings(result.Findings) {
-			url := metadataString(finding.Metadata, "url")
-			fmt.Fprintf(&b, "* %s", finding.Value)
-			if url != "" {
-				fmt.Fprintf(&b, " (%s)", url)
+			tag := "[LIVE]"
+			if f.colors {
+				tag = ColorGreen + tag + ColorReset
 			}
-			if len(finding.Evidence) > 0 {
-				fmt.Fprintf(&b, " evidence=%s", strings.Join(finding.Evidence, ","))
+			if title != "" {
+				fmt.Fprintf(&b, "%s %s %d %q\n", tag, url, status, title)
+			} else {
+				fmt.Fprintf(&b, "%s %s %d\n", tag, url, status)
 			}
-			b.WriteString("\n")
 		}
+	} else {
+		fmt.Fprintln(&b, "None found")
 	}
-	fmt.Fprintf(&b, "\nTotal Technologies: %d\n", len(result.Findings))
 	return b.String()
 }
 
-func formatReconResults(results []*registry.Result) string {
+func (f *Formatter) formatLive(result *registry.Result) string {
 	var b strings.Builder
-	target := ""
+	b.WriteString(f.formatBanner("LIVE HOSTS"))
+	if len(result.Findings) > 0 {
+		for _, finding := range sortedFindings(result.Findings) {
+			tag := "[LIVE]"
+			if f.colors {
+				tag = ColorGreen + tag + ColorReset
+			}
+			fmt.Fprintf(&b, "%s %s\n", tag, finding.Value)
+		}
+	}
+	return b.String()
+}
+
+func (f *Formatter) formatTech(result *registry.Result) string {
+	var b strings.Builder
+	b.WriteString(f.formatBanner("TECHNOLOGY DETECTION"))
+	if len(result.Findings) > 0 {
+		for _, finding := range sortedFindings(result.Findings) {
+			tag := "[TECH]"
+			if f.colors {
+				tag = ColorGreen + tag + ColorReset
+			}
+			fmt.Fprintf(&b, "%s %s\n", tag, finding.Value)
+		}
+	} else {
+		fmt.Fprintln(&b, "None found")
+	}
+	return b.String()
+}
+
+func (f *Formatter) formatReconResults(results []*registry.Result) string {
+	var b strings.Builder
 	summary := map[string]int{}
 	waf := "None"
-	byModule := map[string]*registry.Result{}
 
 	for _, result := range results {
 		if result == nil {
 			continue
 		}
-		byModule[result.Module] = result
-		if target == "" {
-			target = result.Target
+
+		formatted := f.formatRegistryResult(result)
+		if formatted != "" {
+			b.WriteString(formatted)
+			b.WriteString("\n")
 		}
+
 		switch result.Module {
 		case "enum":
 			summary["Subdomains"] = len(result.Findings)
 		case "ports":
 			summary["Open Ports"] = len(result.Findings)
 		case "fuzz":
-			summary["Interesting Paths"] = len(result.Findings)
+			summary["Paths"] = len(result.Findings)
 		case "waf":
 			if len(result.Findings) > 0 {
 				waf = result.Findings[0].Value
@@ -276,59 +292,58 @@ func formatReconResults(results []*registry.Result) string {
 		case "live":
 			summary["Live Hosts"] = len(result.Findings)
 		case "tech":
-			summary["Technologies"] = len(result.Findings)
+			uniqueTechs := make(map[string]bool)
+			for _, f := range result.Findings {
+				uniqueTechs[f.Value] = true
+			}
+			summary["Technologies"] = len(uniqueTechs)
 		}
 	}
 
-	fmt.Fprintf(&b, "Target: %s\n\n", target)
-	fmt.Fprintf(&b, "Subdomains: %d\n", summary["Subdomains"])
-	fmt.Fprintf(&b, "Live Hosts: %d\n", summary["Live Hosts"])
-	fmt.Fprintf(&b, "Open Ports: %d\n", summary["Open Ports"])
-	fmt.Fprintf(&b, "WAF: %s\n", waf)
-	fmt.Fprintf(&b, "Interesting Paths: %d\n", summary["Interesting Paths"])
-	fmt.Fprintf(&b, "HTTP Responses: %d\n", summary["HTTP Responses"])
-	fmt.Fprintf(&b, "Technologies: %d\n", summary["Technologies"])
+	cyan := ""
+	magenta := ""
+	reset := ""
+	if f.colors {
+		cyan = ColorCyan
+		magenta = ColorPurple
+		reset = ColorReset
+	}
 
-	b.WriteString("\nFindings\n")
-	b.WriteString("--------\n")
-	writeReconSection(&b, "Subdomains", byModule["enum"], func(f registry.Finding) string { return f.Value })
-	writeReconSection(&b, "Open Ports", byModule["ports"], func(f registry.Finding) string {
-		if f.Description == "" {
-			return f.Value
+	b.WriteString(fmt.Sprintf("%s╔════════════════════════════════════╗%s\n", cyan, reset))
+	b.WriteString(fmt.Sprintf("%s║          RECON SUMMARY             ║%s\n", cyan, reset))
+	b.WriteString(fmt.Sprintf("%s╠════════════════════════════════════╣%s\n", cyan, reset))
+
+	printRow := func(label string, val interface{}) {
+		valStr := fmt.Sprintf("%v", val)
+		paddedVal := fmt.Sprintf("%-15s", valStr)
+		if f.colors {
+			paddedVal = magenta + paddedVal + reset
 		}
-		return fmt.Sprintf("%s %s", f.Value, f.Description)
-	})
-	writeReconSection(&b, "Directory Findings", byModule["fuzz"], func(f registry.Finding) string {
-		return fmt.Sprintf("%d %s", metadataInt(f.Metadata, "status"), metadataString(f.Metadata, "path"))
-	})
-	writeReconSection(&b, "HTTP Probe", byModule["http"], func(f registry.Finding) string {
-		return fmt.Sprintf("%s %d %q", metadataString(f.Metadata, "url"), metadataInt(f.Metadata, "status_code"), metadataString(f.Metadata, "title"))
-	})
-	writeReconSection(&b, "Live Hosts", byModule["live"], func(f registry.Finding) string { return f.Value })
-	writeReconSection(&b, "Technologies", byModule["tech"], func(f registry.Finding) string {
-		return fmt.Sprintf("%s %s", f.Value, metadataString(f.Metadata, "url"))
-	})
+		fmt.Fprintf(&b, "%s║%s %-16s │ %s%s║%s\n", cyan, reset, label, paddedVal, cyan, reset)
+	}
+
+	printRow("Subdomains", summary["Subdomains"])
+	printRow("Live Hosts", summary["Live Hosts"])
+	printRow("Open Ports", summary["Open Ports"])
+	printRow("Paths", summary["Paths"])
+	printRow("Technologies", summary["Technologies"])
+	printRow("WAF", waf)
+
+	b.WriteString(fmt.Sprintf("%s╚════════════════════════════════════╝%s\n", cyan, reset))
+
 	return b.String()
 }
 
-func writeReconSection(b *strings.Builder, title string, result *registry.Result, line func(registry.Finding) string) {
-	fmt.Fprintf(b, "\n%s:\n", title)
-	if result == nil || len(result.Findings) == 0 {
-		b.WriteString("None\n")
-		return
-	}
-	for _, finding := range sortedFindings(result.Findings) {
-		fmt.Fprintf(b, "- %s\n", line(finding))
-	}
-}
-
-func formatGeneric(result *registry.Result) string {
+func (f *Formatter) formatGeneric(result *registry.Result) string {
 	var b strings.Builder
-	fmt.Fprintf(&b, "Target: %s\n\n", result.Target)
+	b.WriteString(f.formatBanner(strings.ToUpper(result.Module) + " MODULE"))
 	for _, finding := range result.Findings {
-		fmt.Fprintf(&b, "* %s: %s\n", finding.Type, finding.Value)
+		tag := "[FOUND]"
+		if f.colors {
+			tag = ColorGreen + tag + ColorReset
+		}
+		fmt.Fprintf(&b, "%s %s: %s\n", tag, finding.Type, finding.Value)
 	}
-	fmt.Fprintf(&b, "\nTotal Found: %d\n", len(result.Findings))
 	return b.String()
 }
 

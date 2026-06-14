@@ -1,0 +1,47 @@
+{
+  "target": "in.pinterest.com",
+  "created": "2026-06-14T20:28:45.572522661Z",
+  "last_updated": "2026-06-14T20:28:45.614404344Z",
+  "modules": {
+    "enum": {
+      "last_run": "2026-06-14T20:28:45.572786771Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/subdomains.txt"
+    },
+    "fuzz": {
+      "last_run": "2026-06-14T20:28:45.613463152Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/fuzz.txt"
+    },
+    "http": {
+      "last_run": "2026-06-14T20:28:45.613860675Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/http-probe.txt"
+    },
+    "live": {
+      "last_run": "2026-06-14T20:28:45.614044954Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/live-hosts.txt"
+    },
+    "ports": {
+      "last_run": "2026-06-14T20:28:45.612898964Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/ports.txt"
+    },
+    "recon": {
+      "last_run": "2026-06-14T20:28:45.614404184Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/recon-summary.txt"
+    },
+    "tech": {
+      "last_run": "2026-06-14T20:28:45.614249481Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/technologies.txt"
+    },
+    "waf": {
+      "last_run": "2026-06-14T20:28:45.613679612Z",
+      "status": "success",
+      "result_file": "reports/in.pinterest.com/waf.txt"
+    }
+  }
+}

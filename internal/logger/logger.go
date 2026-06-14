@@ -38,6 +38,16 @@ func New(verbosity bool) *Logger {
 	}
 }
 
+// SetVerbosity updates the logging level dynamically
+func (l *Logger) SetVerbosity(verbosity bool) {
+	l.verbosity = verbosity
+	if verbosity {
+		l.level = LevelDebug
+	} else {
+		l.level = LevelInfo
+	}
+}
+
 // Debug logs debug level messages
 func (l *Logger) Debug(msg string, args ...interface{}) {
 	if l.level <= LevelDebug {

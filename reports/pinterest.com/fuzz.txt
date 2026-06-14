@@ -2,10 +2,10 @@ GoSpyder Report
 ===============
 
 Module: fuzz
-Target: http://ghostline.sbs
+Target: https://pinterest.com
 Status: success
-Scanned At: 2026-06-14T19:49:16Z
-Duration: 4.87s
+Scanned At: 2026-06-14T20:32:02Z
+Duration: 5.37s
 Findings: 0
 Metadata:
 - wordlist: wordlists/paths.txt

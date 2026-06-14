@@ -4,7 +4,7 @@ GoSpyder Report
 Module: ports
 Target: fivetran.com
 Status: success
-Scanned At: 2026-06-14T18:55:11Z
+Scanned At: 2026-06-14T20:22:44Z
 Duration: 3.00s
 Findings: 2
 Metadata:

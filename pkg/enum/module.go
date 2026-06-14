@@ -11,7 +11,7 @@ import (
 
 // ModuleAdapter wraps enum functionality as a Module
 type ModuleAdapter struct {
-	engine *Engine
+	pool *resolver.Pool
 }
 
 // NewModule creates a new subdomain enumeration module
@@ -25,7 +25,7 @@ func NewModule() registry.Module {
 	})
 
 	return &ModuleAdapter{
-		engine: NewEngine(pool, 100),
+		pool: pool,
 	}
 }
 
@@ -62,8 +62,9 @@ func (m *ModuleAdapter) Run(ctx context.Context, opts registry.Options) (*regist
 		return nil, err
 	}
 
-	opts.Logger.Info("Starting subdomain enumeration for %s", target)
-	subdomains := m.engine.Run(ctx, target, wordlist, mode)
+	opts.Logger.Debug("Starting subdomain enumeration for %s", target)
+	engine := NewEngine(m.pool, opts.Config.Threads)
+	subdomains := engine.Run(ctx, target, wordlist, mode)
 
 	findings := make([]registry.Finding, 0, len(subdomains))
 	for _, subdomain := range subdomains {

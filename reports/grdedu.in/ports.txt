@@ -4,14 +4,13 @@ GoSpyder Report
 Module: ports
 Target: grdedu.in
 Status: success
-Scanned At: 2026-06-14T18:49:03Z
-Duration: 3.00s
-Findings: 2
+Scanned At: 2026-06-14T20:20:11Z
+Duration: 9.25s
+Findings: 0
 Metadata:
 - ports_scanned: 8
-- retries: 0
+- retries: 2
 - scan_host: grdedu.in
 
 Open Ports:
-80/tcp HTTP
-443/tcp HTTPS
+No open ports found

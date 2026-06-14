@@ -4,24 +4,14 @@ GoSpyder Report
 Module: tech
 Target: http://grdedu.in
 Status: success
-Scanned At: 2026-06-14T18:49:49Z
-Duration: 0.42s
-Findings: 14
+Scanned At: 2026-06-14T20:16:39Z
+Duration: 0.32s
+Findings: 10
 Metadata:
-- targets_checked: 12
+- targets_checked: 9
 
 Technology Fingerprints:
-Apache http://adm.grdedu.in
-Apache http://app.grdedu.in
-Apache http://apply.grdedu.in
-Apache http://play.grdedu.in
-Apache http://service.grdedu.in
-Apache https://apply.grdedu.in
-Cloudflare http://admissions.grdedu.in
-Cloudflare https://admissions.grdedu.in
-Django http://apply.grdedu.in
-Django https://apply.grdedu.in
-WordPress http://adm.grdedu.in
-WordPress http://app.grdedu.in
-WordPress http://play.grdedu.in
-WordPress http://service.grdedu.in
+Apache (4 hosts)
+Cloudflare (2 hosts)
+Django (2 hosts)
+WordPress (2 hosts)
