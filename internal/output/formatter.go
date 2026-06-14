@@ -98,6 +98,8 @@ func (f *Formatter) formatRegistryResult(result *registry.Result) string {
 		return f.formatLive(result)
 	case "tech":
 		return f.formatTech(result)
+	case "js":
+		return f.formatJS(result)
 	default:
 		return f.formatGeneric(result)
 	}
@@ -319,6 +321,149 @@ func (f *Formatter) formatTech(result *registry.Result) string {
 		fmt.Fprintln(&b, "None found")
 	}
 	return b.String()
+}
+
+func (f *Formatter) formatJS(result *registry.Result) string {
+	var b strings.Builder
+	b.WriteString(f.formatBanner("JAVASCRIPT ANALYSIS"))
+
+	// --- Endpoint Categories (from new metadata) ---
+	categories, hasCategories := result.Metadata["endpoint_categories"].(map[string][]string)
+	jsFilesCount := metadataInt(result.Metadata, "js_files_count")
+	endpointsCount := metadataInt(result.Metadata, "endpoints_count")
+	domainsCount := metadataInt(result.Metadata, "domains_count")
+	secretsCount := metadataInt(result.Metadata, "secrets_count")
+
+	// JS Files section
+	jsFiles := filterFindings(result.Findings, "js_file")
+	if len(jsFiles) > 0 {
+		b.WriteString("\nJS Files:\n")
+		for _, finding := range sortedFindings(jsFiles) {
+			tag := "[JS]"
+			if f.colors {
+				tag = ColorGreen + tag + ColorReset
+			}
+			size := metadataInt(finding.Metadata, "size")
+			sizeStr := ""
+			if size > 0 {
+				sizeStr = fmt.Sprintf(" (%d bytes)", size)
+			}
+			fmt.Fprintf(&b, "%s %s%s\n", tag, finding.Value, sizeStr)
+		}
+	}
+
+	// Categorized endpoints (if available)
+	if hasCategories && len(categories) > 0 {
+		b.WriteString("\nEndpoints:\n")
+		// Print categories in a defined order
+		catOrder := []string{"Authentication", "API", "GraphQL", "Uploads", "Admin", "User", "Other"}
+		for _, catName := range catOrder {
+			eps, ok := categories[catName]
+			if !ok || len(eps) == 0 {
+				continue
+			}
+			tag := "[ENDPOINT]"
+			if f.colors {
+				tag = ColorYellow + tag + ColorReset
+			}
+			fmt.Fprintf(&b, "\n  %s:\n", catName)
+			for _, ep := range eps {
+				fmt.Fprintf(&b, "    - %s\n", ep)
+			}
+		}
+	} else {
+		// Fallback to old flat format
+		endpoints := filterFindings(result.Findings, "js_endpoint")
+		if len(endpoints) > 0 {
+			b.WriteString("\nEndpoints:\n")
+			for _, finding := range sortedFindings(endpoints) {
+				tag := "[ENDPOINT]"
+				if f.colors {
+					tag = ColorYellow + tag + ColorReset
+				}
+				method := metadataString(finding.Metadata, "method")
+				methodStr := ""
+				if method != "" && method != "GET" {
+					methodStr = " [" + method + "]"
+				}
+				fmt.Fprintf(&b, "%s %s%s\n", tag, finding.Value, methodStr)
+			}
+		}
+	}
+
+	// Domains section
+	domains := filterFindings(result.Findings, "js_domain")
+	if len(domains) > 0 {
+		b.WriteString("\nDomains:\n")
+		for _, finding := range sortedFindings(domains) {
+			tag := "[DOMAIN]"
+			if f.colors {
+				tag = ColorCyan + tag + ColorReset
+			}
+			dType := metadataString(finding.Metadata, "type")
+			typeStr := ""
+			if dType == "websocket" {
+				typeStr = " [WS]"
+			}
+			fmt.Fprintf(&b, "%s %s%s\n", tag, finding.Value, typeStr)
+		}
+	}
+
+	// Secrets section
+	secrets := filterFindings(result.Findings, "js_secret")
+	if len(secrets) > 0 {
+		b.WriteString("\nPotential Secrets:\n")
+		for _, finding := range sortedFindings(secrets) {
+			confidence := metadataString(finding.Metadata, "confidence")
+			var tagStr string
+			switch confidence {
+			case "HIGH":
+				tagStr = "[CRITICAL]"
+				if f.colors {
+					tagStr = ColorRed + tagStr + ColorReset
+				}
+			case "MEDIUM":
+				tagStr = "[WARNING]"
+				if f.colors {
+					tagStr = ColorYellow + tagStr + ColorReset
+				}
+			default:
+				tagStr = "[NOTE]"
+				if f.colors {
+					tagStr = ColorReset + tagStr
+				}
+			}
+			preview := ""
+			if len(finding.Evidence) > 0 {
+				preview = " " + finding.Evidence[0]
+			}
+			fmt.Fprintf(&b, "%s %s (%s)%s\n", tagStr, finding.Value, confidence, preview)
+		}
+	}
+
+	// Statistics summary
+	b.WriteString("\n")
+	b.WriteString(f.formatBanner("JAVASCRIPT STATISTICS"))
+	fmt.Fprintf(&b, "  JS Files:   %d\n", jsFilesCount)
+	fmt.Fprintf(&b, "  Endpoints:  %d\n", endpointsCount)
+	fmt.Fprintf(&b, "  Domains:    %d\n", domainsCount)
+	fmt.Fprintf(&b, "  Secrets:    %d\n", secretsCount)
+
+	if len(result.Findings) == 0 && jsFilesCount == 0 {
+		fmt.Fprintln(&b, "No JavaScript files found")
+	}
+
+	return b.String()
+}
+
+func filterFindings(findings []registry.Finding, ftype string) []registry.Finding {
+	var out []registry.Finding
+	for _, f := range findings {
+		if f.Type == ftype {
+			out = append(out, f)
+		}
+	}
+	return out
 }
 
 // nsNameFilter matches infrastructure name server patterns like ns1, ns2, ns3, etc.

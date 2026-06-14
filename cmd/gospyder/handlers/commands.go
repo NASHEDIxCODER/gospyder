@@ -208,6 +208,52 @@ func HandleTech(args []string) error {
 	return ExecuteModule("tech", flags)
 }
 
+// HandleCrawl handles web crawling command
+func HandleCrawl(args []string) error {
+	if len(args) < 1 {
+		return fmt.Errorf("usage: gospyder crawl <url> [options]")
+	}
+
+	fs := flag.NewFlagSet("crawl", flag.ContinueOnError)
+	depth := fs.Int("depth", 0, "crawl depth (default: from config, usually 3)")
+	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
+	if err := fs.Parse(args[1:]); err != nil {
+		return err
+	}
+
+	flags := map[string]interface{}{
+		"target":    args[0],
+		"depth":     *depth,
+		"workspace": *workspace,
+	}
+	applyGlobalFlags(globalOpts, flags)
+
+	return ExecuteModule("crawl", flags)
+}
+
+// HandleJS handles JavaScript analysis command
+func HandleJS(args []string) error {
+	if len(args) < 1 {
+		return fmt.Errorf("usage: gospyder js <url> [options]")
+	}
+
+	fs := flag.NewFlagSet("js", flag.ContinueOnError)
+	workspace := fs.Bool("workspace", true, "save results to workspace")
+	globalOpts := addGlobalFlags(fs)
+	if err := fs.Parse(args[1:]); err != nil {
+		return err
+	}
+
+	flags := map[string]interface{}{
+		"target":    args[0],
+		"workspace": *workspace,
+	}
+	applyGlobalFlags(globalOpts, flags)
+
+	return ExecuteModule("js", flags)
+}
+
 // HandleRecon handles full reconnaissance command
 func HandleRecon(args []string) error {
 	if len(args) < 1 {
@@ -225,7 +271,7 @@ func HandleRecon(args []string) error {
 	}
 
 	// Execute multiple modules in sequence
-	modules := []string{"enum", "ports", "fuzz", "waf", "http", "live", "tech"}
+	modules := []string{"enum", "ports", "fuzz", "waf", "http", "live", "tech", "js"}
 	parsed, err := targetparser.Normalize(args[0])
 	if err != nil {
 		return fmt.Errorf("invalid target: %w", err)
@@ -287,6 +333,8 @@ Commands:
   http                 HTTP probe
   live                 Live host detection
   tech                 Technology fingerprinting
+  crawl                Web crawling (URLs, parameters, APIs, JS files)
+  js                   JavaScript analysis (endpoints, secrets, domains)
   recon                Full reconnaissance (all modules)
   list                 List all available modules
   help [module]        Show help for specific module
@@ -301,6 +349,7 @@ Examples:
   gospyder enum example.com
   gospyder ports example.com
   gospyder fuzz https://example.com
+  gospyder js https://example.com
   gospyder recon example.com
   gospyder help
 

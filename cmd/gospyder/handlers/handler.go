@@ -119,6 +119,10 @@ func ExecuteModules(moduleNames []string, flags map[string]interface{}) error {
 			if host, ok := flags["host"]; ok {
 				moduleFlags["target"] = host
 			}
+		case "js":
+			if url, ok := flags["url"]; ok {
+				moduleFlags["target"] = url
+			}
 		}
 
 		moduleFlags["results"] = priorResults
@@ -233,6 +237,10 @@ func workspaceFileName(module string) string {
 		return "live-hosts.txt"
 	case "tech":
 		return "technologies.txt"
+	case "crawl":
+		return "crawl.txt"
+	case "js":
+		return "js-analysis.txt"
 	default:
 		return module + ".txt"
 	}
@@ -298,6 +306,8 @@ func moduleWorkspaceContent(result *registry.Result, formatted string) string {
 	case "tech":
 		b.WriteString("Technology Fingerprints:\n")
 		writeFindingLines(&b, result, techLine, "No technologies detected")
+	case "crawl":
+		writeCrawlContent(&b, result)
 	default:
 		if formatted != "" {
 			b.WriteString(formatted)
@@ -360,6 +370,68 @@ func httpProbeLine(f registry.Finding) string {
 func techLine(f registry.Finding) string {
 	url, _ := f.Metadata["url"].(string)
 	return fmt.Sprintf("%s %s", f.Value, url)
+}
+
+func writeCrawlContent(b *strings.Builder, result *registry.Result) {
+	// Group findings by type
+	urls := make([]string, 0)
+	params := make([]string, 0)
+	apis := make([]string, 0)
+	jsFiles := make([]string, 0)
+
+	for _, f := range result.Findings {
+		switch f.Type {
+		case "url":
+			urls = append(urls, f.Value)
+		case "parameter":
+			params = append(params, f.Value)
+		case "api":
+			apis = append(apis, f.Value)
+		case "js_file":
+			jsFiles = append(jsFiles, f.Value)
+		}
+	}
+
+	if len(urls) > 0 {
+		b.WriteString("URLs:\n")
+		for _, u := range urls {
+			fmt.Fprintf(b, "  %s\n", u)
+		}
+		b.WriteString("\n")
+	}
+
+	if len(params) > 0 {
+		b.WriteString("Parameters:\n")
+		for _, p := range params {
+			fmt.Fprintf(b, "  %s\n", p)
+		}
+		b.WriteString("\n")
+	}
+
+	if len(apis) > 0 {
+		b.WriteString("APIs:\n")
+		for _, a := range apis {
+			fmt.Fprintf(b, "  %s\n", a)
+		}
+		b.WriteString("\n")
+	}
+
+	if len(jsFiles) > 0 {
+		b.WriteString("JS Files:\n")
+		for _, j := range jsFiles {
+			fmt.Fprintf(b, "  %s\n", j)
+		}
+		b.WriteString("\n")
+	}
+
+	// Statistics
+	b.WriteString("Statistics:\n")
+	fmt.Fprintf(b, "  URLs:       %d\n", len(urls))
+	fmt.Fprintf(b, "  Parameters: %d\n", len(params))
+	fmt.Fprintf(b, "  APIs:       %d\n", len(apis))
+	fmt.Fprintf(b, "  JS Files:   %d\n", len(jsFiles))
+	fmt.Fprintf(b, "  Pages:      %v\n", result.Metadata["pages_crawled"])
+	fmt.Fprintf(b, "  Errors:     %v\n", result.Metadata["errors"])
 }
 
 func displayWorkspacePath(path string) string {

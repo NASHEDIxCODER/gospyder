@@ -10,8 +10,10 @@ import (
 	"github.com/NASHEDIxCODER/gospyder/internal/config"
 	"github.com/NASHEDIxCODER/gospyder/internal/output"
 	"github.com/NASHEDIxCODER/gospyder/internal/registry"
+	jsModule "github.com/NASHEDIxCODER/gospyder/pkg/js"
 	enumModule "github.com/NASHEDIxCODER/gospyder/pkg/enum"
 	scannerModule "github.com/NASHEDIxCODER/gospyder/pkg/scanner"
+	crawlModule "github.com/NASHEDIxCODER/gospyder/pkg/crawl"
 )
 
 const (
@@ -97,6 +99,10 @@ func main() {
 		execErr = handlers.HandleLive(args)
 	case "tech":
 		execErr = handlers.HandleTech(args)
+	case "crawl":
+		execErr = handlers.HandleCrawl(args)
+	case "js":
+		execErr = handlers.HandleJS(args)
 	case "recon":
 		execErr = handlers.HandleRecon(args)
 	case "list":
@@ -135,6 +141,8 @@ func registerModules(appCtx *app.AppContext) {
 		{"http", scannerModule.NewHTTPProbeModule()},
 		{"live", scannerModule.NewLiveHostModule()},
 		{"tech", scannerModule.NewTechModule()},
+		{"crawl", crawlModule.NewCrawlModule()},
+		{"js", jsModule.NewJSModule()},
 	}
 
 	for _, m := range modules {
