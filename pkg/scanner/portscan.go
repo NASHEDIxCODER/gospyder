@@ -15,6 +15,11 @@ func (ps *PortScanner) Scan(ctx context.Context, target string, ports []int, thr
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 
+	// Ensure threads doesn't exceed number of ports
+	if threads > len(ports) {
+		threads = len(ports)
+	}
+
 	sem := make(chan struct{}, threads)
 
 	for _, port := range ports {
@@ -32,11 +37,17 @@ func (ps *PortScanner) Scan(ctx context.Context, target string, ports []int, thr
 			defer func() { <-sem }()
 
 			address := fmt.Sprintf("%s:%d", target, p)
-			conn, err := net.DialTimeout("tcp", address, 2*time.Second)
+
+			// Use TCP connection with optimized timeout
+			dialer := net.Dialer{
+				Timeout: 3 * time.Second,
+			}
+
+			conn, err := dialer.DialContext(ctx, "tcp", address)
 			if err != nil {
 				return
 			}
-			conn.Close()
+			defer conn.Close()
 
 			mu.Lock()
 			openPorts = append(openPorts, p)

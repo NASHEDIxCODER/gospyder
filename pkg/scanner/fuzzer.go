@@ -1,9 +1,10 @@
 package scanner
 
 import (
-	"context"
 	"bufio"
+	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"strings"
@@ -24,8 +25,21 @@ func (f *Fuzzer) Scan(ctx context.Context, baseURL, wordlist string, threads int
 	}
 	defer file.Close()
 
+	// Create HTTP client with optimized transport
+	transport := &http.Transport{
+		Dial: (&net.Dialer{
+			Timeout: 5 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout:   5 * time.Second,
+		ResponseHeaderTimeout: 5 * time.Second,
+		MaxIdleConnsPerHost:   threads,
+		DisableKeepAlives:     false,
+		DisableCompression:    true,
+	}
+
 	client := &http.Client{
-		Timeout: 3 * time.Second,
+		Timeout:   10 * time.Second,
+		Transport: transport,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -60,9 +74,10 @@ func (f *Fuzzer) Scan(ctx context.Context, baseURL, wordlist string, threads int
 			}
 			defer resp.Body.Close()
 
-			if resp.StatusCode < 400 {
+			// Catch found pages (2xx, 3xx), auth pages (401, 403), and redirects
+			if (resp.StatusCode >= 200 && resp.StatusCode < 400) || resp.StatusCode == 401 || resp.StatusCode == 403 {
 				mu.Lock()
-				found = append(found, url)
+				found = append(found, fmt.Sprintf("%s [%d]", url, resp.StatusCode))
 				mu.Unlock()
 			}
 		}(path)

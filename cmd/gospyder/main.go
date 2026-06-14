@@ -58,9 +58,19 @@ func PrintWarning(msg string) {
 var ServiceMap = map[int]string{
 	21: "FTP", 22: "SSH", 23: "Telnet", 25: "SMTP",
 	53: "DNS", 80: "HTTP", 110: "POP3", 143: "IMAP",
-	443: "HTTPS", 3306: "MySQL", 3389: "RDP", 5432: "PostgreSQL",
-	8080: "HTTP-Proxy", 8443: "HTTPS-Alt", 27017: "MongoDB",
+	443: "HTTPS", 465: "SMTPS", 587: "SMTP-TLS", 993: "IMAPS",
+	995: "POP3S", 1433: "MSSQL", 1521: "Oracle", 3306: "MySQL",
+	3389: "RDP", 5000: "Flask", 5432: "PostgreSQL", 5900: "VNC",
+	5984: "CouchDB", 6000: "X11", 6379: "Redis", 7001: "Cassandra",
+	8000: "HTTP-Alt", 8008: "HTTP-Alt2", 8080: "HTTP-Proxy", 8161: "ActiveMQ",
+	8443: "HTTPS-Alt", 8888: "Jupyter", 9000: "SonarQube", 9001: "HSQLDB",
+	9042: "Cassandra-CQL", 9090: "Prometheus", 9100: "PDL", 9200: "Elasticsearch",
+	11211: "Memcached", 27017: "MongoDB", 27018: "MongoDB-Alt", 50070: "HDFS-NN",
+	4369: "Erlang", 2483: "Oracle-SSL",
 }
+
+// Expanded port list for comprehensive scanning
+var DefaultPorts = "21,22,23,25,53,80,110,143,443,465,587,993,995,1433,1521,3306,3389,5000,5432,5900,5984,6000,6379,7001,8000,8008,8080,8161,8443,8888,9000,9042,9090,9200,11211,27017,50070"
 
 func main() {
 	enumPtr := flag.Bool("enum", false, "Enable subdomain enumeration")
@@ -70,7 +80,7 @@ func main() {
 	enumWordlist := flag.String("w", "wordlists/subdomains.txt", "Wordlist for subdomain enum")
 
 	portsPtr := flag.Bool("ports", false, "Enable port scanning")
-	portsList := flag.String("ports-list", "21,22,23,25,53,80,110,143,443,3306,3389,5432,8080,8443", "Ports to scan")
+	portsList := flag.String("ports-list", DefaultPorts, "Ports to scan")
 	servicePtr := flag.Bool("service", false, "Enable service detection on ports")
 
 	wafPtr := flag.Bool("waf", false, "Enable WAF detection")
@@ -98,8 +108,8 @@ func main() {
 	target := *domainPtr
 
 	fmt.Printf("%sTarget:%s %s\n", ColorPurple, ColorReset, target)
-	fmt.Printf("%sThreads:%s %d | %sTimeout:%s %dm\n\n", 
-		ColorPurple, ColorReset, *threadsPtr, 
+	fmt.Printf("%sThreads:%s %d | %sTimeout:%s %dm\n\n",
+		ColorPurple, ColorReset, *threadsPtr,
 		ColorPurple, ColorReset, *timeoutPtr)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(*timeoutPtr)*time.Minute)
@@ -122,7 +132,7 @@ func main() {
 			if !active && !passive {
 				active = true
 			}
-			
+
 			domains := runEnumeration(ctx, target, pool, active, passive, *enumWordlist, *verbosePtr)
 			resultsMu.Lock()
 			results = append(results, domains...)
@@ -222,7 +232,7 @@ func runPortScan(ctx context.Context, target, portsList string, detectService bo
 				service = "Unknown"
 			}
 			results = append(results, fmt.Sprintf("%s:%d [%s]", target, port, service))
-			fmt.Printf("%s%s:%d%s %s[%s]%s\n", 
+			fmt.Printf("%s%s:%d%s %s[%s]%s\n",
 				ColorGreen, target, port, ColorReset,
 				ColorYellow, service, ColorReset)
 		} else {
@@ -293,7 +303,7 @@ func runFuzzing(ctx context.Context, baseURL, wordlist string, threads int) []st
 
 func printSummary(results []string, outputFile string) {
 	fmt.Printf("\n%s╔═══════════════════════════════════════════╗%s\n", ColorCyan, ColorReset)
-	fmt.Printf("%s║%s          SCAN SUMMARY                     %s║%s\n", 
+	fmt.Printf("%s║%s          SCAN SUMMARY                     %s║%s\n",
 		ColorCyan, ColorReset, ColorCyan, ColorReset)
 	fmt.Printf("%s╚═══════════════════════════════════════════╝%s\n", ColorCyan, ColorReset)
 	fmt.Printf("%sTotal findings:%s %d\n\n", ColorPurple, ColorReset, len(results))
