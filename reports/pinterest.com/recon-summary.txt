@@ -1,28 +1,33 @@
 [36m═══════════════════════════════════════
 SUBDOMAIN ENUMERATION
 ═══════════════════════════════════════[0m
+[32m[FOUND][0m about.pinterest.com
+[32m[FOUND][0m accounts.pinterest.com
 [32m[FOUND][0m analytics.pinterest.com
 [32m[FOUND][0m api.pinterest.com
 [32m[FOUND][0m ar.pinterest.com
+[32m[FOUND][0m ask.pinterest.com
 [32m[FOUND][0m assets.pinterest.com
-[32m[FOUND][0m at.pinterest.com
+[32m[FOUND][0m au.pinterest.com
 [32m[FOUND][0m blog.pinterest.com
 [32m[FOUND][0m br.pinterest.com
 [32m[FOUND][0m brand.pinterest.com
+[32m[FOUND][0m business.pinterest.com
 [32m[FOUND][0m ca.pinterest.com
 [32m[FOUND][0m career.pinterest.com
 [32m[FOUND][0m careers.pinterest.com
-[32m[FOUND][0m ch.pinterest.com
-[32m[FOUND][0m co.pinterest.com
-[32m[FOUND][0m community.pinterest.com
+[32m[FOUND][0m cl.pinterest.com
+[32m[FOUND][0m commerce.pinterest.com
 [32m[FOUND][0m ct.pinterest.com
 [32m[FOUND][0m cz.pinterest.com
 [32m[FOUND][0m de.pinterest.com
-[32m[FOUND][0m dev-www.testing.pinterest.com
+[32m[FOUND][0m dev-about.pinterest.com
+[32m[FOUND][0m dev-careers.pinterest.com
 [32m[FOUND][0m dev.pinterest.com
+[32m[FOUND][0m developer.pinterest.com
 [32m[FOUND][0m developers.pinterest.com
+[32m[FOUND][0m dk.pinterest.com
 [32m[FOUND][0m es.pinterest.com
-[32m[FOUND][0m eval.pinterest.com
 [32m[FOUND][0m fi.pinterest.com
 [32m[FOUND][0m fr.pinterest.com
 [32m[FOUND][0m help.pinterest.com
@@ -31,10 +36,10 @@ SUBDOMAIN ENUMERATION
 [32m[FOUND][0m in.pinterest.com
 [32m[FOUND][0m it.pinterest.com
 [32m[FOUND][0m jp.pinterest.com
+[32m[FOUND][0m kr.pinterest.com
 [32m[FOUND][0m labs.pinterest.com
 [32m[FOUND][0m log.pinterest.com
 [32m[FOUND][0m mail.pinterest.com
-[32m[FOUND][0m mx.pinterest.com
 [32m[FOUND][0m nl.pinterest.com
 [32m[FOUND][0m ns1.pinterest.com
 [32m[FOUND][0m ns10.pinterest.com
@@ -42,7 +47,6 @@ SUBDOMAIN ENUMERATION
 [32m[FOUND][0m ns12.pinterest.com
 [32m[FOUND][0m ns2.pinterest.com
 [32m[FOUND][0m ns3.pinterest.com
-[32m[FOUND][0m ns4.pinterest.com
 [32m[FOUND][0m ns5.pinterest.com
 [32m[FOUND][0m ns6.pinterest.com
 [32m[FOUND][0m ns7.pinterest.com
@@ -50,24 +54,23 @@ SUBDOMAIN ENUMERATION
 [32m[FOUND][0m ns9.pinterest.com
 [32m[FOUND][0m origin.pinterest.com
 [32m[FOUND][0m partners.pinterest.com
+[32m[FOUND][0m ph.pinterest.com
 [32m[FOUND][0m pl.pinterest.com
 [32m[FOUND][0m post.pinterest.com
 [32m[FOUND][0m pt.pinterest.com
 [32m[FOUND][0m research.pinterest.com
-[32m[FOUND][0m ru.pinterest.com
+[32m[FOUND][0m ro.pinterest.com
+[32m[FOUND][0m se.pinterest.com
 [32m[FOUND][0m sk.pinterest.com
-[32m[FOUND][0m staging-www.testing.pinterest.com
 [32m[FOUND][0m status.pinterest.com
 [32m[FOUND][0m support.pinterest.com
 [32m[FOUND][0m switch.pinterest.com
-[32m[FOUND][0m test-www.testing.pinterest.com
 [32m[FOUND][0m testing.pinterest.com
 [32m[FOUND][0m tr.pinterest.com
+[32m[FOUND][0m try.pinterest.com
 [32m[FOUND][0m uk.pinterest.com
+[32m[FOUND][0m widgets.pinterest.com
 [32m[FOUND][0m www.pinterest.com
-[32m[FOUND][0m www.testing.pinterest.com
-[32m[FOUND][0m www1.testing.pinterest.com
-[32m[FOUND][0m www2.testing.pinterest.com
 
 [36m═══════════════════════════════════════
 PORT SCANNING
@@ -78,7 +81,7 @@ PORT SCANNING
 [36m═══════════════════════════════════════
 DIRECTORY FUZZING
 ═══════════════════════════════════════[0m
-None found
+[32m[FOUND][0m 308 /backup.tar.gz
 
 [36m═══════════════════════════════════════
 WAF DETECTION
@@ -88,209 +91,142 @@ WAF DETECTION
 [36m═══════════════════════════════════════
 HTTP PROBE
 ═══════════════════════════════════════[0m
-[32m[LIVE][0m http://ar.pinterest.com 200 "Pinterest - Argentina"
-[32m[LIVE][0m http://assets.pinterest.com 403
-[32m[LIVE][0m http://blog.pinterest.com 200 "Pinterest Newsroom"
-[32m[LIVE][0m http://br.pinterest.com 200 "Pinterest - Brasil"
-[32m[LIVE][0m http://brand.pinterest.com 200 "Pinterest Brand Guidelines"
-[32m[LIVE][0m http://ch.pinterest.com 200 "Pinterest"
-[32m[LIVE][0m http://co.pinterest.com 200 "Pinterest - Colombia"
-[32m[LIVE][0m http://community.pinterest.com 200 "Pinterest Business Community"
-[32m[LIVE][0m http://ct.pinterest.com 404
-[32m[LIVE][0m http://cz.pinterest.com 200 "Pinterest - Česká republika"
-[32m[LIVE][0m http://de.pinterest.com 200 "Pinterest - Deutschland"
-[32m[LIVE][0m http://dev-www.testing.pinterest.com 404
-[32m[LIVE][0m http://dev.pinterest.com 200 "Pinterest Developers"
-[32m[LIVE][0m http://developers.pinterest.com 200 "Pinterest Developers"
-[32m[LIVE][0m http://es.pinterest.com 200 "Pinterest - España"
-[32m[LIVE][0m http://eval.pinterest.com 404
-[32m[LIVE][0m http://fi.pinterest.com 200 "Pinterest - Suomi"
-[32m[LIVE][0m http://fr.pinterest.com 200 "Pinterest - France"
-[32m[LIVE][0m http://help.pinterest.com 200 "Pinterest Help"
-[32m[LIVE][0m http://id.pinterest.com 200 "Pinterest - Indonesia"
-[32m[LIVE][0m http://ie.pinterest.com 200 "Pinterest"
 [32m[LIVE][0m http://mail.pinterest.com 200 "Pinterest - Sign In"
-[32m[LIVE][0m http://mx.pinterest.com 200 "Pinterest - México"
-[32m[LIVE][0m http://nl.pinterest.com 200 "Pinterest - Nederland"
-[32m[LIVE][0m http://pl.pinterest.com 200 "Pinterest - Polska"
-[32m[LIVE][0m http://post.pinterest.com 404 "404 Not Found"
-[32m[LIVE][0m http://pt.pinterest.com 200 "Pinterest - Portugal"
-[32m[LIVE][0m http://research.pinterest.com 200 "Pinterest Research"
-[32m[LIVE][0m http://ru.pinterest.com 200 "Pinterest – Пинтерест"
-[32m[LIVE][0m http://www2.testing.pinterest.com 404
+[32m[LIVE][0m http://ns10.pinterest.com 409
+[32m[LIVE][0m http://ns11.pinterest.com 409
+[32m[LIVE][0m http://ns12.pinterest.com 409
+[32m[LIVE][0m http://ns9.pinterest.com 409
+[32m[LIVE][0m https://about.pinterest.com 200 "About Pinterest"
+[32m[LIVE][0m https://accounts.pinterest.com 404
+[32m[LIVE][0m https://analytics.pinterest.com 200 "Pinterest Analytics"
+[32m[LIVE][0m https://api.pinterest.com 404
+[32m[LIVE][0m https://ar.pinterest.com 429
+[32m[LIVE][0m https://ask.pinterest.com 429
 [32m[LIVE][0m https://assets.pinterest.com 403
-[32m[LIVE][0m https://at.pinterest.com 200 "Pinterest - Österreich"
+[32m[LIVE][0m https://au.pinterest.com 429
 [32m[LIVE][0m https://blog.pinterest.com 200 "Pinterest Newsroom"
 [32m[LIVE][0m https://br.pinterest.com 200 "Pinterest - Brasil"
 [32m[LIVE][0m https://brand.pinterest.com 200 "Pinterest Brand Guidelines"
+[32m[LIVE][0m https://business.pinterest.com 200 "Pinterest Business"
 [32m[LIVE][0m https://ca.pinterest.com 200 "Pinterest"
-[32m[LIVE][0m https://ch.pinterest.com 200 "Pinterest"
-[32m[LIVE][0m https://co.pinterest.com 200 "Pinterest - Colombia"
-[32m[LIVE][0m https://community.pinterest.com 200 "Pinterest Business Community"
+[32m[LIVE][0m https://career.pinterest.com 200 "Create the career you love | Pinterest Careers"
+[32m[LIVE][0m https://careers.pinterest.com 200 "Create the career you love | Pinterest Careers"
+[32m[LIVE][0m https://cl.pinterest.com 200 "Pinterest - Chile"
+[32m[LIVE][0m https://commerce.pinterest.com 410
 [32m[LIVE][0m https://ct.pinterest.com 404
 [32m[LIVE][0m https://cz.pinterest.com 200 "Pinterest - Česká republika"
-[32m[LIVE][0m https://de.pinterest.com 200 "Pinterest - Deutschland"
-[32m[LIVE][0m https://dev-www.testing.pinterest.com 404
+[32m[LIVE][0m https://de.pinterest.com 429
+[32m[LIVE][0m https://dev-about.pinterest.com 403
+[32m[LIVE][0m https://dev-careers.pinterest.com 500 "Fastly error: unknown domain dev-careers.pinterest.com"
 [32m[LIVE][0m https://dev.pinterest.com 200 "Pinterest Developers"
+[32m[LIVE][0m https://developer.pinterest.com 200 "Pinterest Developers"
 [32m[LIVE][0m https://developers.pinterest.com 200 "Pinterest Developers"
+[32m[LIVE][0m https://dk.pinterest.com 200 "Pinterest - Danmark"
 [32m[LIVE][0m https://es.pinterest.com 200 "Pinterest - España"
-[32m[LIVE][0m https://eval.pinterest.com 404
-[32m[LIVE][0m https://fi.pinterest.com 200 "Pinterest - Suomi"
+[32m[LIVE][0m https://fi.pinterest.com 429
 [32m[LIVE][0m https://fr.pinterest.com 200 "Pinterest - France"
 [32m[LIVE][0m https://help.pinterest.com 200 "Pinterest Help"
-[32m[LIVE][0m https://id.pinterest.com 200 "Pinterest - Indonesia"
-[32m[LIVE][0m https://ie.pinterest.com 200 "Pinterest"
-[32m[LIVE][0m https://in.pinterest.com 200 "Pinterest - India"
-[32m[LIVE][0m https://mx.pinterest.com 200 "Pinterest - México"
+[32m[LIVE][0m https://id.pinterest.com 429
+[32m[LIVE][0m https://ie.pinterest.com 429
+[32m[LIVE][0m https://in.pinterest.com 429
+[32m[LIVE][0m https://it.pinterest.com 429
+[32m[LIVE][0m https://jp.pinterest.com 429
+[32m[LIVE][0m https://kr.pinterest.com 429
+[32m[LIVE][0m https://labs.pinterest.com 200 "Pinterest Labs"
+[32m[LIVE][0m https://log.pinterest.com 200
 [32m[LIVE][0m https://nl.pinterest.com 200 "Pinterest - Nederland"
+[32m[LIVE][0m https://origin.pinterest.com 404
+[32m[LIVE][0m https://partners.pinterest.com 200 "Pinterest Business"
+[32m[LIVE][0m https://ph.pinterest.com 429
 [32m[LIVE][0m https://pinterest.com 200 "Pinterest"
+[32m[LIVE][0m https://pl.pinterest.com 200 "Pinterest - Polska"
 [32m[LIVE][0m https://post.pinterest.com 404 "404 Not Found"
 [32m[LIVE][0m https://pt.pinterest.com 200 "Pinterest - Portugal"
 [32m[LIVE][0m https://research.pinterest.com 200 "Pinterest Research"
-[32m[LIVE][0m https://ru.pinterest.com 200 "Pinterest – Пинтерест"
-[32m[LIVE][0m https://sk.pinterest.com 200 "Pinterest - Slovensko"
+[32m[LIVE][0m https://ro.pinterest.com 429
+[32m[LIVE][0m https://se.pinterest.com 200 "Pinterest - Sverige"
+[32m[LIVE][0m https://sk.pinterest.com 429
+[32m[LIVE][0m https://status.pinterest.com 200 "Pinterest Status"
+[32m[LIVE][0m https://support.pinterest.com 200 "Pinterest Help"
 [32m[LIVE][0m https://switch.pinterest.com 200 "Pinterest Business"
+[32m[LIVE][0m https://testing.pinterest.com 404
+[32m[LIVE][0m https://tr.pinterest.com 200 "Pinterest - Türkiye"
+[32m[LIVE][0m https://try.pinterest.com 429
+[32m[LIVE][0m https://uk.pinterest.com 429
+[32m[LIVE][0m https://widgets.pinterest.com 404
+[32m[LIVE][0m https://www.pinterest.com 200 "Pinterest"
 
 [36m═══════════════════════════════════════
 LIVE HOSTS
 ═══════════════════════════════════════[0m
+[32m[LIVE][0m about.pinterest.com
+[32m[LIVE][0m analytics.pinterest.com
 [32m[LIVE][0m ar.pinterest.com
+[32m[LIVE][0m ask.pinterest.com
 [32m[LIVE][0m assets.pinterest.com
-[32m[LIVE][0m at.pinterest.com
+[32m[LIVE][0m au.pinterest.com
 [32m[LIVE][0m blog.pinterest.com
 [32m[LIVE][0m br.pinterest.com
 [32m[LIVE][0m brand.pinterest.com
+[32m[LIVE][0m business.pinterest.com
 [32m[LIVE][0m ca.pinterest.com
-[32m[LIVE][0m ch.pinterest.com
-[32m[LIVE][0m co.pinterest.com
-[32m[LIVE][0m community.pinterest.com
-[32m[LIVE][0m ct.pinterest.com
+[32m[LIVE][0m career.pinterest.com
+[32m[LIVE][0m careers.pinterest.com
+[32m[LIVE][0m cl.pinterest.com
 [32m[LIVE][0m cz.pinterest.com
 [32m[LIVE][0m de.pinterest.com
-[32m[LIVE][0m dev-www.testing.pinterest.com
+[32m[LIVE][0m dev-about.pinterest.com
 [32m[LIVE][0m dev.pinterest.com
+[32m[LIVE][0m developer.pinterest.com
 [32m[LIVE][0m developers.pinterest.com
+[32m[LIVE][0m dk.pinterest.com
 [32m[LIVE][0m es.pinterest.com
-[32m[LIVE][0m eval.pinterest.com
 [32m[LIVE][0m fi.pinterest.com
 [32m[LIVE][0m fr.pinterest.com
 [32m[LIVE][0m help.pinterest.com
 [32m[LIVE][0m id.pinterest.com
 [32m[LIVE][0m ie.pinterest.com
 [32m[LIVE][0m in.pinterest.com
+[32m[LIVE][0m it.pinterest.com
+[32m[LIVE][0m jp.pinterest.com
+[32m[LIVE][0m kr.pinterest.com
+[32m[LIVE][0m labs.pinterest.com
+[32m[LIVE][0m log.pinterest.com
 [32m[LIVE][0m mail.pinterest.com
-[32m[LIVE][0m mx.pinterest.com
 [32m[LIVE][0m nl.pinterest.com
+[32m[LIVE][0m partners.pinterest.com
+[32m[LIVE][0m ph.pinterest.com
 [32m[LIVE][0m pinterest.com
 [32m[LIVE][0m pl.pinterest.com
-[32m[LIVE][0m post.pinterest.com
 [32m[LIVE][0m pt.pinterest.com
 [32m[LIVE][0m research.pinterest.com
-[32m[LIVE][0m ru.pinterest.com
+[32m[LIVE][0m ro.pinterest.com
+[32m[LIVE][0m se.pinterest.com
 [32m[LIVE][0m sk.pinterest.com
+[32m[LIVE][0m status.pinterest.com
+[32m[LIVE][0m support.pinterest.com
 [32m[LIVE][0m switch.pinterest.com
-[32m[LIVE][0m www2.testing.pinterest.com
+[32m[LIVE][0m tr.pinterest.com
+[32m[LIVE][0m try.pinterest.com
+[32m[LIVE][0m uk.pinterest.com
+[32m[LIVE][0m www.pinterest.com
 
 [36m═══════════════════════════════════════
 TECHNOLOGY DETECTION
 ═══════════════════════════════════════[0m
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
-[32m[TECH][0m Django
+[32m[TECH][0m Django (24 hosts)
+[32m[TECH][0m React (23 hosts)
+[32m[TECH][0m Cloudflare (7 hosts)
+[32m[TECH][0m Apache
 [32m[TECH][0m Nginx
-[32m[TECH][0m Nginx
-[32m[TECH][0m Nginx
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
-[32m[TECH][0m React
 
 [36m╔════════════════════════════════════╗[0m
 [36m║          RECON SUMMARY             ║[0m
 [36m╠════════════════════════════════════╣[0m
-[36m║[0m Subdomains       │ [35m67             [0m[36m║[0m
-[36m║[0m Live Hosts       │ [35m36             [0m[36m║[0m
+[36m║[0m Subdomains       │ [35m59             [0m[36m║[0m
+[36m║[0m Live Hosts       │ [35m51             [0m[36m║[0m
 [36m║[0m Open Ports       │ [35m2              [0m[36m║[0m
-[36m║[0m Paths            │ [35m0              [0m[36m║[0m
-[36m║[0m Technologies     │ [35m3              [0m[36m║[0m
+[36m║[0m Paths            │ [35m1              [0m[36m║[0m
+[36m║[0m Technologies     │ [35m5              [0m[36m║[0m
 [36m║[0m WAF              │ [35mNone           [0m[36m║[0m
 [36m╚════════════════════════════════════╝[0m

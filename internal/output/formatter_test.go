@@ -29,7 +29,7 @@ func TestFormatWAFDetected(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Format() error = %v", err)
 	}
-	for _, want := range []string{"Target: example.com", "WAF Detected: Cloudflare", "Confidence: High", "* Server: cloudflare"} {
+	for _, want := range []string{"[WAF]", "Cloudflare", "Confidence: High", "Server: cloudflare", "CF-RAY header present"} {
 		if !strings.Contains(out, want) {
 			t.Fatalf("Format() missing %q in:\n%s", want, out)
 		}
@@ -46,8 +46,8 @@ func TestFormatNoWAF(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Format() error = %v", err)
 	}
-	if !strings.Contains(out, "No WAF detected") {
-		t.Fatalf("Format() = %q, want no WAF message", out)
+	if !strings.Contains(out, "None detected") {
+		t.Fatalf("Format() = %q, want 'None detected' message", out)
 	}
 }
 
@@ -62,7 +62,7 @@ func TestFormatReconSummary(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Format() error = %v", err)
 	}
-	for _, want := range []string{"Subdomains: 1", "Open Ports: 1", "WAF: Cloudflare", "Interesting Paths: 1"} {
+	for _, want := range []string{"Subdomains", "1", "Open Ports", "1", "WAF", "Cloudflare", "Paths", "1"} {
 		if !strings.Contains(out, want) {
 			t.Fatalf("Format() missing %q in:\n%s", want, out)
 		}

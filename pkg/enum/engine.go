@@ -136,16 +136,9 @@ func (e *Engine) runRecursive(ctx context.Context, foundDomain string, out chan<
 	}
 
 	for recDomain := range recStream {
-		if _, exists := e.seen.Load(recDomain); exists {
-			continue
-		}
-
-		ips, err := e.pool.Lookup(recCtx, recDomain)
-		if err == nil && len(ips) > 0 {
-			if _, loaded := e.seen.LoadOrStore(recDomain, true); !loaded {
-				log.Printf("[RECURSIVE] Found: %s", recDomain)
-				out <- recDomain
-			}
+		if _, loaded := e.seen.LoadOrStore(recDomain, true); !loaded {
+			log.Printf("[RECURSIVE] Found: %s", recDomain)
+			out <- recDomain
 		}
 	}
 }

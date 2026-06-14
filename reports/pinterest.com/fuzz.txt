@@ -4,11 +4,12 @@ GoSpyder Report
 Module: fuzz
 Target: https://pinterest.com
 Status: success
-Scanned At: 2026-06-14T20:32:02Z
-Duration: 5.37s
-Findings: 0
+Scanned At: 2026-06-14T21:46:15Z
+Duration: 8.91s
+Findings: 1
 Metadata:
+- wildcard_filter: true
 - wordlist: wordlists/paths.txt
 
 Directory Findings:
-No interesting paths found
+308 /backup.tar.gz

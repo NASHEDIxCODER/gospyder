@@ -4,8 +4,8 @@ GoSpyder Report
 Module: waf
 Target: https://pinterest.com/
 Status: success
-Scanned At: 2026-06-14T20:32:03Z
-Duration: 0.12s
+Scanned At: 2026-06-14T21:46:15Z
+Duration: 0.11s
 Findings: 0
 
 No WAF detected

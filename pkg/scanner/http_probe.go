@@ -65,6 +65,20 @@ func (m *LiveHostModuleAdapter) Description() string {
 	return "Live host detection from HTTP probe results"
 }
 
+// isLiveStatus returns true if the status code indicates a live host.
+// Live status codes: 200-399, 401, 403, 429
+// Rejected: 404, 410, 500, 502, 503, 504
+func isLiveStatus(statusCode int) bool {
+	switch {
+	case statusCode >= 200 && statusCode <= 399:
+		return true
+	case statusCode == 401, statusCode == 403, statusCode == 429:
+		return true
+	default:
+		return false
+	}
+}
+
 func (m *LiveHostModuleAdapter) Run(ctx context.Context, opts registry.Options) (*registry.Result, error) {
 	target, ok := opts.Flags["target"].(string)
 	if !ok || target == "" {
@@ -85,6 +99,20 @@ func (m *LiveHostModuleAdapter) Run(ctx context.Context, opts registry.Options) 
 		if host == "" || seen[host] {
 			continue
 		}
+
+		statusCode, _ := finding.Metadata["status_code"].(int)
+		if statusCode == 0 {
+			// Try float64 (JSON unmarshaling)
+			if sc, ok := finding.Metadata["status_code"].(float64); ok {
+				statusCode = int(sc)
+			}
+		}
+
+		// Skip non-live status codes
+		if !isLiveStatus(statusCode) {
+			continue
+		}
+
 		seen[host] = true
 		findings = append(findings, registry.Finding{
 			Type:     "live_host",
@@ -92,7 +120,7 @@ func (m *LiveHostModuleAdapter) Run(ctx context.Context, opts registry.Options) 
 			Severity: "info",
 			Metadata: map[string]interface{}{
 				"url":         finding.Metadata["url"],
-				"status_code": finding.Metadata["status_code"],
+				"status_code": statusCode,
 			},
 		})
 	}
@@ -191,31 +219,42 @@ func probeHTTP(ctx context.Context, client *http.Client, targets []string, threa
 	findings := []registry.Finding{}
 
 	for _, target := range targets {
-		for _, probeURL := range candidateURLs(target) {
-			wg.Add(1)
-			go func(url string) {
-				defer wg.Done()
-				select {
-				case sem <- struct{}{}:
-				case <-ctx.Done():
-					return
-				}
-				defer func() { <-sem }()
+		wg.Add(1)
+		go func(tgt string) {
+			defer wg.Done()
+			select {
+			case sem <- struct{}{}:
+			case <-ctx.Done():
+				return
+			}
+			defer func() { <-sem }()
 
-				finding, ok := doHTTPProbe(ctx, client, url)
-				if !ok {
-					return
-				}
+			// HTTPS-first probing: try HTTPS, fallback to HTTP
+			finding, ok := probeHTTPSFirst(ctx, client, tgt)
+			if ok {
 				mu.Lock()
 				findings = append(findings, finding)
 				mu.Unlock()
-			}(probeURL)
-		}
+			}
+		}(target)
 	}
 
 	wg.Wait()
 	sort.Slice(findings, func(i, j int) bool { return findings[i].Value < findings[j].Value })
 	return findings
+}
+
+// probeHTTPSFirst tries HTTPS first, falls back to HTTP if HTTPS fails.
+// Returns the first successful probe result.
+func probeHTTPSFirst(ctx context.Context, client *http.Client, target string) (registry.Finding, bool) {
+	baseURLs := httpsFirstCandidateURLs(target)
+	for _, probeURL := range baseURLs {
+		finding, ok := doHTTPProbe(ctx, client, probeURL)
+		if ok {
+			return finding, true
+		}
+	}
+	return registry.Finding{}, false
 }
 
 func doHTTPProbe(ctx context.Context, client *http.Client, probeURL string) (registry.Finding, bool) {
@@ -367,6 +406,17 @@ func detectTechnologies(ctx context.Context, client *http.Client, probeURL strin
 	return findings
 }
 
+// httpsFirstCandidateURLs tries HTTPS first, falls back to HTTP.
+func httpsFirstCandidateURLs(target string) []string {
+	target = strings.TrimSpace(target)
+	if strings.HasPrefix(target, "http://") || strings.HasPrefix(target, "https://") {
+		return []string{strings.TrimRight(target, "/")}
+	}
+	// HTTPS first, then HTTP fallback
+	return []string{"https://" + target, "http://" + target}
+}
+
+// candidateURLs returns both HTTP and HTTPS variants (used by tech fingerprinting).
 func candidateURLs(target string) []string {
 	target = strings.TrimSpace(target)
 	if strings.HasPrefix(target, "http://") || strings.HasPrefix(target, "https://") {

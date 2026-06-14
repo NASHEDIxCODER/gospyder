@@ -4,72 +4,74 @@ GoSpyder Report
 Module: http
 Target: https://pinterest.com/
 Status: success
-Scanned At: 2026-06-14T20:32:13Z
+Scanned At: 2026-06-14T21:46:25Z
 Duration: 10.00s
-Findings: 62
+Findings: 64
 Metadata:
-- targets_probed: 68
+- targets_probed: 71
 
 HTTP Probe Results:
-http://ar.pinterest.com status=200 title="Pinterest - Argentina" server="" length=923701 response_time=1197ms
-http://assets.pinterest.com status=403 title="" server="" length=263 response_time=829ms
-http://blog.pinterest.com status=200 title="Pinterest Newsroom" server="" length=97442 response_time=1533ms
-http://br.pinterest.com status=200 title="Pinterest - Brasil" server="" length=923760 response_time=461ms
-http://brand.pinterest.com status=200 title="Pinterest Brand Guidelines" server="" length=6396 response_time=1970ms
-http://ch.pinterest.com status=200 title="Pinterest" server="" length=923489 response_time=1514ms
-http://co.pinterest.com status=200 title="Pinterest - Colombia" server="" length=923645 response_time=4915ms
-http://community.pinterest.com status=200 title="Pinterest Business Community" server="nginx" length=22150 response_time=822ms
-http://ct.pinterest.com status=404 title="" server="" length=0 response_time=394ms
-http://cz.pinterest.com status=200 title="Pinterest - Česká republika" server="" length=924370 response_time=1108ms
-http://de.pinterest.com status=200 title="Pinterest - Deutschland" server="" length=923729 response_time=890ms
-http://dev-www.testing.pinterest.com status=404 title="" server="" length=0 response_time=347ms
-http://dev.pinterest.com status=200 title="Pinterest Developers" server="envoy" length=73382 response_time=1377ms
-http://developers.pinterest.com status=200 title="Pinterest Developers" server="envoy" length=73587 response_time=374ms
-http://es.pinterest.com status=200 title="Pinterest - España" server="" length=923520 response_time=1155ms
-http://eval.pinterest.com status=404 title="" server="" length=0 response_time=366ms
-http://fi.pinterest.com status=200 title="Pinterest - Suomi" server="" length=923736 response_time=978ms
-http://fr.pinterest.com status=200 title="Pinterest - France" server="" length=923033 response_time=788ms
-http://help.pinterest.com status=200 title="Pinterest Help" server="" length=134608 response_time=75ms
-http://id.pinterest.com status=200 title="Pinterest - Indonesia" server="" length=923958 response_time=520ms
-http://ie.pinterest.com status=200 title="Pinterest" server="" length=923082 response_time=506ms
-http://mail.pinterest.com status=200 title="Pinterest - Sign In" server="nginx" length=40093 response_time=2861ms
-http://mx.pinterest.com status=200 title="Pinterest - México" server="" length=923683 response_time=790ms
-http://nl.pinterest.com status=200 title="Pinterest - Nederland" server="" length=923667 response_time=1203ms
-http://pl.pinterest.com status=200 title="Pinterest - Polska" server="" length=924008 response_time=924ms
-http://post.pinterest.com status=404 title="404 Not Found" server="" length=150 response_time=1904ms
-http://pt.pinterest.com status=200 title="Pinterest - Portugal" server="" length=923891 response_time=512ms
-http://research.pinterest.com status=200 title="Pinterest Research" server="" length=135987 response_time=2909ms
-http://ru.pinterest.com status=200 title="Pinterest – Пинтерест" server="" length=924043 response_time=820ms
-http://www2.testing.pinterest.com status=404 title="" server="" length=0 response_time=490ms
-https://assets.pinterest.com status=403 title="" server="" length=243 response_time=1489ms
-https://at.pinterest.com status=200 title="Pinterest - Österreich" server="" length=923537 response_time=723ms
-https://blog.pinterest.com status=200 title="Pinterest Newsroom" server="" length=97260 response_time=1820ms
-https://br.pinterest.com status=200 title="Pinterest - Brasil" server="" length=928128 response_time=485ms
-https://brand.pinterest.com status=200 title="Pinterest Brand Guidelines" server="" length=6396 response_time=1834ms
-https://ca.pinterest.com status=200 title="Pinterest" server="" length=923463 response_time=1465ms
-https://ch.pinterest.com status=200 title="Pinterest" server="" length=923598 response_time=581ms
-https://co.pinterest.com status=200 title="Pinterest - Colombia" server="" length=923892 response_time=602ms
-https://community.pinterest.com status=200 title="Pinterest Business Community" server="nginx" length=22150 response_time=982ms
-https://ct.pinterest.com status=404 title="" server="" length=0 response_time=378ms
-https://cz.pinterest.com status=200 title="Pinterest - Česká republika" server="" length=923782 response_time=1461ms
-https://de.pinterest.com status=200 title="Pinterest - Deutschland" server="" length=923157 response_time=487ms
-https://dev-www.testing.pinterest.com status=404 title="" server="" length=0 response_time=421ms
-https://dev.pinterest.com status=200 title="Pinterest Developers" server="envoy" length=73624 response_time=1421ms
-https://developers.pinterest.com status=200 title="Pinterest Developers" server="envoy" length=73338 response_time=374ms
-https://es.pinterest.com status=200 title="Pinterest - España" server="" length=923934 response_time=595ms
-https://eval.pinterest.com status=404 title="" server="" length=0 response_time=379ms
-https://fi.pinterest.com status=200 title="Pinterest - Suomi" server="" length=923689 response_time=1320ms
-https://fr.pinterest.com status=200 title="Pinterest - France" server="" length=923633 response_time=788ms
-https://help.pinterest.com status=200 title="Pinterest Help" server="" length=134608 response_time=80ms
-https://id.pinterest.com status=200 title="Pinterest - Indonesia" server="" length=927960 response_time=594ms
-https://ie.pinterest.com status=200 title="Pinterest" server="" length=923247 response_time=557ms
-https://in.pinterest.com status=200 title="Pinterest - India" server="" length=923372 response_time=591ms
-https://mx.pinterest.com status=200 title="Pinterest - México" server="" length=922815 response_time=816ms
-https://nl.pinterest.com status=200 title="Pinterest - Nederland" server="" length=923833 response_time=545ms
-https://pinterest.com status=200 title="Pinterest" server="" length=923324 response_time=575ms
-https://post.pinterest.com status=404 title="404 Not Found" server="" length=150 response_time=2260ms
-https://pt.pinterest.com status=200 title="Pinterest - Portugal" server="" length=923481 response_time=821ms
-https://research.pinterest.com status=200 title="Pinterest Research" server="" length=135987 response_time=1632ms
-https://ru.pinterest.com status=200 title="Pinterest – Пинтерест" server="" length=923384 response_time=561ms
-https://sk.pinterest.com status=200 title="Pinterest - Slovensko" server="" length=923854 response_time=489ms
-https://switch.pinterest.com status=200 title="Pinterest Business" server="" length=230447 response_time=1890ms
+http://mail.pinterest.com status=200 title="Pinterest - Sign In" server="nginx" length=40075 response_time=2888ms
+http://ns10.pinterest.com status=409 title="" server="cloudflare" length=16 response_time=134ms
+http://ns11.pinterest.com status=409 title="" server="cloudflare" length=16 response_time=141ms
+http://ns12.pinterest.com status=409 title="" server="cloudflare" length=16 response_time=150ms
+http://ns9.pinterest.com status=409 title="" server="cloudflare" length=16 response_time=150ms
+https://about.pinterest.com status=200 title="About Pinterest" server="" length=306571 response_time=3821ms
+https://accounts.pinterest.com status=404 title="" server="" length=97 response_time=689ms
+https://analytics.pinterest.com status=200 title="Pinterest Analytics" server="" length=87902 response_time=5629ms
+https://api.pinterest.com status=404 title="" server="" length=97 response_time=688ms
+https://ar.pinterest.com status=429 title="" server="" length=0 response_time=530ms
+https://ask.pinterest.com status=429 title="" server="" length=0 response_time=859ms
+https://assets.pinterest.com status=403 title="" server="" length=243 response_time=1700ms
+https://au.pinterest.com status=429 title="" server="" length=0 response_time=574ms
+https://blog.pinterest.com status=200 title="Pinterest Newsroom" server="" length=98156 response_time=1952ms
+https://br.pinterest.com status=200 title="Pinterest - Brasil" server="" length=923680 response_time=774ms
+https://brand.pinterest.com status=200 title="Pinterest Brand Guidelines" server="" length=6396 response_time=2628ms
+https://business.pinterest.com status=200 title="Pinterest Business" server="" length=245109 response_time=2520ms
+https://ca.pinterest.com status=200 title="Pinterest" server="" length=923596 response_time=740ms
+https://career.pinterest.com status=200 title="Create the career you love | Pinterest Careers" server="cloudflare" length=57307 response_time=2477ms
+https://careers.pinterest.com status=200 title="Create the career you love | Pinterest Careers" server="cloudflare" length=57307 response_time=2334ms
+https://cl.pinterest.com status=200 title="Pinterest - Chile" server="" length=923727 response_time=788ms
+https://commerce.pinterest.com status=410 title="" server="" length=0 response_time=701ms
+https://ct.pinterest.com status=404 title="" server="" length=0 response_time=551ms
+https://cz.pinterest.com status=200 title="Pinterest - Česká republika" server="" length=923253 response_time=771ms
+https://de.pinterest.com status=429 title="" server="" length=0 response_time=611ms
+https://dev-about.pinterest.com status=403 title="" server="" length=0 response_time=367ms
+https://dev-careers.pinterest.com status=500 title="Fastly error: unknown domain dev-careers.pinterest.com" server="Varnish" length=293 response_time=325ms
+https://dev.pinterest.com status=200 title="Pinterest Developers" server="envoy" length=73310 response_time=1799ms
+https://developer.pinterest.com status=200 title="Pinterest Developers" server="envoy" length=73489 response_time=1750ms
+https://developers.pinterest.com status=200 title="Pinterest Developers" server="envoy" length=73554 response_time=1720ms
+https://dk.pinterest.com status=200 title="Pinterest - Danmark" server="" length=923217 response_time=1205ms
+https://es.pinterest.com status=200 title="Pinterest - España" server="" length=922882 response_time=976ms
+https://fi.pinterest.com status=429 title="" server="" length=0 response_time=701ms
+https://fr.pinterest.com status=200 title="Pinterest - France" server="" length=923274 response_time=2304ms
+https://help.pinterest.com status=200 title="Pinterest Help" server="" length=134608 response_time=439ms
+https://id.pinterest.com status=429 title="" server="" length=0 response_time=701ms
+https://ie.pinterest.com status=429 title="" server="" length=0 response_time=577ms
+https://in.pinterest.com status=429 title="" server="" length=0 response_time=547ms
+https://it.pinterest.com status=429 title="" server="" length=0 response_time=608ms
+https://jp.pinterest.com status=429 title="" server="" length=0 response_time=701ms
+https://kr.pinterest.com status=429 title="" server="" length=0 response_time=551ms
+https://labs.pinterest.com status=200 title="Pinterest Labs" server="" length=150180 response_time=1843ms
+https://log.pinterest.com status=200 title="" server="envoy" length=0 response_time=544ms
+https://nl.pinterest.com status=200 title="Pinterest - Nederland" server="" length=923110 response_time=1182ms
+https://origin.pinterest.com status=404 title="" server="envoy" length=0 response_time=6070ms
+https://partners.pinterest.com status=200 title="Pinterest Business" server="" length=105932 response_time=3387ms
+https://ph.pinterest.com status=429 title="" server="" length=0 response_time=549ms
+https://pinterest.com status=200 title="Pinterest" server="" length=923325 response_time=743ms
+https://pl.pinterest.com status=200 title="Pinterest - Polska" server="" length=923807 response_time=6412ms
+https://post.pinterest.com status=404 title="404 Not Found" server="" length=150 response_time=2592ms
+https://pt.pinterest.com status=200 title="Pinterest - Portugal" server="" length=923156 response_time=782ms
+https://research.pinterest.com status=200 title="Pinterest Research" server="" length=135987 response_time=1975ms
+https://ro.pinterest.com status=429 title="" server="" length=0 response_time=566ms
+https://se.pinterest.com status=200 title="Pinterest - Sverige" server="" length=923092 response_time=764ms
+https://sk.pinterest.com status=429 title="" server="" length=0 response_time=705ms
+https://status.pinterest.com status=200 title="Pinterest Status" server="AtlassianEdge" length=237378 response_time=1148ms
+https://support.pinterest.com status=200 title="Pinterest Help" server="" length=134608 response_time=474ms
+https://switch.pinterest.com status=200 title="Pinterest Business" server="" length=230846 response_time=4168ms
+https://testing.pinterest.com status=404 title="" server="" length=0 response_time=631ms
+https://tr.pinterest.com status=200 title="Pinterest - Türkiye" server="" length=923980 response_time=1125ms
+https://try.pinterest.com status=429 title="" server="" length=0 response_time=711ms
+https://uk.pinterest.com status=429 title="" server="" length=0 response_time=612ms
+https://widgets.pinterest.com status=404 title="" server="" length=97 response_time=563ms
+https://www.pinterest.com status=200 title="Pinterest" server="" length=924094 response_time=711ms

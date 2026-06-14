@@ -249,10 +249,17 @@ func moduleWorkspaceContent(result *registry.Result, formatted string) string {
 	case "ports":
 		b.WriteString("Open Ports:\n")
 		writeFindingLines(&b, result, func(f registry.Finding) string {
-			if f.Description == "" {
-				return f.Value
+			line := f.Value
+			if f.Description != "" {
+				line += " " + f.Description
 			}
-			return fmt.Sprintf("%s %s", f.Value, f.Description)
+			// Include banner if available
+			if len(f.Evidence) > 0 && f.Evidence[0] != "" {
+				line += " (" + f.Evidence[0] + ")"
+			} else if b, ok := f.Metadata["banner"].(string); ok && b != "" {
+				line += " (" + b + ")"
+			}
+			return line
 		}, "No open ports found")
 	case "fuzz":
 		b.WriteString("Directory Findings:\n")

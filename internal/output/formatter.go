@@ -3,6 +3,7 @@ package output
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -137,16 +138,50 @@ func (f *Formatter) formatPorts(result *registry.Result) string {
 			if service == "" {
 				service = "unknown"
 			}
+			banner := ""
+			if len(finding.Evidence) > 0 {
+				banner = finding.Evidence[0]
+			}
+			// If no Evidence field, check Metadata for banner
+			if banner == "" {
+				if m, ok := finding.Metadata["banner"].(string); ok {
+					banner = m
+				}
+			}
+
 			tag := "[OPEN]"
 			if f.colors {
 				tag = ColorGreen + tag + ColorReset
 			}
-			fmt.Fprintf(&b, "%s %-8s %s\n", tag, port, service)
+
+			// Format: [OPEN] 22/tcp   SSH OpenSSH 9.6
+			if banner != "" {
+				bannerCompact := compactBanner(banner)
+				fmt.Fprintf(&b, "%s %-8s %-12s %s\n", tag, port, service, bannerCompact)
+			} else {
+				fmt.Fprintf(&b, "%s %-8s %s\n", tag, port, service)
+			}
 		}
 	} else {
 		fmt.Fprintln(&b, "None found")
 	}
 	return b.String()
+}
+
+// compactBanner returns a short, display-friendly version of a banner.
+func compactBanner(banner string) string {
+	// Take the first line only
+	if idx := strings.Index(banner, "\n"); idx >= 0 {
+		banner = banner[:idx]
+	}
+	// Remove HTTP prefix noise
+	banner = strings.TrimPrefix(banner, "HTTP/")
+	banner = strings.TrimSpace(banner)
+	// Truncate if too long
+	if len(banner) > 60 {
+		banner = banner[:60] + "..."
+	}
+	return banner
 }
 
 func (f *Formatter) formatFuzz(result *registry.Result) string {
@@ -247,17 +282,52 @@ func (f *Formatter) formatTech(result *registry.Result) string {
 	var b strings.Builder
 	b.WriteString(f.formatBanner("TECHNOLOGY DETECTION"))
 	if len(result.Findings) > 0 {
-		for _, finding := range sortedFindings(result.Findings) {
+		// Aggregate counts
+		counts := make(map[string]int)
+		for _, finding := range result.Findings {
+			counts[finding.Value]++
+		}
+
+		// Sort by frequency
+		type techCount struct {
+			Name  string
+			Count int
+		}
+		var sortedTechs []techCount
+		for name, count := range counts {
+			sortedTechs = append(sortedTechs, techCount{Name: name, Count: count})
+		}
+		sort.Slice(sortedTechs, func(i, j int) bool {
+			if sortedTechs[i].Count == sortedTechs[j].Count {
+				return sortedTechs[i].Name < sortedTechs[j].Name
+			}
+			return sortedTechs[i].Count > sortedTechs[j].Count
+		})
+
+		for _, tech := range sortedTechs {
 			tag := "[TECH]"
 			if f.colors {
 				tag = ColorGreen + tag + ColorReset
 			}
-			fmt.Fprintf(&b, "%s %s\n", tag, finding.Value)
+			if tech.Count > 1 {
+				fmt.Fprintf(&b, "%s %s (%d hosts)\n", tag, tech.Name, tech.Count)
+			} else {
+				fmt.Fprintf(&b, "%s %s\n", tag, tech.Name)
+			}
 		}
 	} else {
 		fmt.Fprintln(&b, "None found")
 	}
 	return b.String()
+}
+
+// nsNameFilter matches infrastructure name server patterns like ns1, ns2, ns3, etc.
+var nsNameFilter = regexp.MustCompile(`^ns[0-9]+\.`)
+
+// isInfrastructureName returns true if the domain appears to be infrastructure
+// (e.g., nameservers like ns1.example.com, ns2.example.com).
+func isInfrastructureName(domain string) bool {
+	return nsNameFilter.MatchString(domain)
 }
 
 func (f *Formatter) formatReconResults(results []*registry.Result) string {
@@ -278,7 +348,15 @@ func (f *Formatter) formatReconResults(results []*registry.Result) string {
 
 		switch result.Module {
 		case "enum":
-			summary["Subdomains"] = len(result.Findings)
+			// Count only non-infrastructure findings for accurate summary.
+			// DNS infrastructure like ns1, ns2 should not dominate recon stats.
+			filteredCount := 0
+			for _, finding := range result.Findings {
+				if !isInfrastructureName(finding.Value) {
+					filteredCount++
+				}
+			}
+			summary["Subdomains"] = filteredCount
 		case "ports":
 			summary["Open Ports"] = len(result.Findings)
 		case "fuzz":

@@ -4,12 +4,13 @@ GoSpyder Report
 Module: ports
 Target: pinterest.com
 Status: success
-Scanned At: 2026-06-14T20:31:57Z
-Duration: 3.00s
+Scanned At: 2026-06-14T21:46:06Z
+Duration: 9.20s
 Findings: 2
 Metadata:
+- ports_open: 2
 - ports_scanned: 8
-- retries: 0
+- retries: 2
 - scan_host: pinterest.com
 
 Open Ports:
