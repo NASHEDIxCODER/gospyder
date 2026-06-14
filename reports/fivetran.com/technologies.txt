@@ -1,0 +1,34 @@
+GoSpyder Report
+===============
+
+Module: tech
+Target: http://fivetran.com
+Status: success
+Scanned At: 2026-06-14T18:55:31Z
+Duration: 1.73s
+Findings: 21
+Metadata:
+- targets_checked: 95
+
+Technology Fingerprints:
+Apache http://staging.fivetran.com
+Apache https://staging.fivetran.com
+Cloudflare http://beta.fivetran.com
+Cloudflare http://blog.fivetran.com
+Cloudflare http://fivetran.com
+Cloudflare http://get.fivetran.com
+Cloudflare http://go.fivetran.com
+Cloudflare http://resources.fivetran.com
+Cloudflare http://support.fivetran.com
+Cloudflare http://www.fivetran.com
+Cloudflare https://beta.fivetran.com
+Cloudflare https://blog.fivetran.com
+Cloudflare https://get.fivetran.com
+Cloudflare https://go.fivetran.com
+Cloudflare https://resources.fivetran.com
+Cloudflare https://support.fivetran.com
+Cloudflare https://www.fivetran.com
+Nginx http://partners.fivetran.com
+Nginx https://partners.fivetran.com
+Vue http://partners.fivetran.com
+Vue https://partners.fivetran.com

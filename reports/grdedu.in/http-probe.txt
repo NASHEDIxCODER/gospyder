@@ -4,24 +4,22 @@ GoSpyder Report
 Module: http
 Target: http://grdedu.in
 Status: success
-Scanned At: 2026-06-14T18:38:17Z
+Scanned At: 2026-06-14T18:49:49Z
 Duration: 10.00s
-Findings: 14
+Findings: 12
 Metadata:
-- targets_probed: 18
+- targets_probed: 20
 
 HTTP Probe Results:
-http://adm.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=564ms
-http://app.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=663ms
-http://grdedu.in status=200 title="Top Colleges in Dehradun, Best Colleges in Dehradun" server="Apache" length=232865 response_time=735ms
-http://guest.grdedu.in status=200 title="IIS Windows Server" server="Microsoft-IIS/10.0" length=703 response_time=311ms
-http://mail.grdedu.in status=200 title="GRD University" server="Apache" length=233365 response_time=945ms
-http://play.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=573ms
-http://service.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=576ms
-http://user.grdedu.in status=200 title="IIS Windows Server" server="Microsoft-IIS/10.0" length=703 response_time=313ms
-http://webdisk.grdedu.in status=401 title="" server="cPanel" length=36 response_time=541ms
-http://www.grdedu.in status=200 title="Top Colleges in Dehradun, Best Colleges in Dehradun" server="Apache" length=232865 response_time=891ms
-https://mail.grdedu.in status=200 title="GRD University" server="Apache" length=233365 response_time=848ms
-https://staging.grdedu.in status=410 title="410 Gone" server="Apache" length=436 response_time=534ms
-https://webdisk.grdedu.in status=401 title="" server="cPanel" length=36 response_time=573ms
-https://www.grdedu.in status=200 title="Top Colleges in Dehradun, Best Colleges in Dehradun" server="Apache" length=232865 response_time=983ms
+http://adm.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=626ms
+http://admissions.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="cloudflare" length=39399 response_time=326ms
+http://app.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=538ms
+http://apply.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="Apache" length=188518 response_time=1734ms
+http://click.grdedu.in status=200 title="Leadsquared - Page Not Found" server="Microsoft-IIS/10.0" length=3826 response_time=310ms
+http://guest.grdedu.in status=200 title="IIS Windows Server" server="Microsoft-IIS/10.0" length=703 response_time=216ms
+http://play.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=476ms
+http://service.grdedu.in status=200 title="My blog - Just another WordPress site" server="Apache" length=39191 response_time=528ms
+http://user.grdedu.in status=200 title="IIS Windows Server" server="Microsoft-IIS/10.0" length=703 response_time=269ms
+https://admissions.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="cloudflare" length=39399 response_time=296ms
+https://apply.grdedu.in status=200 title="GRD Institute of Management and Technology, Dehradun" server="Apache" length=188518 response_time=482ms
+https://click.grdedu.in status=200 title="Leadsquared - Page Not Found" server="Microsoft-IIS/10.0" length=3826 response_time=341ms

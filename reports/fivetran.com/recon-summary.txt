@@ -1,0 +1,239 @@
+Target: fivetran.com
+
+Subdomains: 48
+Live Hosts: 48
+Open Ports: 2
+WAF: None
+Interesting Paths: 0
+HTTP Responses: 95
+Technologies: 21
+
+Findings
+--------
+
+Subdomains:
+- admin-blogx.dev.fivetran.com
+- admin-webdisk.dev.fivetran.com
+- admin-www.dev.fivetran.com
+- api.fivetran.com
+- autoconfig.dev.fivetran.com
+- autoconfig1.dev.fivetran.com
+- autodiscover.dev.fivetran.com
+- beta.fivetran.com
+- blog.fivetran.com
+- blogx-admin.dev.fivetran.com
+- blogx-dev.dev.fivetran.com
+- blogx-test.dev.fivetran.com
+- blogx.dev.fivetran.com
+- blogx1.dev.fivetran.com
+- blogx2.dev.fivetran.com
+- dev-blogx.dev.fivetran.com
+- dev-webdisk.dev.fivetran.com
+- dev-www.dev.fivetran.com
+- docs.fivetran.com
+- events.fivetran.com
+- get.fivetran.com
+- go.fivetran.com
+- learn.fivetran.com
+- partners.fivetran.com
+- resources.fivetran.com
+- shop.fivetran.com
+- staging-blogx.dev.fivetran.com
+- staging-webdisk.dev.fivetran.com
+- staging-www.dev.fivetran.com
+- staging.fivetran.com
+- support.fivetran.com
+- test-blogx.dev.fivetran.com
+- test-webdisk.dev.fivetran.com
+- test-www.dev.fivetran.com
+- upload.fivetran.com
+- webdisk-admin.dev.fivetran.com
+- webdisk-dev.dev.fivetran.com
+- webdisk-test.dev.fivetran.com
+- webdisk.dev.fivetran.com
+- webdisk1.dev.fivetran.com
+- webdisk2.dev.fivetran.com
+- www-admin.dev.fivetran.com
+- www-dev.dev.fivetran.com
+- www-test.dev.fivetran.com
+- www.dev.fivetran.com
+- www.fivetran.com
+- www1.dev.fivetran.com
+- www2.dev.fivetran.com
+
+Open Ports:
+- 443/tcp HTTPS
+- 80/tcp HTTP
+
+Directory Findings:
+None
+
+HTTP Probe:
+- http://admin-blogx.dev.fivetran.com 404 ""
+- http://admin-webdisk.dev.fivetran.com 404 ""
+- http://admin-www.dev.fivetran.com 404 ""
+- http://api.fivetran.com 404 ""
+- http://autoconfig.dev.fivetran.com 404 ""
+- http://autoconfig1.dev.fivetran.com 404 ""
+- http://autodiscover.dev.fivetran.com 404 ""
+- http://beta.fivetran.com 200 "Fivetran | Automated data movement platform"
+- http://blog.fivetran.com 200 "Blog | Ideas to Inform Your Data Strategy | Fivetran"
+- http://blogx-admin.dev.fivetran.com 404 ""
+- http://blogx-dev.dev.fivetran.com 404 ""
+- http://blogx-test.dev.fivetran.com 404 ""
+- http://blogx.dev.fivetran.com 404 ""
+- http://blogx1.dev.fivetran.com 404 ""
+- http://blogx2.dev.fivetran.com 404 ""
+- http://dev-blogx.dev.fivetran.com 404 ""
+- http://dev-webdisk.dev.fivetran.com 404 ""
+- http://dev-www.dev.fivetran.com 404 ""
+- http://docs.fivetran.com 200 "Implementation & Setup Documentation | Fivetran data pipelines"
+- http://events.fivetran.com 404 "Error 404 Not Found"
+- http://fivetran.com 200 "Fivetran | Automated data movement platform"
+- http://get.fivetran.com 200 "Fivetran | Automated data movement platform"
+- http://go.fivetran.com 200 "Fivetran | The Platform for data movement, management, and transformation"
+- http://learn.fivetran.com 200 "Loading"
+- http://partners.fivetran.com 200 "Find the right Fivetran Expert"
+- http://resources.fivetran.com 200 "Fivetran | Automated data movement platform"
+- http://shop.fivetran.com 200 ""
+- http://staging-blogx.dev.fivetran.com 404 ""
+- http://staging-webdisk.dev.fivetran.com 404 ""
+- http://staging-www.dev.fivetran.com 404 ""
+- http://staging.fivetran.com 200 "Sign in - Google Accounts"
+- http://support.fivetran.com 200 "Fivetran Support"
+- http://test-blogx.dev.fivetran.com 404 ""
+- http://test-webdisk.dev.fivetran.com 404 ""
+- http://test-www.dev.fivetran.com 404 ""
+- http://webdisk-admin.dev.fivetran.com 404 ""
+- http://webdisk-dev.dev.fivetran.com 404 ""
+- http://webdisk-test.dev.fivetran.com 404 ""
+- http://webdisk.dev.fivetran.com 404 ""
+- http://webdisk1.dev.fivetran.com 404 ""
+- http://webdisk2.dev.fivetran.com 404 ""
+- http://www-admin.dev.fivetran.com 404 ""
+- http://www-dev.dev.fivetran.com 404 ""
+- http://www-test.dev.fivetran.com 404 ""
+- http://www.dev.fivetran.com 404 ""
+- http://www.fivetran.com 200 "Fivetran | Automated data movement platform"
+- http://www1.dev.fivetran.com 404 ""
+- http://www2.dev.fivetran.com 404 ""
+- https://admin-blogx.dev.fivetran.com 404 ""
+- https://admin-webdisk.dev.fivetran.com 404 ""
+- https://admin-www.dev.fivetran.com 404 ""
+- https://api.fivetran.com 404 ""
+- https://autoconfig.dev.fivetran.com 404 ""
+- https://autoconfig1.dev.fivetran.com 404 ""
+- https://autodiscover.dev.fivetran.com 404 ""
+- https://beta.fivetran.com 200 "Fivetran | Automated data movement platform"
+- https://blog.fivetran.com 200 "Blog | Ideas to Inform Your Data Strategy | Fivetran"
+- https://blogx-admin.dev.fivetran.com 404 ""
+- https://blogx-dev.dev.fivetran.com 404 ""
+- https://blogx-test.dev.fivetran.com 404 ""
+- https://blogx.dev.fivetran.com 404 ""
+- https://blogx1.dev.fivetran.com 404 ""
+- https://blogx2.dev.fivetran.com 404 ""
+- https://dev-blogx.dev.fivetran.com 404 ""
+- https://dev-webdisk.dev.fivetran.com 404 ""
+- https://dev-www.dev.fivetran.com 404 ""
+- https://docs.fivetran.com 200 "Implementation & Setup Documentation | Fivetran data pipelines"
+- https://events.fivetran.com 404 "Error 404 Not Found"
+- https://get.fivetran.com 200 "Fivetran | Automated data movement platform"
+- https://go.fivetran.com 200 "Fivetran | The Platform for data movement, management, and transformation"
+- https://learn.fivetran.com 200 "Loading"
+- https://partners.fivetran.com 200 "Find the right Fivetran Expert"
+- https://resources.fivetran.com 200 "Fivetran | Automated data movement platform"
+- https://shop.fivetran.com 200 ""
+- https://staging-blogx.dev.fivetran.com 404 ""
+- https://staging-webdisk.dev.fivetran.com 404 ""
+- https://staging-www.dev.fivetran.com 404 ""
+- https://staging.fivetran.com 200 "Sign in - Google Accounts"
+- https://support.fivetran.com 200 "Fivetran Support"
+- https://test-blogx.dev.fivetran.com 404 ""
+- https://test-webdisk.dev.fivetran.com 404 ""
+- https://test-www.dev.fivetran.com 404 ""
+- https://webdisk-admin.dev.fivetran.com 404 ""
+- https://webdisk-dev.dev.fivetran.com 404 ""
+- https://webdisk-test.dev.fivetran.com 404 ""
+- https://webdisk.dev.fivetran.com 404 ""
+- https://webdisk1.dev.fivetran.com 404 ""
+- https://webdisk2.dev.fivetran.com 404 ""
+- https://www-admin.dev.fivetran.com 404 ""
+- https://www-dev.dev.fivetran.com 404 ""
+- https://www-test.dev.fivetran.com 404 ""
+- https://www.dev.fivetran.com 404 ""
+- https://www.fivetran.com 200 "Fivetran | Automated data movement platform"
+- https://www1.dev.fivetran.com 404 ""
+- https://www2.dev.fivetran.com 404 ""
+
+Live Hosts:
+- admin-blogx.dev.fivetran.com
+- admin-webdisk.dev.fivetran.com
+- admin-www.dev.fivetran.com
+- api.fivetran.com
+- autoconfig.dev.fivetran.com
+- autoconfig1.dev.fivetran.com
+- autodiscover.dev.fivetran.com
+- beta.fivetran.com
+- blog.fivetran.com
+- blogx-admin.dev.fivetran.com
+- blogx-dev.dev.fivetran.com
+- blogx-test.dev.fivetran.com
+- blogx.dev.fivetran.com
+- blogx1.dev.fivetran.com
+- blogx2.dev.fivetran.com
+- dev-blogx.dev.fivetran.com
+- dev-webdisk.dev.fivetran.com
+- dev-www.dev.fivetran.com
+- docs.fivetran.com
+- events.fivetran.com
+- fivetran.com
+- get.fivetran.com
+- go.fivetran.com
+- learn.fivetran.com
+- partners.fivetran.com
+- resources.fivetran.com
+- shop.fivetran.com
+- staging-blogx.dev.fivetran.com
+- staging-webdisk.dev.fivetran.com
+- staging-www.dev.fivetran.com
+- staging.fivetran.com
+- support.fivetran.com
+- test-blogx.dev.fivetran.com
+- test-webdisk.dev.fivetran.com
+- test-www.dev.fivetran.com
+- webdisk-admin.dev.fivetran.com
+- webdisk-dev.dev.fivetran.com
+- webdisk-test.dev.fivetran.com
+- webdisk.dev.fivetran.com
+- webdisk1.dev.fivetran.com
+- webdisk2.dev.fivetran.com
+- www-admin.dev.fivetran.com
+- www-dev.dev.fivetran.com
+- www-test.dev.fivetran.com
+- www.dev.fivetran.com
+- www.fivetran.com
+- www1.dev.fivetran.com
+- www2.dev.fivetran.com
+
+Technologies:
+- Apache http://staging.fivetran.com
+- Apache https://staging.fivetran.com
+- Cloudflare http://beta.fivetran.com
+- Cloudflare http://blog.fivetran.com
+- Cloudflare http://fivetran.com
+- Cloudflare http://get.fivetran.com
+- Cloudflare http://go.fivetran.com
+- Cloudflare http://resources.fivetran.com
+- Cloudflare http://support.fivetran.com
+- Cloudflare http://www.fivetran.com
+- Cloudflare https://beta.fivetran.com
+- Cloudflare https://blog.fivetran.com
+- Cloudflare https://get.fivetran.com
+- Cloudflare https://go.fivetran.com
+- Cloudflare https://resources.fivetran.com
+- Cloudflare https://support.fivetran.com
+- Cloudflare https://www.fivetran.com
+- Nginx http://partners.fivetran.com
+- Nginx https://partners.fivetran.com
+- Vue http://partners.fivetran.com
+- Vue https://partners.fivetran.com

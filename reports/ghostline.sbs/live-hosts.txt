@@ -1,0 +1,14 @@
+GoSpyder Report
+===============
+
+Module: live
+Target: ghostline.sbs
+Status: success
+Scanned At: 2026-06-14T18:58:32Z
+Duration: 0.00s
+Findings: 1
+Metadata:
+- source: http_probe
+
+Live Hosts:
+www.ghostline.sbs

@@ -4,28 +4,30 @@ GoSpyder Report
 Module: enum
 Target: grdedu.in
 Status: success
-Scanned At: 2026-06-14T18:37:58Z
+Scanned At: 2026-06-14T18:49:00Z
 Duration: 10.01s
-Findings: 17
+Findings: 19
 Metadata:
 - mode: active
 - wordlist: wordlists/subdomains.txt
 
 Subdomains:
-mail.grdedu.in
 www.grdedu.in
-admin.grdedu.in
-play.grdedu.in
-service.grdedu.in
-user.grdedu.in
-cpanel.grdedu.in
-erp.grdedu.in
 whm.grdedu.in
-adm.grdedu.in
 app.grdedu.in
-webdisk.grdedu.in
-staging.grdedu.in
 student.grdedu.in
+webdisk.grdedu.in
+service.grdedu.in
+click.grdedu.in
+staging.grdedu.in
+user.grdedu.in
+play.grdedu.in
+adm.grdedu.in
+mail.grdedu.in
+erp.grdedu.in
+cpanel.grdedu.in
 www.admin.grdedu.in
+admissions.grdedu.in
+admin.grdedu.in
 guest.grdedu.in
-webdisk.admin.grdedu.in
+apply.grdedu.in

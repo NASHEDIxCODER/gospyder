@@ -4,21 +4,19 @@ GoSpyder Report
 Module: live
 Target: grdedu.in
 Status: success
-Scanned At: 2026-06-14T18:38:17Z
+Scanned At: 2026-06-14T18:49:49Z
 Duration: 0.00s
-Findings: 11
+Findings: 9
 Metadata:
 - source: http_probe
 
 Live Hosts:
 adm.grdedu.in
+admissions.grdedu.in
 app.grdedu.in
-grdedu.in
+apply.grdedu.in
+click.grdedu.in
 guest.grdedu.in
-mail.grdedu.in
 play.grdedu.in
 service.grdedu.in
-staging.grdedu.in
 user.grdedu.in
-webdisk.grdedu.in
-www.grdedu.in

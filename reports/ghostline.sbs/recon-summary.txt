@@ -1,0 +1,31 @@
+Target: ghostline.sbs
+
+Subdomains: 1
+Live Hosts: 1
+Open Ports: 2
+WAF: None
+Interesting Paths: 0
+HTTP Responses: 1
+Technologies: 1
+
+Findings
+--------
+
+Subdomains:
+- www.ghostline.sbs
+
+Open Ports:
+- 443/tcp HTTPS
+- 8080/tcp HTTP-alt
+
+Directory Findings:
+None
+
+HTTP Probe:
+- https://www.ghostline.sbs 200 "GhostLine — Anonymous encrypted chat rooms without signup"
+
+Live Hosts:
+- www.ghostline.sbs
+
+Technologies:
+- Nginx https://www.ghostline.sbs

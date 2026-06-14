@@ -1,0 +1,108 @@
+GoSpyder Report
+===============
+
+Module: http
+Target: http://fivetran.com
+Status: success
+Scanned At: 2026-06-14T18:55:29Z
+Duration: 10.00s
+Findings: 95
+Metadata:
+- targets_probed: 49
+
+HTTP Probe Results:
+http://admin-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=651ms
+http://admin-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=603ms
+http://admin-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=699ms
+http://api.fivetran.com status=404 title="" server="" length=50 response_time=795ms
+http://autoconfig.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=558ms
+http://autoconfig1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=675ms
+http://autodiscover.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=641ms
+http://beta.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=1039ms
+http://blog.fivetran.com status=200 title="Blog | Ideas to Inform Your Data Strategy | Fivetran" server="cloudflare" length=67307 response_time=1487ms
+http://blogx-admin.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=663ms
+http://blogx-dev.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=655ms
+http://blogx-test.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=660ms
+http://blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=584ms
+http://blogx1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=672ms
+http://blogx2.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=698ms
+http://dev-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=659ms
+http://dev-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=698ms
+http://dev-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=602ms
+http://docs.fivetran.com status=200 title="Implementation & Setup Documentation | Fivetran data pipelines" server="" length=88271 response_time=1689ms
+http://events.fivetran.com status=404 title="Error 404 Not Found" server="istio-envoy" length=347 response_time=844ms
+http://fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=1248ms
+http://get.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=838ms
+http://go.fivetran.com status=200 title="Fivetran | The Platform for data movement, management, and transformation" server="cloudflare" length=24447 response_time=536ms
+http://learn.fivetran.com status=200 title="Loading" server="" length=14566 response_time=1282ms
+http://partners.fivetran.com status=200 title="Find the right Fivetran Expert" server="nginx" length=609892 response_time=2269ms
+http://resources.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=978ms
+http://shop.fivetran.com status=200 title="" server="" length=110 response_time=1353ms
+http://staging-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=622ms
+http://staging-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=583ms
+http://staging-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=699ms
+http://staging.fivetran.com status=200 title="Sign in - Google Accounts" server="ESF" length=945752 response_time=1599ms
+http://support.fivetran.com status=200 title="Fivetran Support" server="cloudflare" length=30501 response_time=1203ms
+http://test-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=660ms
+http://test-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=654ms
+http://test-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=567ms
+http://webdisk-admin.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=576ms
+http://webdisk-dev.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=588ms
+http://webdisk-test.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=614ms
+http://webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=584ms
+http://webdisk1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=705ms
+http://webdisk2.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=578ms
+http://www-admin.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=590ms
+http://www-dev.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=588ms
+http://www-test.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=696ms
+http://www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=607ms
+http://www.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=596ms
+http://www1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=601ms
+http://www2.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=656ms
+https://admin-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=814ms
+https://admin-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=988ms
+https://admin-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=962ms
+https://api.fivetran.com status=404 title="" server="" length=50 response_time=795ms
+https://autoconfig.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=957ms
+https://autoconfig1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=962ms
+https://autodiscover.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=794ms
+https://beta.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=1315ms
+https://blog.fivetran.com status=200 title="Blog | Ideas to Inform Your Data Strategy | Fivetran" server="cloudflare" length=67307 response_time=1486ms
+https://blogx-admin.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=931ms
+https://blogx-dev.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=813ms
+https://blogx-test.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=932ms
+https://blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=795ms
+https://blogx1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=814ms
+https://blogx2.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=831ms
+https://dev-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=917ms
+https://dev-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=980ms
+https://dev-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=985ms
+https://docs.fivetran.com status=200 title="Implementation & Setup Documentation | Fivetran data pipelines" server="" length=88271 response_time=2210ms
+https://events.fivetran.com status=404 title="Error 404 Not Found" server="istio-envoy" length=347 response_time=844ms
+https://get.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=675ms
+https://go.fivetran.com status=200 title="Fivetran | The Platform for data movement, management, and transformation" server="cloudflare" length=24447 response_time=541ms
+https://learn.fivetran.com status=200 title="Loading" server="" length=14566 response_time=1280ms
+https://partners.fivetran.com status=200 title="Find the right Fivetran Expert" server="nginx" length=608741 response_time=2272ms
+https://resources.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=731ms
+https://shop.fivetran.com status=200 title="" server="" length=110 response_time=1096ms
+https://staging-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=793ms
+https://staging-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=946ms
+https://staging-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=932ms
+https://staging.fivetran.com status=200 title="Sign in - Google Accounts" server="ESF" length=944244 response_time=1745ms
+https://support.fivetran.com status=200 title="Fivetran Support" server="cloudflare" length=30501 response_time=1186ms
+https://test-blogx.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=933ms
+https://test-webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=808ms
+https://test-www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=901ms
+https://webdisk-admin.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=818ms
+https://webdisk-dev.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=828ms
+https://webdisk-test.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=1012ms
+https://webdisk.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=809ms
+https://webdisk1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=845ms
+https://webdisk2.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=948ms
+https://www-admin.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=927ms
+https://www-dev.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=982ms
+https://www-test.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=860ms
+https://www.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=977ms
+https://www.fivetran.com status=200 title="Fivetran | Automated data movement platform" server="cloudflare" length=128405 response_time=238ms
+https://www1.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=977ms
+https://www2.dev.fivetran.com status=404 title="" server="istio-envoy" length=0 response_time=825ms

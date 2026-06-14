@@ -1,0 +1,14 @@
+GoSpyder Report
+===============
+
+Module: fuzz
+Target: http://ghostline.sbs
+Status: success
+Scanned At: 2026-06-14T18:58:30Z
+Duration: 4.87s
+Findings: 0
+Metadata:
+- wordlist: wordlists/paths.txt
+
+Directory Findings:
+No interesting paths found

@@ -1,0 +1,14 @@
+GoSpyder Report
+===============
+
+Module: fuzz
+Target: http://fivetran.com
+Status: success
+Scanned At: 2026-06-14T18:55:16Z
+Duration: 5.67s
+Findings: 0
+Metadata:
+- wordlist: wordlists/paths.txt
+
+Directory Findings:
+No interesting paths found

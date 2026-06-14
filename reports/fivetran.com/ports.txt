@@ -2,15 +2,15 @@ GoSpyder Report
 ===============
 
 Module: ports
-Target: grdedu.in
+Target: fivetran.com
 Status: success
-Scanned At: 2026-06-14T18:49:03Z
+Scanned At: 2026-06-14T18:55:11Z
 Duration: 3.00s
 Findings: 2
 Metadata:
 - ports_scanned: 8
 - retries: 0
-- scan_host: grdedu.in
+- scan_host: fivetran.com
 
 Open Ports:
 80/tcp HTTP

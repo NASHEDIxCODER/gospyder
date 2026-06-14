@@ -1,0 +1,47 @@
+{
+  "target": "ghostline.sbs",
+  "created": "2026-06-14T18:58:33.069523649Z",
+  "last_updated": "2026-06-14T18:58:33.112267166Z",
+  "modules": {
+    "enum": {
+      "last_run": "2026-06-14T18:58:33.06978207Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/subdomains.txt"
+    },
+    "fuzz": {
+      "last_run": "2026-06-14T18:58:33.11145357Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/fuzz.txt"
+    },
+    "http": {
+      "last_run": "2026-06-14T18:58:33.111882224Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/http-probe.txt"
+    },
+    "live": {
+      "last_run": "2026-06-14T18:58:33.112006951Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/live-hosts.txt"
+    },
+    "ports": {
+      "last_run": "2026-06-14T18:58:33.110652498Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/ports.txt"
+    },
+    "recon": {
+      "last_run": "2026-06-14T18:58:33.112266985Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/recon-summary.txt"
+    },
+    "tech": {
+      "last_run": "2026-06-14T18:58:33.112137109Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/technologies.txt"
+    },
+    "waf": {
+      "last_run": "2026-06-14T18:58:33.111746697Z",
+      "status": "success",
+      "result_file": "reports/ghostline.sbs/waf.txt"
+    }
+  }
+}

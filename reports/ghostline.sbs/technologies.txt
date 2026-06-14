@@ -1,0 +1,14 @@
+GoSpyder Report
+===============
+
+Module: tech
+Target: http://ghostline.sbs
+Status: success
+Scanned At: 2026-06-14T18:58:33Z
+Duration: 0.24s
+Findings: 1
+Metadata:
+- targets_checked: 1
+
+Technology Fingerprints:
+Nginx https://www.ghostline.sbs

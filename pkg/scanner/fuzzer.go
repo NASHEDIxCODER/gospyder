@@ -75,9 +75,12 @@ func (f *Fuzzer) Scan(ctx context.Context, baseURL, wordlist string, threads int
 			defer resp.Body.Close()
 
 			// Catch found pages (2xx, 3xx), auth pages (401, 403), and redirects
-			if (resp.StatusCode >= 200 && resp.StatusCode < 400) || resp.StatusCode == 401 || resp.StatusCode == 403 {
+			switch resp.StatusCode {
+
+			case 200, 204, 401, 403, 405:
 				mu.Lock()
-				found = append(found, fmt.Sprintf("%s [%d]", url, resp.StatusCode))
+				found = append(found,
+					fmt.Sprintf("%s [%d]", url, resp.StatusCode))
 				mu.Unlock()
 			}
 		}(path)

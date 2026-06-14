@@ -1,0 +1,15 @@
+GoSpyder Report
+===============
+
+Module: enum
+Target: ghostline.sbs
+Status: success
+Scanned At: 2026-06-14T18:58:22Z
+Duration: 10.01s
+Findings: 1
+Metadata:
+- mode: active
+- wordlist: wordlists/subdomains.txt
+
+Subdomains:
+www.ghostline.sbs
