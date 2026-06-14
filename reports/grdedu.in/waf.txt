@@ -1,0 +1,11 @@
+GoSpyder Report
+===============
+
+Module: waf
+Target: http://grdedu.in
+Status: success
+Scanned At: 2026-06-14T18:38:07Z
+Duration: 0.76s
+Findings: 0
+
+No WAF detected

@@ -45,7 +45,11 @@ func BruteForce(ctx context.Context, pool *resolver.Pool, target string, wordlis
 			go func(domain string) {
 				defer wg.Done()
 
-				sem <- struct{}{}
+				select {
+				case sem <- struct{}{}:
+				case <-ctx.Done():
+					return
+				}
 				defer func() { <-sem }()
 
 				_, err := pool.Lookup(ctx, domain)

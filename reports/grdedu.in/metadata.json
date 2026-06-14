@@ -1,0 +1,47 @@
+{
+  "target": "grdedu.in",
+  "created": "2026-06-14T18:38:17.492124828Z",
+  "last_updated": "2026-06-14T18:38:17.534462064Z",
+  "modules": {
+    "enum": {
+      "last_run": "2026-06-14T18:38:17.492357798Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/subdomains.txt"
+    },
+    "fuzz": {
+      "last_run": "2026-06-14T18:38:17.53368734Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/fuzz.txt"
+    },
+    "http": {
+      "last_run": "2026-06-14T18:38:17.533978851Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/http-probe.txt"
+    },
+    "live": {
+      "last_run": "2026-06-14T18:38:17.534135086Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/live-hosts.txt"
+    },
+    "ports": {
+      "last_run": "2026-06-14T18:38:17.532824409Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/ports.txt"
+    },
+    "recon": {
+      "last_run": "2026-06-14T18:38:17.534461864Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/recon-summary.txt"
+    },
+    "tech": {
+      "last_run": "2026-06-14T18:38:17.534281262Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/technologies.txt"
+    },
+    "waf": {
+      "last_run": "2026-06-14T18:38:17.533829729Z",
+      "status": "success",
+      "result_file": "reports/grdedu.in/waf.txt"
+    }
+  }
+}

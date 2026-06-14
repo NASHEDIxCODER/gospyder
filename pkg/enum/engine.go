@@ -3,7 +3,6 @@ package enum
 import (
 	"context"
 	"log"
-	// "strings"
 	"sync"
 	"time"
 
@@ -89,14 +88,19 @@ func (e *Engine) runActive(ctx context.Context, target string, wordlist string) 
 	}
 
 	var results []string
-	var wg sync.WaitGroup
+	var recursiveResults []string
+	var recursiveMu sync.Mutex
+	var recursiveWG sync.WaitGroup
+	var collectorWG sync.WaitGroup
 	recChan := make(chan string, 100)
 
-	wg.Add(1)
+	collectorWG.Add(1)
 	go func() {
-		defer wg.Done()
+		defer collectorWG.Done()
 		for recDomain := range recChan {
-			results = append(results, recDomain)
+			recursiveMu.Lock()
+			recursiveResults = append(recursiveResults, recDomain)
+			recursiveMu.Unlock()
 		}
 	}()
 
@@ -105,23 +109,27 @@ func (e *Engine) runActive(ctx context.Context, target string, wordlist string) 
 			log.Printf("[ACTIVE] Found: %s", domain.Name)
 			results = append(results, domain.Name)
 
-			wg.Add(1)
+			recursiveWG.Add(1)
 			go func(d string) {
-				defer wg.Done()
+				defer recursiveWG.Done()
 				e.runRecursive(ctx, d, recChan)
 			}(domain.Name)
 		}
 	}
 
-	time.Sleep(5 * time.Second)
+	recursiveWG.Wait()
 	close(recChan)
-	wg.Wait()
+	collectorWG.Wait()
 
+	results = append(results, recursiveResults...)
 	return results
 }
 
 func (e *Engine) runRecursive(ctx context.Context, foundDomain string, out chan<- string) {
-	recStream, err := Recursive(ctx, e.pool, foundDomain)
+	recCtx, cancel := context.WithTimeout(ctx, 1500*time.Millisecond)
+	defer cancel()
+
+	recStream, err := Recursive(recCtx, e.pool, foundDomain)
 	if err != nil {
 		log.Printf("[!] Recursive error: %v", err)
 		return
@@ -132,7 +140,7 @@ func (e *Engine) runRecursive(ctx context.Context, foundDomain string, out chan<
 			continue
 		}
 
-		ips, err := e.pool.Lookup(ctx, recDomain)
+		ips, err := e.pool.Lookup(recCtx, recDomain)
 		if err == nil && len(ips) > 0 {
 			if _, loaded := e.seen.LoadOrStore(recDomain, true); !loaded {
 				log.Printf("[RECURSIVE] Found: %s", recDomain)

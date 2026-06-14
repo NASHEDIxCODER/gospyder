@@ -11,7 +11,19 @@ import (
 
 type WAFScanner struct{}
 
+type WAFDetection struct {
+	Name       string
+	Confidence string
+	Evidence   []string
+}
+
 func (ws *WAFScanner) Detect(ctx context.Context, target string) string {
+	detection := ws.DetectDetailed(ctx, target)
+
+	return detection.Name
+}
+
+func (ws *WAFScanner) DetectDetailed(ctx context.Context, target string) WAFDetection {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -107,73 +119,178 @@ func (ws *WAFScanner) Detect(ctx context.Context, target string) string {
 	}
 
 	for _, payload := range payloads {
-		url := fmt.Sprintf("https://%s/%s", target, payload)
-		req, _ := http.NewRequest("GET", url, nil)
-		req.Header.Set("User-Agent", "Mozilla/5.0")
+		for _, baseURL := range wafBaseURLs(target) {
+			reqURL := baseURL + payload
+			req, _ := http.NewRequestWithContext(ctx, "GET", reqURL, nil)
+			req.Header.Set("User-Agent", "Mozilla/5.0")
 
-		resp, err := client.Do(req)
-		if err != nil {
-			continue
-		}
-		defer resp.Body.Close()
+			resp, err := client.Do(req)
+			if err != nil {
+				continue
+			}
+			// fmt.Println("URL:", reqURL)
+			// fmt.Println("STATUS:", resp.StatusCode)
+			// fmt.Println("SERVER:", resp.Header.Get("Server"))
+			// fmt.Println("CF-RAY:", resp.Header.Get("CF-RAY"))
+			// fmt.Println("CF-Cache-Status:", resp.Header.Get("CF-Cache-Status"))
+			// fmt.Println("--------------------------------")
+			defer resp.Body.Close()
 
-		body, _ := io.ReadAll(resp.Body)
-		bodyStr := string(body)
-		headers := resp.Header
+			body, _ := io.ReadAll(resp.Body)
+			bodyStr := string(body)
+			headers := resp.Header
 
-		for _, indicator := range wafIndicators {
-			// Check status codes
-			for _, status := range indicator.statuses {
-				if resp.StatusCode == status {
-					return indicator.name
+			cloudflareScore := 0
+			var cloudflareEvidence []string
+
+			server := strings.ToLower(headers.Get("Server"))
+
+			if strings.Contains(server, "cloudflare") {
+				cloudflareScore += 50
+				cloudflareEvidence = append(
+					cloudflareEvidence,
+					fmt.Sprintf("Server: %s", headers.Get("Server")),
+				)
+			}
+
+			if headers.Get("CF-RAY") != "" {
+				cloudflareScore += 50
+				cloudflareEvidence = append(
+					cloudflareEvidence,
+					"CF-RAY header present",
+				)
+			}
+
+			if headers.Get("CF-Cache-Status") != "" {
+				cloudflareScore += 40
+				cloudflareEvidence = append(
+					cloudflareEvidence,
+					"CF-Cache-Status header present",
+				)
+			}
+
+			for _, cookie := range headers["Set-Cookie"] {
+				lc := strings.ToLower(cookie)
+
+				if strings.Contains(lc, "__cf_bm") ||
+					strings.Contains(lc, "cf_clearance") ||
+					strings.Contains(lc, "_cfuvid") {
+
+					cloudflareScore += 40
+
+					cloudflareEvidence = append(
+						cloudflareEvidence,
+						"Cloudflare cookie present",
+					)
 				}
 			}
 
-			// Check headers
-			for _, h := range indicator.headers {
-				parts := strings.SplitN(h, ": ", 2)
-				if len(parts) == 2 {
-					headerName, headerValue := parts[0], parts[1]
-					if strings.Contains(strings.ToLower(headers.Get(headerName)), headerValue) {
-						return indicator.name
+			// body mentions are weak evidence only
+			if strings.Contains(bodyStr, "cf-browser-verification") {
+				cloudflareScore += 20
+				cloudflareEvidence = append(
+					cloudflareEvidence,
+					"Cloudflare browser verification page",
+				)
+			}
+
+			if cloudflareScore >= 50 {
+				confidence := "Medium"
+
+				if cloudflareScore >= 90 {
+					confidence = "High"
+				}
+
+				return WAFDetection{
+					Name:       "Cloudflare",
+					Confidence: confidence,
+					Evidence:   cloudflareEvidence,
+				}
+			}
+
+			for _, indicator := range wafIndicators {
+				var evidence []string
+				specificEvidence := false
+				// Check status codes
+				for _, status := range indicator.statuses {
+					if resp.StatusCode == status {
+						evidence = append(evidence, fmt.Sprintf("Status code %d", resp.StatusCode))
 					}
-				} else {
-					for k, v := range headers {
-						if strings.Contains(strings.ToLower(k), h) || 
-						   strings.Contains(strings.ToLower(strings.Join(v, "")), h) {
-							return indicator.name
+				}
+
+				// Check headers
+				for _, h := range indicator.headers {
+					parts := strings.SplitN(h, ": ", 2)
+					if len(parts) == 2 {
+						headerName, headerValue := parts[0], parts[1]
+						if strings.Contains(strings.ToLower(headers.Get(headerName)), headerValue) {
+							evidence = append(evidence, fmt.Sprintf("%s: %s", headerName, headers.Get(headerName)))
+							specificEvidence = true
+						}
+					} else {
+						for k, v := range headers {
+							if strings.Contains(strings.ToLower(k), h) ||
+								strings.Contains(strings.ToLower(strings.Join(v, "")), h) {
+								evidence = append(evidence, fmt.Sprintf("%s: %s", k, strings.Join(v, ",")))
+								specificEvidence = true
+							}
 						}
 					}
 				}
-			}
 
-			// Check response body
-			for _, content := range indicator.content {
-				if strings.Contains(strings.ToLower(bodyStr), content) {
-					return indicator.name
-				}
-			}
-
-			// Check cookies
-			for _, cookie := range indicator.cookies {
-				for _, c := range headers["Set-Cookie"] {
-					if strings.Contains(strings.ToLower(c), cookie) {
-						return indicator.name
+				// Check response body
+				for _, content := range indicator.content {
+					if strings.Contains(strings.ToLower(bodyStr), content) {
+						evidence = append(evidence, fmt.Sprintf("Response body contains %q", content))
+						specificEvidence = true
 					}
 				}
-			}
-		}
 
-		// Generic WAF detection
-		if resp.StatusCode == 403 || resp.StatusCode == 406 || resp.StatusCode == 503 {
-			if strings.Contains(bodyStr, "blocked") || 
-			   strings.Contains(bodyStr, "forbidden") ||
-			   strings.Contains(bodyStr, "security") ||
-			   strings.Contains(bodyStr, "waf") {
-				return "Generic WAF"
+				// Check cookies
+				for _, cookie := range indicator.cookies {
+					for _, c := range headers["Set-Cookie"] {
+						if strings.Contains(strings.ToLower(c), cookie) {
+							evidence = append(evidence, fmt.Sprintf("Set-Cookie contains %q", cookie))
+							specificEvidence = true
+						}
+					}
+				}
+
+				if specificEvidence {
+					confidence := "Medium"
+					if len(evidence) >= 2 {
+						confidence = "High"
+					}
+					return WAFDetection{Name: indicator.name, Confidence: confidence, Evidence: evidence}
+				}
+			}
+
+			// Generic WAF detection
+			if resp.StatusCode == 403 || resp.StatusCode == 406 || resp.StatusCode == 503 {
+				lowerBody := strings.ToLower(bodyStr)
+				if strings.Contains(lowerBody, "blocked") ||
+					strings.Contains(lowerBody, "forbidden") ||
+					strings.Contains(lowerBody, "security") ||
+					strings.Contains(lowerBody, "waf") {
+					return WAFDetection{
+						Name:       "Generic WAF",
+						Confidence: "Medium",
+						Evidence: []string{
+							fmt.Sprintf("Status code %d", resp.StatusCode),
+							"Response body contains blocking/security language",
+						},
+					}
+				}
 			}
 		}
 	}
 
-	return ""
+	return WAFDetection{}
+}
+
+func wafBaseURLs(target string) []string {
+	if strings.HasPrefix(target, "http://") || strings.HasPrefix(target, "https://") {
+		return []string{target}
+	}
+	return []string{"https://" + target, "http://" + target}
 }
