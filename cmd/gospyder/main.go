@@ -2,9 +2,12 @@ package main
 
 import (
 	"context"
+	"encoding/csv"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -89,10 +92,13 @@ func main() {
 	fuzzWordlist := flag.String("fuzz-wordlist", "wordlists/paths.txt", "Wordlist for fuzzing")
 	fuzzURL := flag.String("fuzz-url", "", "Base URL to fuzz")
 
-	outputPtr := flag.String("o", "", "Output file (.txt format)")
+	outputPtr := flag.String("o", "", "Output file (.txt/.json/.csv format)")
+	formatPtr := flag.String("format", "txt", "Output format: txt, json, csv")
 	threadsPtr := flag.Int("t", 500, "Number of concurrent threads")
 	timeoutPtr := flag.Int("timeout", 10, "Timeout in minutes")
+	retryPtr := flag.Int("retry", 2, "Number of retries for failed connections")
 	verbosePtr := flag.Bool("v", false, "Verbose output")
+	jsonPtr := flag.Bool("json", false, "Output as JSON")
 
 	flag.Parse()
 
@@ -144,7 +150,7 @@ func main() {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			ports := runPortScan(ctx, target, *portsList, *servicePtr, *threadsPtr)
+			ports := runPortScan(ctx, target, *portsList, *servicePtr, *threadsPtr, *retryPtr, *verbosePtr)
 			resultsMu.Lock()
 			results = append(results, ports...)
 			resultsMu.Unlock()
@@ -180,7 +186,7 @@ func main() {
 	}
 
 	wg.Wait()
-	printSummary(results, *outputPtr)
+	printSummary(results, *outputPtr, *formatPtr, *jsonPtr)
 }
 
 func runEnumeration(ctx context.Context, target string, pool *resolver.Pool, active, passive bool, wordlist string, verbose bool) []string {
@@ -214,14 +220,17 @@ func runEnumeration(ctx context.Context, target string, pool *resolver.Pool, act
 	return domains
 }
 
-func runPortScan(ctx context.Context, target, portsList string, detectService bool, threads int) []string {
+func runPortScan(ctx context.Context, target, portsList string, detectService bool, threads, retry int, verbose bool) []string {
 	PrintInfo("Starting port scan...")
 
 	ports := parsePorts(portsList)
 	fmt.Printf("%sPorts:%s %d to scan\n", ColorCyan, ColorReset, len(ports))
 
 	portScanner := &scanner.PortScanner{}
-	openPorts := portScanner.Scan(ctx, target, ports, threads)
+	openPorts := portScanner.ScanWithRetry(ctx, target, ports, threads, retry, verbose)
+
+	// Sort ports for consistent output
+	sort.Ints(openPorts)
 
 	var results []string
 	for _, port := range openPorts {
@@ -241,7 +250,7 @@ func runPortScan(ctx context.Context, target, portsList string, detectService bo
 		}
 	}
 
-	PrintSuccess(fmt.Sprintf("Port scan: %d open ports", len(openPorts)))
+	PrintSuccess(fmt.Sprintf("Port scan: %d open ports found", len(openPorts)))
 	return results
 }
 
@@ -290,8 +299,15 @@ func runFuzzing(ctx context.Context, baseURL, wordlist string, threads int) []st
 		}
 	}
 
+	// Detect protocol if not specified
+	detectedURL := detectProtocol(baseURL)
+	fmt.Printf("%sURL:%s %s\n", ColorCyan, ColorReset, detectedURL)
+
 	fuzzer := &scanner.Fuzzer{}
-	found := fuzzer.Scan(ctx, baseURL, wordlist, threads)
+	found := fuzzer.Scan(ctx, detectedURL, wordlist, threads)
+
+	// Sort for consistent output
+	sort.Strings(found)
 
 	for _, path := range found {
 		fmt.Printf("%s%s%s\n", ColorGreen, path, ColorReset)
@@ -301,19 +317,56 @@ func runFuzzing(ctx context.Context, baseURL, wordlist string, threads int) []st
 	return found
 }
 
-func printSummary(results []string, outputFile string) {
+func detectProtocol(baseURL string) string {
+	if !strings.Contains(baseURL, "://") {
+		// Try HTTPS first, fallback to HTTP if it fails
+		baseURL = "https://" + baseURL
+	}
+	return baseURL
+}
+
+func printSummary(results []string, outputFile, format string, jsonOutput bool) {
 	fmt.Printf("\n%s╔═══════════════════════════════════════════╗%s\n", ColorCyan, ColorReset)
 	fmt.Printf("%s║%s          SCAN SUMMARY                     %s║%s\n",
 		ColorCyan, ColorReset, ColorCyan, ColorReset)
 	fmt.Printf("%s╚═══════════════════════════════════════════╝%s\n", ColorCyan, ColorReset)
 	fmt.Printf("%sTotal findings:%s %d\n\n", ColorPurple, ColorReset, len(results))
 
+	// Sort results for consistent output
+	sort.Strings(results)
+
 	if outputFile != "" {
-		content := strings.Join(results, "\n")
-		if err := os.WriteFile(outputFile, []byte(content+"\n"), 0644); err != nil {
+		var content []byte
+		var err error
+
+		if format == "json" || jsonOutput {
+			data := map[string]interface{}{
+				"timestamp":      time.Now().Format(time.RFC3339),
+				"total_findings": len(results),
+				"results":        results,
+			}
+			content, err = json.MarshalIndent(data, "", "  ")
+		} else if format == "csv" {
+			var buf strings.Builder
+			writer := csv.NewWriter(&buf)
+			writer.Write([]string{"Finding"})
+			for _, result := range results {
+				writer.Write([]string{result})
+			}
+			writer.Flush()
+			content = []byte(buf.String())
+		} else {
+			content = []byte(strings.Join(results, "\n") + "\n")
+		}
+
+		if err == nil {
+			err = os.WriteFile(outputFile, content, 0644)
+		}
+
+		if err != nil {
 			PrintError(fmt.Sprintf("Failed to save: %v", err))
 		} else {
-			PrintSuccess(fmt.Sprintf("Results saved to %s", outputFile))
+			PrintSuccess(fmt.Sprintf("Results saved to %s (%s format)", outputFile, format))
 		}
 	}
 }
