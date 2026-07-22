@@ -7,7 +7,7 @@
 
 <p align="center">
   <pre>
-   ██████╗  ██████╗ ███████╗██████╗ ██╗   ██╗██████╗ ███████╗██████╗ 
+   ██████╗  ██████╗ ███████╗██████╗ ██╗   ██╗██████╗ ███████╗██████╗
   ██╔════╝ ██╔═══██╗██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗
   ██║  ███╗██║   ██║███████╗██████╔╝ ╚████╔╝ ██║  ██║█████╗  ██████╔╝
   ██║   ██║██║   ██║╚════██║██╔═══╝   ╚██╔╝  ██║  ██║██╔══╝  ██╔══██╗
@@ -28,6 +28,7 @@
 ## Table of Contents
 
 - [Features](#features)
+- [Engineering Audit](#engineering-audit)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Commands](#commands)
@@ -69,6 +70,20 @@
 | **crawl** | Web crawling for URL discovery, parameter extraction, API detection, and JS file collection | ✅ |
 | **js** | JavaScript file discovery, endpoint extraction, domain enumeration, and secret detection | ✅ |
 | **recon** | Full reconnaissance pipeline running all modules in sequence | ✅ |
+
+---
+
+## Engineering Audit
+
+This repository has undergone a comprehensive engineering audit. The following documents provide a detailed analysis of the project's architecture, features, and testing maturity:
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)**: A detailed review of the project's architecture, code quality, and design patterns.
+- **[FEATURE_MATRIX.md](FEATURE_MATRIX.md)**: A capability matrix evaluating each module's status and completion.
+- **[FEATURE_COVERAGE.md](FEATURE_COVERAGE.md)**: A comparison of GoSpyder's features against other popular open-source reconnaissance tools.
+- **[TESTS.md](TESTS.md)**: An audit of the existing tests and a roadmap for improving test coverage.
+- **[ROADMAP.md](ROADMAP.md)**: A prioritized list of missing high-value features and a roadmap for future development.
+
+---
 
 ## Installation
 
@@ -141,19 +156,6 @@ gospyder enum -w custom-wordlist.txt -mode both example.com
 gospyder enum -t 200 -v example.com
 ```
 
-**Sample Output:**
-```
-═══════════════════════════════════════
-SUBDOMAIN ENUMERATION
-═══════════════════════════════════════
-[FOUND] mail.example.com
-[FOUND] www.example.com
-[FOUND] api.example.com
-[FOUND] admin.example.com
-[FOUND] dev.example.com
-[FOUND] blog.example.com
-```
-
 ### ports — Port Scanning
 
 Performs TCP port scanning with concurrent connections, banner grabbing, and service/version detection. Automatically probes HTTP ports for web server fingerprinting.
@@ -176,18 +178,6 @@ gospyder ports --ports-list=80,443,8080-8090 example.com
 gospyder ports --ports-list=1-1000 -t 500 example.com
 ```
 
-**Sample Output:**
-```
-═══════════════════════════════════════
-PORT SCANNING
-═══════════════════════════════════════
-[OPEN] 22/tcp    SSH          OpenSSH 9.6
-[OPEN] 80/tcp    HTTP         nginx 1.26.0
-[OPEN] 443/tcp   HTTPS        nginx 1.26.0
-[OPEN] 8080/tcp  HTTP-alt     Apache 2.4.58
-[OPEN] 8443/tcp  HTTPS-alt    nginx 1.26.0
-```
-
 ### fuzz — Directory Fuzzing
 
 Performs HTTP path discovery with wildcard detection and response size fingerprinting to filter false positives.
@@ -208,50 +198,13 @@ gospyder fuzz https://example.com
 gospyder fuzz -fuzz-wordlist custom-paths.txt https://example.com
 ```
 
-**Sample Output:**
-```
-═══════════════════════════════════════
-DIRECTORY FUZZING
-═══════════════════════════════════════
-[FOUND] 200 /api
-[FOUND] 200 /admin
-[FOUND] 301 /backup
-[FOUND] 200 /login
-[FOUND] 403 /.git
-[FOUND] 200 /dashboard
-```
-
 ### waf — WAF Detection
 
-Identifies Web Application Firewall providers by analyzing response headers, cookies, and server signatures. Supports detection of multi-layered WAF setups through correlation with technology fingerprinting and HTTP probe results.
-
-**Supported WAFs:**
-- Cloudflare
-- Akamai
-- Imperva / Incapsula
-- AWS WAF
-- Fastly
-- Sucuri
+Identifies Web Application Firewall providers by analyzing response headers, cookies, and server signatures.
 
 **Usage:**
 ```bash
 gospyder waf <domain> [options]
-```
-
-**Examples:**
-```bash
-gospyder waf example.com
-```
-
-**Sample Output:**
-```
-═══════════════════════════════════════
-WAF DETECTION
-═══════════════════════════════════════
-[WAF] Cloudflare
-Confidence: High
-  Evidence: CF-RAY header present
-  Evidence: Server: cloudflare
 ```
 
 ### http — HTTP Probing
@@ -263,21 +216,6 @@ Probes targets for HTTP/HTTPS availability and extracts response metadata includ
 gospyder http <domain-or-url> [options]
 ```
 
-**Examples:**
-```bash
-gospyder http example.com
-```
-
-**Sample Output:**
-```
-═══════════════════════════════════════
-HTTP PROBE
-═══════════════════════════════════════
-[LIVE] https://example.com 200 "Example Domain"
-[LIVE] https://api.example.com 200 "API Documentation"
-[LIVE] https://mail.example.com 302 "Redirect"
-```
-
 ### live — Live Host Detection
 
 Filters HTTP probe results to identify actively serving hosts. Automatically runs HTTP probing if no prior results are available.
@@ -287,49 +225,13 @@ Filters HTTP probe results to identify actively serving hosts. Automatically run
 gospyder live <domain-or-url> [options]
 ```
 
-**Examples:**
-```bash
-gospyder live example.com
-```
-
-**Sample Output:**
-```
-═══════════════════════════════════════
-LIVE HOSTS
-═══════════════════════════════════════
-[LIVE] example.com
-[LIVE] api.example.com
-[LIVE] www.example.com
-```
-
 ### tech — Technology Detection
 
-Detects web technologies, frameworks, and servers using response headers, HTML content, and JavaScript patterns. Supports detection of:
-
-- React, Angular, Vue.js
-- WordPress, Django, Flask, FastAPI
-- Nginx, Apache
-- Cloudflare
+Detects web technologies, frameworks, and servers using response headers, HTML content, and JavaScript patterns.
 
 **Usage:**
 ```bash
 gospyder tech <domain-or-url> [options]
-```
-
-**Examples:**
-```bash
-gospyder tech example.com
-```
-
-**Sample Output:**
-```
-═══════════════════════════════════════
-TECHNOLOGY DETECTION
-═══════════════════════════════════════
-[TECH] React (3 hosts)
-[TECH] Nginx (2 hosts)
-[TECH] Cloudflare (2 hosts)
-[TECH] WordPress
 ```
 
 ### crawl — Web Crawling
@@ -352,40 +254,6 @@ gospyder crawl https://example.com
 gospyder crawl -depth 5 https://example.com
 ```
 
-**Sample Output:**
-```
-═══════════════════════════════════════
-CRAWL RESULTS
-═══════════════════════════════════════
-URLs:
-  https://example.com/
-  https://example.com/about
-  https://example.com/products
-  https://example.com/contact
-
-Parameters:
-  /search?q
-  /products?id
-  /page?ref
-
-APIs:
-  /api/v1/users
-  /api/v1/products
-  /graphql
-
-JS Files:
-  https://example.com/js/app.js
-  https://example.com/js/vendor.js
-
-Statistics:
-  URLs:       42
-  Parameters: 12
-  APIs:       5
-  JS Files:   8
-  Pages:      15
-  Errors:     0
-```
-
 ### js — JavaScript Intelligence
 
 Discovers JavaScript files from the target page, downloads them, and performs deep analysis including endpoint extraction, API discovery, domain enumeration, and secret detection.
@@ -395,182 +263,19 @@ Discovers JavaScript files from the target page, downloads them, and performs de
 gospyder js <url> [options]
 ```
 
-**Examples:**
-```bash
-gospyder js https://example.com
-```
-
-**Sample Output:**
-```
-═══════════════════════════════════════
-JAVASCRIPT ANALYSIS
-═══════════════════════════════════════
-
-JS Files:
-[JS] https://example.com/js/app.js (245760 bytes)
-[JS] https://example.com/js/chunk-vendors.js (1048576 bytes)
-[JS] https://example.com/js/main.js (32768 bytes)
-
-Endpoints:
-
-  Authentication:
-    - /api/auth/login
-    - /api/auth/logout
-    - /api/auth/register [POST]
-
-  API:
-    - /api/v1/users
-    - /api/v1/products
-    - /api/v1/orders
-
-  GraphQL:
-    - /graphql [POST]
-    - /graphql/batch
-
-  Admin:
-    - /admin/dashboard
-    - /admin/users
-
-Domains:
-[DOMAIN] api.example.com
-[DOMAIN] cdn.cloudflare.com
-[DOMAIN] ws.example.com [WS]
-
-Potential Secrets:
-[CRITICAL] AWS Access Key (HIGH) AKIA...ABCDEF12
-[WARNING]  JWT Secret/Token (MEDIUM) eyJ...token
-[WARNING]  Google API Key (MEDIUM) AIza...key
-
-═══════════════════════════════════════
-JAVASCRIPT STATISTICS
-═══════════════════════════════════════
-  JS Files:   3
-  Endpoints:  15
-  Domains:    5
-  Secrets:    2
-```
-
 ### recon — Full Reconnaissance
 
-Executes the complete reconnaissance pipeline across all modules in sequence:
-
-1. **enum** — Subdomain enumeration
-2. **ports** — Port scanning with banner grabbing
-3. **fuzz** — Directory fuzzing
-4. **waf** — WAF detection
-5. **http** — HTTP probing
-6. **live** — Live host detection
-7. **tech** — Technology fingerprinting
-8. **js** — JavaScript analysis
-
-Results from earlier modules (subdomains, HTTP probe data) are automatically fed into dependent modules for deeper analysis.
+Executes the complete reconnaissance pipeline across all modules in sequence.
 
 **Usage:**
 ```bash
 gospyder recon <domain> [options]
 ```
 
-**Options:**
-| Flag | Description | Default |
-|------|-------------|---------|
-| `-w` | Subdomain wordlist | wordlists/subdomains.txt |
-| `-fuzz-wordlist` | Path wordlist | wordlists/paths.txt |
-| `-ports-list` | Ports to scan | Config defaults |
-
-**Examples:**
-```bash
-gospyder recon example.com
-gospyder recon -t 200 -ports-list 80,443,8080 example.com
-```
-
-**Sample Output:**
-```
-═══════════════════════════════════════
-SUBDOMAIN ENUMERATION
-═══════════════════════════════════════
-[FOUND] mail.example.com
-[FOUND] www.example.com
-[FOUND] api.example.com
-...
-
-═══════════════════════════════════════
-PORT SCANNING
-═══════════════════════════════════════
-[OPEN] 22/tcp    SSH       OpenSSH 9.6
-[OPEN] 80/tcp    HTTP      nginx 1.26.0
-[OPEN] 443/tcp   HTTPS     nginx 1.26.0
-...
-
-═══════════════════════════════════════
-TECHNOLOGY DETECTION
-═══════════════════════════════════════
-[TECH] React (2 hosts)
-[TECH] Nginx (2 hosts)
-
-═══════════════════════════════════════
-LIVE HOSTS
-═══════════════════════════════════════
-[LIVE] example.com
-[LIVE] www.example.com
-[LIVE] api.example.com
-
-╔════════════════════════════════════╗
-║          RECON SUMMARY             ║
-╠════════════════════════════════════╣
-║ Subdomains    │ 12                ║
-║ Live Hosts    │ 3                 ║
-║ Open Ports    │ 5                 ║
-║ Paths         │ 23                ║
-║ Technologies  │ 4                 ║
-║ WAF           │ Cloudflare        ║
-╚════════════════════════════════════╝
-
-Results saved to:
-reports/example.com/
-```
-
-### list — List Modules
-
-Displays all registered modules with their descriptions.
-
-```bash
-gospyder list
-```
-
-**Sample Output:**
-```
-Available Modules:
-==================
-  crawl
-    Web crawling for URL discovery, parameter extraction, API detection, and JS file collection
-  enum
-    Subdomain enumeration via active DNS brute-force and passive Certificate Transparency
-  fuzz
-    HTTP directory and path fuzzing with wildcard detection and response fingerprinting
-  http
-    HTTP probing with status, title, headers, length, and response time
-  js
-    JavaScript file discovery, endpoint extraction, domain enumeration, and secret detection
-  live
-    Live host detection from HTTP probe results
-  ports
-    TCP port scanning with banner grabbing and service/version detection
-  tech
-    Technology fingerprinting for common web frameworks and servers
-  waf
-    WAF provider fingerprinting and detection
-```
-
-### help — Show Help
-
-Displays global usage or module-specific help.
-
-```bash
-gospyder help
-gospyder help enum
-```
-
+---
 ## Architecture
+
+A high-level overview of the architecture is available in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ```
 cmd/
@@ -600,165 +305,24 @@ internal/
     └── workspace.go             # Report storage and metadata tracking
 
 pkg/
-├── crawl/
-│   ├── crawler.go               # Concurrent web crawling engine
-│   └── module.go                # Crawl module adapter
-├── enum/
-│   ├── engine.go                # DNS enumeration engine
-│   ├── module.go                # Enum module adapter
-│   ├── brute.go                 # Active brute-force logic
-│   └── recursive.go             # Recursive enumeration
-├── js/
-│   ├── analyzer.go              # JS discovery, endpoint extraction, domain/secret detection
-│   └── module.go                # JS analysis module adapter
-├── models/
-│   └── domain.go                # Shared domain models
-├── resolver/
-│   └── pool.go                  # DNS resolver pool
-├── scanner/
-│   ├── module.go                # Port scan, fuzz, WAF module adapters
-│   ├── http_probe.go            # HTTP probing, live host, tech fingerprinting modules
-│   ├── portscan.go              # TCP port scanner with banner grabbing
-│   ├── fuzzer.go                # Directory fuzzer with wildcard detection
-│   ├── waf.go                   # WAF detection engine
-│   ├── banner.go                # Banner grabbing utilities
-│   ├── fingerprint.go           # Tech detection patterns
-│   ├── subdomain.go             # Subdomain discovery helpers
-│   ├── interface.go             # Scanner interfaces
-│   └── module_test.go           # Scanner tests
-└── sources/
-    └── certstream.go            # Certificate Transparency log source
+└── ... (modules)
 ```
-
-### Module System & Registry
-
-All reconnaissance capabilities are implemented as **modules** that satisfy the `registry.Module` interface:
-
-```go
-type Module interface {
-    Name() string
-    Description() string
-    Run(ctx context.Context, opts Options) (*Result, error)
-}
-```
-
-Modules are registered in `cmd/gospyder/main.go` via `registerModules()`:
-
-```go
-modules := []struct {
-    name   string
-    module interface{ Name() string }
-}{
-    {"enum", enumModule.NewModule()},
-    {"ports", scannerModule.NewPortScanModule()},
-    {"fuzz", scannerModule.NewFuzzerModule()},
-    {"waf", scannerModule.NewWAFModule()},
-    {"http", scannerModule.NewHTTPProbeModule()},
-    {"live", scannerModule.NewLiveHostModule()},
-    {"tech", scannerModule.NewTechModule()},
-    {"crawl", crawlModule.NewCrawlModule()},
-    {"js", jsModule.NewJSModule()},
-}
-```
-
-Each module receives a shared `Options` struct providing access to configuration, logging, HTTP client, formatter, workspace, and module-specific flags. The `recon` command chains multiple modules together, passing results between them for context-aware analysis.
 
 ## JavaScript Analysis
 
-The JavaScript Intelligence module (`gospyder js`) performs a multi-phase analysis pipeline:
-
-### Phase 1: JS File Discovery
-- Parses HTML `<script>` tags, module scripts (`type="module"`)
-- Detects dynamic imports (`import()`)
-- Finds ES module imports (`import ... from`)
-- Discovers Web Workers (`new Worker()`, `SharedWorker`, `ServiceWorker`)
-- Resolves relative URLs against the base page URL
-
-### Phase 2: Endpoint Extraction
-Scans JS content for API endpoint patterns:
-- `fetch("/api/...")` calls
-- `axios.get/post/put/delete(...)` calls
-- `XMLHttpRequest.open()` patterns
-- jQuery `$.ajax`, `$.get`, `$.post` calls
-- WebSocket constructions (`new WebSocket(...)`)
-- GraphQL endpoint references
-- Common route patterns (`/auth`, `/admin`, `/api`, `/v1/`, etc.)
-
-### Phase 3: API Discovery
-- Groups endpoints into categories: Authentication, API, GraphQL, Uploads, Admin, User
-- Infers HTTP methods from endpoint context (POST for login/register, DELETE for remove/destroy, etc.)
-- Extracts surrounding code context for each endpoint
-
-### Phase 4: Domain Extraction
-- Extracts absolute URLs and WebSocket URLs from JS content
-- Validates domain structures with FQDN rules
-- Categorizes domains by type (HTTP URL, WebSocket)
-
-### Phase 5: Secret Detection
-Pattern-matches against known credential formats:
-- **HIGH confidence**: AWS Access Keys, AWS Secret Keys, Stripe Live Keys, GitHub Tokens
-- **MEDIUM confidence**: Google API Keys, Stripe Test Keys, JWT Tokens, Firebase URLs, GitHub OAuth Tokens
-- False positive filtering for common non-secret patterns
+The JavaScript Intelligence module (`gospyder js`) performs a multi-phase analysis pipeline to discover endpoints, secrets, and other valuable information from JavaScript files.
 
 ## Web Crawling Engine
 
-The crawler (`gospyder crawl`) provides concurrent recursive crawling:
-
-- **Same-host crawling**: Only follows links within the target domain
-- **Link discovery**: Extracts `<a href>`, `<form action>`, `<iframe src>` links
-- **JS collection**: Captures all `<script src>` references (cross-origin included)
-- **Parameter extraction**: Detects URL query parameters
-- **API identification**: Recognizes patterns like `/api/`, `/graphql`, `/v1/`, `/swagger`
-- **Configurable depth**: Controls crawl recursion level
-- **Retry logic**: Configurable retries for failed requests
+The crawler (`gospyder crawl`) provides concurrent recursive crawling to discover URLs, parameters, and other resources.
 
 ## Workspace & Reporting
 
-Results are automatically saved to the workspace directory for persistence and later review:
-
-```
-reports/
-└── example.com/
-    ├── metadata.json          # Workspace metadata and module states
-    ├── subdomains.txt         # Subdomain enumeration results
-    ├── ports.txt              # Port scan results with banners
-    ├── fuzz.txt               # Directory fuzzing results
-    ├── waf.txt                # WAF detection results
-    ├── http-probe.txt         # HTTP probe results
-    ├── live-hosts.txt         # Live host detection results
-    ├── technologies.txt       # Technology fingerprinting results
-    ├── crawl.txt              # Crawl results
-    ├── js-analysis.txt        # JavaScript analysis results
-    └── recon-summary.txt      # Full reconnaissance summary
-```
-
-Each report includes:
-- Module name, target, timestamp, and duration
-- Number of findings with full details
-- Metadata about the scan configuration
-
-Use `-workspace=false` to disable workspace saving for a single run.
+Results are automatically saved to the workspace directory for persistence and later review.
 
 ## Development Roadmap
 
-### ✅ Implemented
-- [x] **Subdomain Enumeration** — Active DNS brute-force + passive Certificate Transparency
-- [x] **Port Scanning** — TCP connect scanning with banner grabbing and service detection
-- [x] **Directory Fuzzing** — HTTP path discovery with wildcard detection
-- [x] **WAF Detection** — Cloudflare, Akamai, Imperva, AWS WAF, Fastly, Sucuri
-- [x] **HTTP Probing** — Status, title, server headers, content length, response times
-- [x] **Live Host Detection** — Availability filtering from probe results
-- [x] **Technology Detection** — React, Angular, Vue, WordPress, Nginx, Apache, etc.
-- [x] **Web Crawling** — URL discovery, parameter extraction, API detection, JS collection
-- [x] **JavaScript Intelligence** — Endpoint extraction, API discovery, domain/secret detection
-
-### 🚧 Planned
-- [ ] **TLS Analysis** — Certificate inspection, cipher suite enumeration, protocol support
-- [ ] **DNS Intelligence** — Zone transfers, DNS record enumeration (MX, TXT, CNAME, NS)
-- [ ] **Fingerprinting** — Advanced OS and service fingerprinting
-- [ ] **Screenshot Capture** — Visual reconnaissance of web applications
-- [ ] **ASN Intelligence** — Autonomous System enumeration and IP range discovery
-- [ ] **Cloud Enumeration** — S3 buckets, Azure storage, GCP bucket discovery
+The development roadmap is maintained in [ROADMAP.md](ROADMAP.md). It contains a prioritized list of features for future development.
 
 ## Development
 
@@ -768,57 +332,15 @@ go test ./...
 
 # Build the CLI
 go build -o gospyder ./cmd/gospyder
-
-# Run with verbose output
-./gospyder -v recon example.com
 ```
 
 ### Adding a New Module
 
-1. Create a new package under `pkg/` or implement in `pkg/scanner/`
-2. Implement the `registry.Module` interface:
-
-```go
-type ModuleAdapter struct{}
-
-func (m *ModuleAdapter) Name() string {
-    return "example"
-}
-
-func (m *ModuleAdapter) Description() string {
-    return "Example reconnaissance module"
-}
-
-func (m *ModuleAdapter) Run(ctx context.Context, opts registry.Options) (*registry.Result, error) {
-    target, ok := opts.Flags["target"].(string)
-    if !ok {
-        return nil, fmt.Errorf("target flag required")
-    }
-
-    opts.Logger.Info("Running example module for %s", target)
-
-    return &registry.Result{
-        Module:    m.Name(),
-        Timestamp: time.Now(),
-        Status:    "success",
-        Target:    target,
-        Findings:  []registry.Finding{},
-        Metadata:  map[string]interface{}{},
-    }, nil
-}
-```
-
-3. Register it in `cmd/gospyder/main.go` inside `registerModules()`
-4. Add a command handler in `cmd/gospyder/handlers/commands.go`
-5. Add the case in `main()` switch statement
-
-### Contribution Guidelines
-
-- Fork the repository and create a feature branch
-- Maintain backward compatibility with the module interface
-- Add tests for new functionality
-- Update the workspace file-naming in `handler.go` for new result types
-- Submit a pull request with a clear description of changes
+1. Create a new package under `pkg/`.
+2. Implement the `registry.Module` interface.
+3. Register the module in `cmd/gospyder/main.go`.
+4. Add a command handler in `cmd/gospyder/handlers/commands.go`.
+5. Add the command to the `main()` switch statement.
 
 ## License
 

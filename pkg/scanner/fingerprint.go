@@ -57,80 +57,80 @@ func (fp *ServiceFingerprint) match(bannerLower string) bool {
 var fingerprints = []ServiceFingerprint{
 	// SSH - banner: SSH-2.0-OpenSSH_9.6
 	{
-		service:     "SSH",
-		identifiers: []string{"ssh-2.0", "ssh-1.99", "openssh"},
+		service:        "SSH",
+		identifiers:    []string{"ssh-2.0", "ssh-1.99", "openssh"},
 		versionPattern: regexp.MustCompile(`OpenSSH[_-]([\d.]+)`),
 	},
 	// FTP - banner: 220 ProFTPD 1.3.8
 	{
-		service:     "FTP",
-		identifiers: []string{"ftp", "proftpd", "vsftpd", "pure-ftpd", "filezilla"},
+		service:        "FTP",
+		identifiers:    []string{"ftp", "proftpd", "vsftpd", "pure-ftpd", "filezilla"},
 		versionPattern: regexp.MustCompile(`(?:ProFTPD|vsftpd|pure-ftpd|FileZilla)[\s/]*([\d.]+)`),
 	},
 	// SMTP - banner: 220 mail.example.com ESMTP Postfix
 	{
-		service:     "SMTP",
-		identifiers: []string{"smtp", "esmtp", "postfix", "sendmail", "exim", "qmail", "courier"},
+		service:        "SMTP",
+		identifiers:    []string{"smtp", "esmtp", "postfix", "sendmail", "exim", "qmail", "courier"},
 		versionPattern: regexp.MustCompile(`(?:Postfix|Sendmail|Exim|Courier)[\s/]*([\d.]+)`),
 	},
 	// POP3 - banner: +OK POP3 server ready
 	{
-		service:     "POP3",
-		identifiers: []string{"pop3", "dovecot"},
+		service:        "POP3",
+		identifiers:    []string{"pop3", "dovecot"},
 		versionPattern: regexp.MustCompile(`Dovecot[\s/]*([\d.]+)`),
 	},
 	// IMAP - banner: * OK IMAP4rev1 server ready
 	{
-		service:     "IMAP",
-		identifiers: []string{"imap", "dovecot", "courier-imap"},
+		service:        "IMAP",
+		identifiers:    []string{"imap", "dovecot", "courier-imap"},
 		versionPattern: regexp.MustCompile(`Dovecot[\s/]*([\d.]+)`),
 	},
 	// MySQL - banner: 8.0.32
 	{
-		service:     "MySQL",
-		identifiers: []string{"mysql", "mariadb"},
+		service:        "MySQL",
+		identifiers:    []string{"mysql", "mariadb"},
 		versionPattern: regexp.MustCompile(`(\d+\.\d+\.\d+)[\x00-\x1f]?`),
 	},
 	// PostgreSQL - banner: PostgreSQL 16.1
 	{
-		service:     "PostgreSQL",
-		identifiers: []string{"postgresql", "postgres"},
+		service:        "PostgreSQL",
+		identifiers:    []string{"postgresql", "postgres"},
 		versionPattern: regexp.MustCompile(`PostgreSQL[\s]*([\d.]+)`),
 	},
 	// Redis - banner: -ERR unknown command or +OK, or Redis version string
 	{
-		service:     "Redis",
-		identifiers: []string{"-err", "+ok", "redis_version", "redis"},
+		service:        "Redis",
+		identifiers:    []string{"redis_version", "redis"},
 		versionPattern: regexp.MustCompile(`redis_version[:\s]*([\d.]+)`),
 	},
 	// MongoDB - banner: ok 1 or MongoDB version
 	{
-		service:     "MongoDB",
-		identifiers: []string{"mongodb", "mongo"},
+		service:        "MongoDB",
+		identifiers:    []string{"mongodb", "mongo"},
 		versionPattern: regexp.MustCompile(`(\d+\.\d+\.\d+)`),
 	},
 	// HTTP/HTTPS - detected via probe, not banner
 	{
-		service:     "HTTP",
-		identifiers: []string{"http", "nginx", "apache", "iis", "jetty", "tomcat"},
+		service:        "HTTP",
+		identifiers:    []string{"http", "nginx", "apache", "iis", "jetty", "tomcat"},
 		versionPattern: regexp.MustCompile(`(?:Apache|nginx|IIS|Jetty|Tomcat)[/\s]*([\d.]+)`),
 	},
 	// DNS - banner detection is less common but possible
 	{
-		service:     "DNS",
-		identifiers: []string{"dns", "bind"},
+		service:        "DNS",
+		identifiers:    []string{"dns", "bind"},
 		versionPattern: regexp.MustCompile(`BIND[\s]*([\d.]+)`),
 	},
 	// Telnet
 	{
-		service:     "Telnet",
-		identifiers: []string{"telnet"},
+		service:        "Telnet",
+		identifiers:    []string{"telnet"},
 		versionPattern: nil,
 	},
 	// RDP
 	{
-		service:     "RDP",
-		identifiers: []string{"rdp", "terminal services", "terminal server"},
+		service:        "RDP",
+		identifiers:    []string{"rdp", "terminal services", "terminal server"},
 		versionPattern: nil,
 	},
 }

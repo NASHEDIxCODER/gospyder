@@ -3,8 +3,7 @@ module github.com/NASHEDIxCODER/gospyder
 go 1.25.4
 
 require (
-	github.com/google/uuid v1.6.0 // indirect
-	github.com/gorilla/websocket v1.5.3 // indirect
-	github.com/mattn/go-sqlite3 v1.14.32 // indirect
-	golang.org/x/net v0.56.0 // indirect
+	github.com/google/uuid v1.6.0
+	github.com/gorilla/websocket v1.5.3
+	golang.org/x/net v0.56.0
 )
