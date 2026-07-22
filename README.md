@@ -166,14 +166,14 @@ gospyder ports <domain> [options]
 **Options:**
 | Flag | Description | Default |
 |------|-------------|---------|
-| `-ports-list` | Comma-separated ports or ranges (e.g., `80,443,8000-8010`) | 22,80,443,8080,8443,3000,5000,9000 |
+| `--ports-list` | Comma-separated ports or ranges (e.g., `80,443,8000-8010`) | 22,80,443,8080,8443,3000,5000,9000 |
 | `-retry` | Retry attempts per port | 2 |
 
 **Examples:**
 ```bash
 gospyder ports example.com
-gospyder ports -ports-list 80,443,8080-8090 example.com
-gospyder ports -ports-list 1-1000 -t 500 example.com
+gospyder ports --ports-list=80,443,8080-8090 example.com
+gospyder ports --ports-list=1-1000 -t 500 example.com
 ```
 
 **Sample Output:**

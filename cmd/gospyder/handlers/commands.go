@@ -84,15 +84,19 @@ func HandlePorts(args []string) error {
 	if err := fs.Parse(args[1:]); err != nil {
 		return err
 	}
+	remaining := fs.Args()
+	if len(remaining) < 1 {
+		return fmt.Errorf("usage: gospyder ports <domain> [options]")
+	}
+	target := remaining[0]
 
 	flags := map[string]interface{}{
-		"target":     args[0],
+		"target":     target,
 		"retry":      *retry,
 		"ports-list": *portsList,
 		"workspace":  *workspace,
 	}
 	applyGlobalFlags(globalOpts, flags)
-
 	return ExecuteModule("ports", flags)
 }
 
