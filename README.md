@@ -72,19 +72,6 @@
 | **recon** | Full reconnaissance pipeline running all modules in sequence | ✅ |
 
 ---
-
-## Engineering Audit
-
-This repository has undergone a comprehensive engineering audit. The following documents provide a detailed analysis of the project's architecture, features, and testing maturity:
-
-- **[ARCHITECTURE.md](ARCHITECTURE.md)**: A detailed review of the project's architecture, code quality, and design patterns.
-- **[FEATURE_MATRIX.md](FEATURE_MATRIX.md)**: A capability matrix evaluating each module's status and completion.
-- **[FEATURE_COVERAGE.md](FEATURE_COVERAGE.md)**: A comparison of GoSpyder's features against other popular open-source reconnaissance tools.
-- **[TESTS.md](TESTS.md)**: An audit of the existing tests and a roadmap for improving test coverage.
-- **[ROADMAP.md](ROADMAP.md)**: A prioritized list of missing high-value features and a roadmap for future development.
-
----
-
 ## Installation
 
 ```bash
@@ -275,7 +262,6 @@ gospyder recon <domain> [options]
 ---
 ## Architecture
 
-A high-level overview of the architecture is available in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ```
 cmd/
@@ -319,10 +305,6 @@ The crawler (`gospyder crawl`) provides concurrent recursive crawling to discove
 ## Workspace & Reporting
 
 Results are automatically saved to the workspace directory for persistence and later review.
-
-## Development Roadmap
-
-The development roadmap is maintained in [ROADMAP.md](ROADMAP.md). It contains a prioritized list of features for future development.
 
 ## Development
 
